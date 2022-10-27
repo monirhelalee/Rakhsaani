@@ -10,6 +10,6 @@ class LanguageSelectScreen extends StatefulWidget {
 class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold();
   }
 }
