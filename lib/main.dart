@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/features/language/view/language_select_screen.dart';
-import 'package:rakhsaani/features/language/view_model.dart/language_view_model.dart';
+import 'package:rakhsaani/features/language/view_model/language_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
