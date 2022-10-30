@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/radio_button_section.dart';
 
 class LanguageSelectScreen extends StatefulWidget {
   const LanguageSelectScreen({Key? key}) : super(key: key);
@@ -17,47 +18,29 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const FlutterLogo(),
-            const SizedBox(
+          children: const [
+            FlutterLogo(),
+            SizedBox(
               height: 40,
             ),
-            const Text(
+            Text(
               'Al-Quran',
               style: TextStyle(fontSize: 35),
             ),
-            const SizedBox(
+            SizedBox(
               height: 80,
             ),
-            const Text(
+            Text(
               'Select Language',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Card(
-                child: Column(
-                  children: ['Bengali', 'English', 'Spanish']
-                      .map(
-                        (e) => ListTile(
-                          title: Text(e),
-                          trailing: Radio(
-                            value: false,
-                            groupValue: '',
-                            onChanged: (s) {},
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-            )
+            RadioButtonSection(),
           ],
         ),
       ),
