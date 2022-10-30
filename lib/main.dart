@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/features/language/view/language_select_screen.dart';
 
 void main() {
@@ -14,9 +15,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Rakhsaani',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      theme: ThemeData(
+        primarySwatch: primarySwatchColor,
+        primaryColor: const Color(0xff121314),
+        useMaterial3: true,
+        brightness: Brightness.light,
+        // dividerColor: Colors.black12,
+        // scaffoldBackgroundColor: const Color(0xFF121314),
+      ),
       home: const LanguageSelectScreen(),
     );
   }
