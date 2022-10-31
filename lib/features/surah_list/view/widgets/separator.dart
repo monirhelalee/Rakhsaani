@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/colors.dart';
 
 class Separator extends StatelessWidget {
   const Separator({
@@ -9,7 +10,7 @@ class Separator extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Divider(),
+      child: Divider(color: primaryColor,),
     );
   }
 }
