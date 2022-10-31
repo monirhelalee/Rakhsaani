@@ -27,6 +27,6 @@ class CommonTextWidget extends Text {
           textScaleFactor: textScaleFactor,
           maxLines: maxLines,
           semanticsLabel: semanticLabel,
-          style: style ?? TextStyles.regular14,
+          style: style ?? AppTextStyles.regular14,
         );
 }

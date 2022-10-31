@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/core/utils/styles.dart';
 
 class SurahTile extends StatelessWidget {
   const SurahTile({
@@ -13,13 +14,25 @@ class SurahTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       child: Row(
         children: [
-          Text('${index + 1}'),
+          Text(
+            '${index + 1}',
+            style: AppTextStyles.kTileTitle,
+          ),
           const SizedBox(width: 25),
-          Text('Surah ${index + 1}'),
+          Text(
+            'Surah ${index + 1}',
+            style: AppTextStyles.kTileTitle,
+          ),
           const Spacer(),
-          const Text('0:01:31'),
+          Text(
+            '0:01:31',
+            style: AppTextStyles.kTileTitle,
+          ),
           const SizedBox(width: 25),
-          const Icon(Icons.play_circle_outline),
+          const Icon(
+            Icons.play_circle_outline,
+            color: Colors.white,
+          ),
         ],
       ),
     );

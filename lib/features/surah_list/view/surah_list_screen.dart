@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/utils_exports.dart';
 import 'widgets/menu.dart';
 import 'widgets/search_surah.dart';
 import 'widgets/separator.dart';
@@ -10,6 +11,7 @@ class SurahListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: primaryColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Surah List'),

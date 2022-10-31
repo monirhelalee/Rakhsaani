@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rakhsaani/core/utils/utils_exports.dart';
 
-class TextStyles {
+class AppTextStyles {
+  static TextStyle kTileTitle = GoogleFonts.exo2(
+    fontWeight: FontWeight.w400,
+    color: whiteColor,
+    fontSize: 18,
+  );
   static TextStyle title29 = GoogleFonts.exo2(
     fontWeight: FontWeight.w400,
     color: whiteColor,
