@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/surah_list/view/widgets/surah_list_view_expanded.dart';
 import '../../../core/utils/utils_exports.dart';
 import '../view_model/surah_list_view_model.dart';
 import 'widgets/menu.dart';
@@ -14,10 +15,13 @@ class SurahListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = context.watch<SurahListViewModel>();
     return Scaffold(
-      backgroundColor: kScaffoldBgColor,
+      backgroundColor: vm.isPlayerExpanded ? Colors.white : kScaffoldBgColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Surah List'),
+        title: const Text(
+          'Surah List',
+          style: TextStyle(color: onPrimayColor),
+        ),
         automaticallyImplyLeading: false,
         leading: const SearchSurah(),
         actions: const [
@@ -30,7 +34,7 @@ class SurahListScreen extends StatelessWidget {
                 Expanded(
                   child: PlayerSection(),
                 ),
-                Expanded(child: SurahListView()),
+                Expanded(child: SurahListViewExpanded()),
               ],
             )
           : const SurahListView(),

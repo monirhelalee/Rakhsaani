@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/constant.dart';
 
 class SearchSurah extends StatelessWidget {
   const SearchSurah({
@@ -7,9 +11,15 @@ class SearchSurah extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.search),
+    return Padding(
+      padding: const EdgeInsets.only(left: kDefaultPadding),
+      child: IconButton(
+        onPressed: () {},
+        icon: const Icon(
+          CupertinoIcons.search,
+          color: onPrimayColor,
+        ),
+      ),
     );
   }
 }

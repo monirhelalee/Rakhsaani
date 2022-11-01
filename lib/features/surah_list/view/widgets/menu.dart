@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/constant.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -7,9 +9,12 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.menu),
+    return const Padding(
+      padding: EdgeInsets.only(right: kDefaultPadding),
+      child: Icon(
+        Icons.menu,
+        color: onPrimayColor,
+      ),
     );
   }
 }

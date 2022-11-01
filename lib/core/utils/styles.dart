@@ -5,8 +5,18 @@ import 'package:rakhsaani/core/utils/utils_exports.dart';
 class AppTextStyles {
   static TextStyle kTileTitle = GoogleFonts.exo2(
     fontWeight: FontWeight.w400,
-    color: whiteColor,
+    color: onPrimayColor,
     fontSize: 18,
+  );
+  static TextStyle kTileTitleBlack = GoogleFonts.exo2(
+    fontWeight: FontWeight.w400,
+    color: blackColor,
+    fontSize: 18,
+  );
+  static TextStyle kPlayerTimerTextStyle = GoogleFonts.exo2(
+    fontWeight: FontWeight.w400,
+    color: onPrimayColor,
+    fontSize: 12,
   );
   static TextStyle title29 = GoogleFonts.exo2(
     fontWeight: FontWeight.w400,

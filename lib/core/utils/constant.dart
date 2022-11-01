@@ -6,3 +6,6 @@ const spaceBetween = SizedBox(
 const spaceAround = SizedBox(
   width: 10,
 );
+
+const kDefaultPadding = 20.0;
+const kDefaultIconSize = 20.0;

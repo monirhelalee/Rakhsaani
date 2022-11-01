@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rakhsaani/core/utils/constant.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../../core/utils/urls.dart';
 
 class PlayerSection extends StatelessWidget {
   const PlayerSection({
@@ -14,7 +18,7 @@ class PlayerSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: primaryColor,
+        color: kScaffoldBgColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -39,15 +43,17 @@ class PlayerSection extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.white,
+                  CupertinoIcons.heart,
+                  color: onPrimayColor,
+                  size: kDefaultIconSize,
                 ),
               ),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.volume_down,
-                  color: Colors.white,
+                  CupertinoIcons.speaker_2,
+                  color: onPrimayColor,
+                  size: kDefaultIconSize,
                 ),
               ),
             ],
@@ -64,52 +70,58 @@ class PlayerSection extends StatelessWidget {
               value: 25,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('0:00.41'),
-              Text('0:01.31'),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '0:00.41',
+                  style: AppTextStyles.kPlayerTimerTextStyle,
+                ),
+                Text(
+                  '0:01.31',
+                  style: AppTextStyles.kPlayerTimerTextStyle,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 25,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.repeat,
-                  color: Colors.white,
+                  CupertinoIcons.repeat,
+                  color: onPrimayColor,
+                  size: 18,
                 ),
+              ),
+              Image.asset(
+                '${Urls.iconUrl}ic_navigate_before.png',
+                width: 15,
+                color: onPrimayColor,
+              ),
+              Image.asset(
+                '${Urls.iconUrl}ic_play_circle.png',
+                width: 50,
+                color: onPrimayColor,
+              ),
+              Image.asset(
+                '${Urls.iconUrl}ic_navigate_next.png',
+                width: 15,
+                color: onPrimayColor,
               ),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.arrow_left,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.play_arrow,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_right,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.shuffle,
-                  color: Colors.white,
+                  CupertinoIcons.shuffle,
+                  color: onPrimayColor,
+                  size: 18,
                 ),
               ),
             ],
