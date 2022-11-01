@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
 
+import '../../../../core/utils/urls.dart';
 import '../../view_model/surah_list_view_model.dart';
 
 class SurahTileExpanded extends StatelessWidget {
@@ -14,11 +16,11 @@ class SurahTileExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         context.read<SurahListViewModel>().playSurah();
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
         child: Row(
           children: [
             Text(
@@ -35,10 +37,11 @@ class SurahTileExpanded extends StatelessWidget {
               '0:01:31',
               style: AppTextStyles.kTileTitleBlack,
             ),
-            const SizedBox(width: 25),
-            const Icon(
-              Icons.play_circle_outline,
-              color: Colors.black,
+            const SizedBox(width: 40),
+            Image.asset(
+              '${Urls.iconUrl}ic_play_circle.png',
+              width: 30,
+              color: onWhiteColor,
             ),
           ],
         ),

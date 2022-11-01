@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/core/utils/urls.dart';
 import 'widgets/radio_button_section.dart';
 
 class LanguageSelectScreen extends StatefulWidget {
@@ -18,29 +19,38 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            FlutterLogo(),
-            SizedBox(
-              height: 40,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Image.asset(
+                '${Urls.imageUrl}ic_bismillah_vector.png',
+                width: 200,
+              ),
             ),
-            Text(
+            const SizedBox(
+              height: 50,
+            ),
+            const Text(
               'Al-Quran',
-              style: TextStyle(fontSize: 35),
+              style: TextStyle(
+                fontSize: 35,
+                fontFamily: 'Resagnicto',
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
-            Text(
+            const Text(
               'Select Language',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 color: Colors.grey,
               ),
             ),
-            SizedBox(
-              height: 10,
+            const SizedBox(
+              height: 15,
             ),
-            RadioButtonSection(),
+            const RadioButtonSection(),
           ],
         ),
       ),

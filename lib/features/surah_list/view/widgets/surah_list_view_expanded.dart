@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/core/utils/colors.dart';
 import 'surah_tile_expanded.dart';
 
 class SurahListViewExpanded extends StatelessWidget {
@@ -19,7 +20,7 @@ class SurahListViewExpanded extends StatelessWidget {
         return const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Divider(
-            color: Colors.grey,
+            color: onWhiteColor,
           ),
         );
         ;

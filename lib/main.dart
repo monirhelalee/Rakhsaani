@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: primarySwatchColor,
           primaryColor: const Color(0xff121314),
           brightness: Brightness.light,
+          fontFamily: 'Optima',
           // dividerColor: Colors.black12,
           // scaffoldBackgroundColor: const Color(0xFF121314),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class SurahListViewModel with ChangeNotifier{
-  bool isPlayerExpanded = true;
+  bool isPlayerExpanded = false;
 
   void playSurah(){
     isPlayerExpanded = true;

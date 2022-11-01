@@ -10,7 +10,7 @@ class AppTextStyles {
   );
   static TextStyle kTileTitleBlack = GoogleFonts.exo2(
     fontWeight: FontWeight.w400,
-    color: blackColor,
+    color: onWhiteColor,
     fontSize: 18,
   );
   static TextStyle kPlayerTimerTextStyle = GoogleFonts.exo2(
