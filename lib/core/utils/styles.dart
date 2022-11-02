@@ -3,17 +3,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rakhsaani/core/utils/utils_exports.dart';
 
 class AppTextStyles {
-  static TextStyle kTileTitle = GoogleFonts.exo2(
+  static const TextStyle kTileTitle = TextStyle(
     fontWeight: FontWeight.w400,
     color: onPrimayColor,
     fontSize: 18,
   );
-  static TextStyle kTileTitleBlack = GoogleFonts.exo2(
+  static const TextStyle kArabicTitle = TextStyle(
+    fontFamily: 'Resagnicto',
+    fontWeight: FontWeight.w500,
+    color: onPrimayColor,
+    fontSize: 20,
+  );
+  static const TextStyle kTranslatedTitle = TextStyle(
+    fontWeight: FontWeight.w400,
+    color: onPrimayColor,
+    fontSize: 20,
+  );
+  static const TextStyle kTileTitleBlack = TextStyle(
     fontWeight: FontWeight.w400,
     color: onWhiteColor,
     fontSize: 18,
   );
-  static TextStyle kPlayerTimerTextStyle = GoogleFonts.exo2(
+  static const TextStyle kPlayerTimerTextStyle = TextStyle(
     fontWeight: FontWeight.w400,
     color: onPrimayColor,
     fontSize: 12,

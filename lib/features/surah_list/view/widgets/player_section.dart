@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rakhsaani/core/utils/constant.dart';
-
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
@@ -23,16 +21,24 @@ class PlayerSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            'Arabic text',
-            style: AppTextStyles.kTileTitle,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              'ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ ٢',
+              textAlign: TextAlign.center,
+              style: AppTextStyles.kArabicTitle,
+            ),
           ),
           const SizedBox(
             height: 25,
           ),
-          Text(
-            'Translation',
-            style: AppTextStyles.kTileTitle,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              '1. All the praises and thanks be to Allah, the Lord of the \'Alamin.',
+              textAlign: TextAlign.center,
+              style: AppTextStyles.kTranslatedTitle,
+            ),
           ),
           const SizedBox(
             height: 50,
