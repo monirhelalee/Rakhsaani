@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:rakhsaani/features/about/view/about_rakhsaani.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
@@ -36,12 +38,21 @@ class Menu extends StatelessWidget {
             icon: 'ic_bookmarks.png',
           ),
         ),
-        const PopupMenuItem<String>(
+        PopupMenuItem<String>(
           value: 'about_rakhsaani',
-          child: PopupMenuRow(
+          child: const PopupMenuRow(
             text: 'About Rakhsaani',
             icon: 'ic_about.png',
           ),
+          onTap: () {
+            debugPrint("tap about");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AboutRakhsaani(),
+              ),
+            );
+          },
         ),
         const PopupMenuItem<String>(
           value: 'privacy_policy',
