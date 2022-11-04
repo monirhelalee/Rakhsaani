@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:rakhsaani/features/about/view/about_rakhsaani.dart';
+import 'package:rakhsaani/features/bookmarks/view/bookmarks_screen.dart';
+import 'package:rakhsaani/features/surah_list/view/surah_list_screen.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
@@ -96,6 +98,16 @@ class Menu extends StatelessWidget {
           case 'about_rakhsaani':
             Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const AboutRakhsaani()),
+            );
+            break;
+          case 'surah_list':
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const SurahListScreen()),
+            );
+            break;
+          case 'bookmarks':
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const BookmarksScreen()),
             );
             break;
           default:

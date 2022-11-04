@@ -23,7 +23,6 @@ class SurahListViewExpanded extends StatelessWidget {
             color: onWhiteColor,
           ),
         );
-        ;
       },
     );
   }
