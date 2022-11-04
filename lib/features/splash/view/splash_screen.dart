@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../core/helpers/storage_manager.dart';
 import '../../../core/utils/colors.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/utils/urls.dart';
 import '../../language/view/language_select_screen.dart';
+import '../../surah_list/view/surah_list_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,16 +14,29 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String? isFirstTime;
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const LanguageSelectScreen(),
-        ),
-      );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setVal();
     });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => isFirstTime == null
+                ? const LanguageSelectScreen()
+                : const SurahListScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  _setVal() async {
+    isFirstTime = await StorageManager().getKey('isFirstTime');
   }
 
   @override

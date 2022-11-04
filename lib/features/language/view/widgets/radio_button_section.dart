@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/helpers/storage_manager.dart';
 import '../../../surah_list/view/surah_list_screen.dart';
 import '../../view_model/language_view_model.dart';
 
@@ -25,9 +26,9 @@ class RadioButtonSection extends StatelessWidget {
                           Radio(
                             value: e,
                             groupValue: lang.selectedLanguage,
-                            onChanged: (s) {
+                            onChanged: (s) async{
                               lang.onLanguageSelect(s!);
-                              Future.delayed(Duration(seconds: 3));
+                              StorageManager().setKey('isFirstTime', 'no');
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (c) {
