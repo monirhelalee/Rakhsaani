@@ -38,21 +38,12 @@ class Menu extends StatelessWidget {
             icon: 'ic_bookmarks.png',
           ),
         ),
-        PopupMenuItem<String>(
+        const PopupMenuItem<String>(
           value: 'about_rakhsaani',
-          child: const PopupMenuRow(
+          child: PopupMenuRow(
             text: 'About Rakhsaani',
             icon: 'ic_about.png',
           ),
-          onTap: () {
-            debugPrint("tap about");
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AboutRakhsaani(),
-              ),
-            );
-          },
         ),
         const PopupMenuItem<String>(
           value: 'privacy_policy',
@@ -101,6 +92,11 @@ class Menu extends StatelessWidget {
         switch (value) {
           case 'language':
             // Navigate to select language
+            break;
+          case 'about_rakhsaani':
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const AboutRakhsaani()),
+            );
             break;
           default:
         }
