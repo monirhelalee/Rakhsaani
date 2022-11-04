@@ -3,6 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rakhsaani/core/utils/utils_exports.dart';
 
 class AppTextStyles {
+  static const TextStyle kWebsiteText = TextStyle(
+    letterSpacing: 2,
+    color: onPrimayColor,
+    fontSize: 14,
+  );
+
   static const TextStyle kTileTitle = TextStyle(
     fontWeight: FontWeight.w400,
     color: onPrimayColor,
