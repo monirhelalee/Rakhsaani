@@ -22,7 +22,7 @@ class AboutRakhsaani extends StatelessWidget {
           Container(
             height: screenHeight / 2.3,
             width: screenWidth,
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/background_image_about.jpg"),
@@ -31,8 +31,17 @@ class AboutRakhsaani extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      "assets/icons/logo.png",
+                      height: 80,
+                    ),
+                  ],
+                ),
                 CommonTextWidget(
                   "My Lord,",
                   style: AppTextStyles.title40,
