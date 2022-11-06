@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
+import '../../core/utils/colors.dart';
 import '../surah_list/view/widgets/surah_tile_expanded.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   CustomSearchDelegate();
+
+  final surah = List.generate(10, (index) => 'Surah + ${index + 1}');
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -31,22 +31,47 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    final surah = List.generate(114, (index) => 'Surah ${index + 1}').where(
+    final s = surah.where(
       (e) {
-        log(e);
         return e.toLowerCase().contains(query.toLowerCase());
       },
     );
-    return ListView.builder(
-      itemCount: surah.length,
+    return ListView.separated(
+      itemCount: s.length,
       itemBuilder: (context, index) {
         return SurahTileExpanded(index: index);
+      },
+      separatorBuilder: (context, index) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Divider(
+            color: onWhiteColor,
+          ),
+        );
       },
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const SizedBox();
+    final s = surah.where(
+      (e) {
+        return e.toLowerCase().contains(query.toLowerCase());
+      },
+    );
+    return ListView.separated(
+      itemCount: s.length,
+      itemBuilder: (context, index) {
+        return SurahTileExpanded(index: index);
+      },
+      separatorBuilder: (context, index) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Divider(
+            color: onWhiteColor,
+          ),
+        );
+      },
+    );
   }
 }
