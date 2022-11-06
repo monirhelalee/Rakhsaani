@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/helpers/storage_manager.dart';
-import '../../../surah_list/view/surah_list_screen.dart';
 import '../../view_model/language_view_model.dart';
 
-class RadioButtonSection extends StatelessWidget {
-  const RadioButtonSection({
+class MenuRadioButtonSection extends StatelessWidget {
+  const MenuRadioButtonSection({
     Key? key,
   }) : super(key: key);
 
@@ -26,16 +25,9 @@ class RadioButtonSection extends StatelessWidget {
                           Radio(
                             value: e,
                             groupValue: lang.selectedLanguage,
-                            onChanged: (s) async{
+                            onChanged: (s) async {
                               lang.onLanguageSelect(s!);
                               StorageManager().setKey('isFirstTime', 'no');
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (c) {
-                                    return const SurahListScreen();
-                                  },
-                                ),
-                              );
                             },
                           ),
                           Text(e),

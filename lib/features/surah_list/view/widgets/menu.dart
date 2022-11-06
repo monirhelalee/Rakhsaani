@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:rakhsaani/features/about/view/about_rakhsaani.dart';
-import 'package:rakhsaani/features/bookmarks/view/bookmarks_screen.dart';
-import 'package:rakhsaani/features/surah_list/view/surah_list_screen.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../about/view/about_rakhsaani.dart';
+import '../../../bookmarks/view/bookmarks_screen.dart';
+import '../../../language/view/menu_select_language_screen.dart';
+import '../surah_list_screen.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -93,7 +93,9 @@ class Menu extends StatelessWidget {
       onSelected: (value) {
         switch (value) {
           case 'language':
-            // Navigate to select language
+             Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const MenuSelectLanguageScreen()),
+            );
             break;
           case 'about_rakhsaani':
             Navigator.of(context).push(

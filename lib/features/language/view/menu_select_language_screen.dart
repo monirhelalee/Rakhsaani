@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'widgets/menu_radio_button_section.dart';
+
+class MenuSelectLanguageScreen extends StatefulWidget {
+  const MenuSelectLanguageScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MenuSelectLanguageScreen> createState() =>
+      _MenuSelectLanguageScreenState();
+}
+
+class _MenuSelectLanguageScreenState extends State<MenuSelectLanguageScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title:const Text('Language'),centerTitle: true,),
+      body: Container(
+        padding: const EdgeInsets.all(8.0),
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Text(
+              'Select Language',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            MenuRadioButtonSection(),
+          ],
+        ),
+      ),
+    );
+  }
+}
