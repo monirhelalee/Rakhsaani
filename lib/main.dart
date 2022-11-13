@@ -1,9 +1,9 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/splash/view/splash_screen.dart';
 import 'core/utils/colors.dart';
-import 'features/language/view/language_select_screen.dart';
 import 'features/language/view_model/language_view_model.dart';
 import 'features/surah_list/view_model/surah_list_view_model.dart';
 
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Rakhsaani',
         debugShowCheckedModeBanner: false,
+        builder: BotToastInit(),
         theme: ThemeData(
           primarySwatch: primarySwatchColor,
           primaryColor: const Color(0xff121314),

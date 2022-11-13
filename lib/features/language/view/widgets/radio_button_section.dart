@@ -14,37 +14,37 @@ class RadioButtonSection extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-            ['Bengali', 'English', 'Japanese', 'Russian', 'Spanish', 'Nepali']
-                .map(
-                  (e) => Consumer<LanguageViewModel>(
-                    builder: (context, lang, _) {
-                      return Row(
-                        children: [
-                          Radio(
-                            value: e,
-                            groupValue: lang.selectedLanguage,
-                            onChanged: (s) async{
-                              lang.onLanguageSelect(s!);
-                              StorageManager().setKey('isFirstTime', 'no');
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (c) {
-                                    return const SurahListScreen();
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          Text(e),
-                        ],
-                      );
-                    },
-                  ),
-                )
-                .toList(),
+      child: Consumer<LanguageViewModel>(
+        builder: (context, vm, _) {
+          return vm.languageModel == null
+              ? const SizedBox()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: vm.languageModel!.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Radio(
+                          value: vm.languageModel![index].name,
+                          groupValue: vm.selectedLanguage,
+                          onChanged: (s) async {
+                            vm.onLanguageSelect(s!);
+                            StorageManager().setKey('isFirstTime', 'no');
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (c) {
+                                  return const SurahListScreen();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        Text(vm.languageModel![index].name),
+                      ],
+                    );
+                  },
+                );
+        },
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../view_model/language_view_model.dart';
 import 'widgets/menu_radio_button_section.dart';
 
 class MenuSelectLanguageScreen extends StatefulWidget {
@@ -11,9 +13,18 @@ class MenuSelectLanguageScreen extends StatefulWidget {
 
 class _MenuSelectLanguageScreenState extends State<MenuSelectLanguageScreen> {
   @override
+  void initState() {
+    super.initState();
+    context.read<LanguageViewModel>().loadLanguage();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const Text('Language'),centerTitle: true,),
+      appBar: AppBar(
+        title: const Text('Language'),
+        centerTitle: true,
+      ),
       body: Container(
         padding: const EdgeInsets.all(8.0),
         width: double.infinity,

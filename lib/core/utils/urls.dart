@@ -3,6 +3,6 @@ class Urls {
   static String imageUrl = 'assets/images/';
   static String get baseUrl => "https://api.rakhsaani.org/";
   static String surahList = 'surah/';
-  static String surahDetail =  '$baseUrl${surahList}1/Language/';
-   
+  static String language = 'language/';
+  static String surahDetail = '$baseUrl${surahList}1/Language/';
 }

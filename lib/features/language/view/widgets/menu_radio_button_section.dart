@@ -3,40 +3,45 @@ import 'package:provider/provider.dart';
 import '../../../../core/helpers/storage_manager.dart';
 import '../../view_model/language_view_model.dart';
 
-class MenuRadioButtonSection extends StatelessWidget {
+class MenuRadioButtonSection extends StatefulWidget {
   const MenuRadioButtonSection({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<MenuRadioButtonSection> createState() => _MenuRadioButtonSectionState();
+}
+
+class _MenuRadioButtonSectionState extends State<MenuRadioButtonSection> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-            ['Bengali', 'English', 'Japanese', 'Russian', 'Spanish', 'Nepali']
-                .map(
-                  (e) => Consumer<LanguageViewModel>(
-                    builder: (context, lang, _) {
-                      return Row(
-                        children: [
-                          Radio(
-                            value: e,
-                            groupValue: lang.selectedLanguage,
-                            onChanged: (s) async {
-                              lang.onLanguageSelect(s!);
-                              StorageManager().setKey('isFirstTime', 'no');
-                            },
-                          ),
-                          Text(e),
-                        ],
-                      );
-                    },
-                  ),
-                )
-                .toList(),
+      child: Consumer<LanguageViewModel>(
+        builder: (context, vm, _) {
+          return vm.languageModel == null
+              ? const SizedBox()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: vm.languageModel!.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Radio(
+                          value: vm.languageModel![index].name,
+                          groupValue: vm.selectedLanguage,
+                          onChanged: (s) async {
+                            vm.onLanguageSelect(s!);
+                            StorageManager().setKey('isFirstTime', 'no');
+                          },
+                        ),
+                        Text(vm.languageModel![index].name),
+                      ],
+                    );
+                  },
+                );
+        },
       ),
     );
   }

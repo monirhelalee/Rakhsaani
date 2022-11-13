@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/urls.dart';
+import '../view_model/language_view_model.dart';
 import 'widgets/radio_button_section.dart';
 
 class LanguageSelectScreen extends StatefulWidget {
@@ -10,6 +12,12 @@ class LanguageSelectScreen extends StatefulWidget {
 }
 
 class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<LanguageViewModel>().loadLanguage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
