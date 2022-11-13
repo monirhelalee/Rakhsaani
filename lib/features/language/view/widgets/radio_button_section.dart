@@ -16,34 +16,32 @@ class RadioButtonSection extends StatelessWidget {
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3),
       child: Consumer<LanguageViewModel>(
         builder: (context, vm, _) {
-          return vm.languageModel == null
-              ? const SizedBox()
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: vm.languageModel!.length,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Radio(
-                          value: vm.languageModel![index].name,
-                          groupValue: vm.selectedLanguage,
-                          onChanged: (s) async {
-                            vm.onLanguageSelect(s!);
-                            StorageManager().setKey('isFirstTime', 'no');
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (c) {
-                                  return const SurahListScreen();
-                                },
-                              ),
-                            );
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: vm.languageModel.length,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Radio(
+                    value: vm.languageModel[index].name,
+                    groupValue: vm.selectedLanguage,
+                    onChanged: (s) async {
+                      vm.onLanguageSelect(s!);
+                      StorageManager().setKey('isFirstTime', 'no');
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (c) {
+                            return const SurahListScreen();
                           },
                         ),
-                        Text(vm.languageModel![index].name),
-                      ],
-                    );
-                  },
-                );
+                      );
+                    },
+                  ),
+                  Text(vm.languageModel[index].name),
+                ],
+              );
+            },
+          );
         },
       ),
     );
