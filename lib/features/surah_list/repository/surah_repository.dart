@@ -1,24 +1,25 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
+import '../../../core/utils/app_error.dart';
 import '../../../core/utils/urls.dart';
+import '../model/surah.dart';
 
-class TicketRepository {
-  Future<Either<String, String>> myTickets() async {
+class SurahRepository {
+  Future<Either<AppError, List<Surah>>> fetchSurahList() async {
     try {
-      final _response = await http.get(Uri.parse(Urls.surahList));
+      final response = await http.get(Uri.parse(Urls.baseUrl + Urls.surahList));
 
-      if (_response.statusCode == 200) {
-        // SurahModel data = SurahModelFromJson(_response.body);
-        // return Right(data);
-        return right('');
+      if (response.statusCode == 200) {
+        List<Surah> data = surahFromJson(response.body);
+        return Right(data);
       } else {
-        return const Left('');
+        return const Left(AppError.networkError);
       }
     } on SocketException {
-      return left('');
+      return left(AppError.networkError);
     } catch (e) {
-      return left('');
+      return left(AppError.networkError);
     }
   }
 }

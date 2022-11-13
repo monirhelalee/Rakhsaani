@@ -4,14 +4,18 @@ import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
 
 import '../../../../core/utils/urls.dart';
+import '../../model/surah.dart';
 import '../../view_model/surah_list_view_model.dart';
 
 class SurahTileExpanded extends StatelessWidget {
   const SurahTileExpanded({
     Key? key,
     required this.index,
+    required this.surah,
   }) : super(key: key);
+
   final int index;
+  final Surah surah;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,12 @@ class SurahTileExpanded extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              '${index + 1}',
+              surah.surahNumber.toString(),
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 25),
             Text(
-              'Surah ${index + 1}',
+              surah.name,
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),

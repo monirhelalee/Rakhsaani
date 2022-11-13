@@ -8,9 +8,20 @@ import 'widgets/player_section.dart';
 import 'widgets/search_surah.dart';
 import 'widgets/surah_list_view.dart';
 
-class SurahListScreen extends StatelessWidget {
+class SurahListScreen extends StatefulWidget {
   const SurahListScreen({super.key});
 
+  @override
+  State<SurahListScreen> createState() => _SurahListScreenState();
+}
+
+class _SurahListScreenState extends State<SurahListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<SurahListViewModel>().fetchSurahList();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<SurahListViewModel>();

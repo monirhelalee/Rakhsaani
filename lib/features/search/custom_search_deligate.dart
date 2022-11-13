@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/features/surah_list/model/surah.dart';
 import '../../core/utils/colors.dart';
 import '../surah_list/view/widgets/surah_tile_expanded.dart';
 
@@ -39,7 +40,10 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.separated(
       itemCount: s.length,
       itemBuilder: (context, index) {
-        return SurahTileExpanded(index: index);
+        return SurahTileExpanded(
+          index: index,
+          surah: Surah(surahNumber: 2, name: '', audio: ''),
+        );
       },
       separatorBuilder: (context, index) {
         return const Padding(
@@ -62,7 +66,10 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.separated(
       itemCount: s.length,
       itemBuilder: (context, index) {
-        return SurahTileExpanded(index: index);
+        return SurahTileExpanded(
+          index: index,
+          surah: Surah(surahNumber: 2, name: '', audio: ''),
+        );
       },
       separatorBuilder: (context, index) {
         return const Padding(
