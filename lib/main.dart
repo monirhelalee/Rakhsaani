@@ -2,9 +2,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/splash/view/splash_screen.dart';
 import 'core/utils/colors.dart';
 import 'features/language/view_model/language_view_model.dart';
+import 'features/player/view_model/player_view_model.dart';
+import 'features/splash/view/splash_screen.dart';
 import 'features/surah_list/view_model/surah_list_view_model.dart';
 
 void main() {
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
          ChangeNotifierProvider<SurahListViewModel>(
           create: (context) => SurahListViewModel(),
+        ),
+         ChangeNotifierProvider<PlayerViewModel>(
+          create: (context) => PlayerViewModel(),
         ),
       ],
       child: MaterialApp(
