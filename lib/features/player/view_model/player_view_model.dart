@@ -28,11 +28,11 @@ class PlayerViewModel with ChangeNotifier {
     await player.pause();
   }
 
-  void playNext()async{
-    await player.seekToNext();
+  void playNext() async {
+    //TODO: play next surah
   }
 
-   void playPrev()async{
-    await player.seekToPrevious();
+  void playPrev() async {
+    //TODO: play prev surah
   }
 }

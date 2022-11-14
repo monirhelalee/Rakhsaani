@@ -25,7 +25,7 @@ class SurahTile extends StatelessWidget {
       onTap: () {
         context.read<SurahListViewModel>().selectedSurah = surah;
         context.read<PlayerViewModel>().playAudio(
-              Urls.baseUrl + surah.surah.audio.replaceAll("/media/", ""),
+              Urls.baseUrl + surah.surah.audio,
               surah.surah.surahNumber,
             );
       },
@@ -54,7 +54,7 @@ class SurahTile extends StatelessWidget {
                   onTap: () {
                     player.playAudio(
                       Urls.baseUrl +
-                          surah.surah.audio.replaceAll("/media/", ""),
+                          surah.surah.audio,
                       surah.surah.surahNumber,
                     );
                   },

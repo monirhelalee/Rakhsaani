@@ -25,8 +25,9 @@ class SurahTileExpanded extends StatelessWidget {
     var player = context.watch<PlayerViewModel>();
     return GestureDetector(
       onTap: () {
+        context.read<SurahListViewModel>().selectedSurah = surah;
         player.playAudio(
-          Urls.baseUrl + surah.surah.audio.replaceAll("/media/", ""),
+          Urls.baseUrl + surah.surah.audio,
           surah.surah.surahNumber,
         );
       },
@@ -44,8 +45,8 @@ class SurahTileExpanded extends StatelessWidget {
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
-            const Text(
-              '0:01:31',
+            Text(
+              surah.duration,
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 40),
@@ -54,8 +55,7 @@ class SurahTileExpanded extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     player.playAudio(
-                      Urls.baseUrl +
-                          surah.surah.audio.replaceAll("/media/", ""),
+                      Urls.baseUrl + surah.surah.audio,
                       surah.surah.surahNumber,
                     );
                   },

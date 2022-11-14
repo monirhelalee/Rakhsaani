@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,7 @@ class PlayerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
+    var svm = context.read<SurahListViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
@@ -88,13 +91,13 @@ class PlayerSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       '0:00.41',
                       style: AppTextStyles.kPlayerTimerTextStyle,
                     ),
                     Text(
-                      '0:01.31',
+                      svm.selectedSurah!.duration,
                       style: AppTextStyles.kPlayerTimerTextStyle,
                     ),
                   ],
@@ -118,6 +121,7 @@ class PlayerSection extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       player.playPrev();
+                      log('message');
                     },
                     child: Image.asset(
                       '${iconUrl}ic_navigate_before.png',
@@ -125,38 +129,30 @@ class PlayerSection extends StatelessWidget {
                       color: onPrimayColor,
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      player.isPlaying
-                          ? player.pauseAudio()
-                          : player.playAudio(
-                              Urls.baseUrl +
-                                  context
-                                      .read<SurahListViewModel>()
-                                      .selectedSurah!
-                                      .surah
-                                      .audio
-                                      .replaceAll("/media/", ""),
-                              context
-                                  .read<SurahListViewModel>()
-                                  .selectedSurah!
-                                  .surah
-                                  .surahNumber,
-                            );
-                    },
-                    child: player.isPlaying
-                        // TODO: change pause icon to thinner version
-                        ? const Icon(
-                            Icons.pause_circle_outline,
-                            color: onPrimayColor,
-                            size: 50,
-                          )
-                        : Image.asset(
-                            '${iconUrl}ic_play_circle.png',
-                            width: 50,
-                            color: onPrimayColor,
-                          ),
-                  ),
+                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                    return InkWell(
+                      onTap: () {
+                        player.isPlaying
+                            ? player.pauseAudio()
+                            : player.playAudio(
+                                Urls.baseUrl + _vm.selectedSurah!.surah.audio,
+                                _vm.selectedSurah!.surah.surahNumber,
+                              );
+                      },
+                      child: player.isPlaying
+                          // TODO: change pause icon to thinner version
+                          ? const Icon(
+                              Icons.pause_circle_outline,
+                              color: onPrimayColor,
+                              size: 50,
+                            )
+                          : Image.asset(
+                              '${iconUrl}ic_play_circle.png',
+                              width: 50,
+                              color: onPrimayColor,
+                            ),
+                    );
+                  }),
                   InkWell(
                     onTap: () => player.playNext(),
                     child: Image.asset(
