@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
-import 'package:rakhsaani/features/surah_list/model/surah.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
@@ -17,7 +16,7 @@ class PlayerSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var player = context.read<PlayerViewModel>();
+    var player = context.watch<PlayerViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
@@ -116,10 +115,15 @@ class PlayerSection extends StatelessWidget {
                       size: 18,
                     ),
                   ),
-                  Image.asset(
-                    '${iconUrl}ic_navigate_before.png',
-                    width: 15,
-                    color: onPrimayColor,
+                  InkWell(
+                    onTap: () {
+                      player.playPrev();
+                    },
+                    child: Image.asset(
+                      '${iconUrl}ic_navigate_before.png',
+                      width: 15,
+                      color: onPrimayColor,
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -138,16 +142,26 @@ class PlayerSection extends StatelessWidget {
                                   .surahNumber,
                             );
                     },
+                    child: player.isPlaying
+                        // TODO: change pause icon to thinner version
+                        ? const Icon(
+                            Icons.pause_circle_outline,
+                            color: onPrimayColor,
+                            size: 50,
+                          )
+                        : Image.asset(
+                            '${iconUrl}ic_play_circle.png',
+                            width: 50,
+                            color: onPrimayColor,
+                          ),
+                  ),
+                  InkWell(
+                    onTap: () => player.playNext(),
                     child: Image.asset(
-                      '${iconUrl}ic_play_circle.png',
-                      width: 50,
+                      '${iconUrl}ic_navigate_next.png',
+                      width: 15,
                       color: onPrimayColor,
                     ),
-                  ),
-                  Image.asset(
-                    '${iconUrl}ic_navigate_next.png',
-                    width: 15,
-                    color: onPrimayColor,
                   ),
                   IconButton(
                     onPressed: () {},
@@ -167,7 +181,7 @@ class PlayerSection extends StatelessWidget {
           Positioned(
               child: IconButton(
             onPressed: () {
-              context.read<PlayerViewModel>().pauseAudio();
+              context.read<PlayerViewModel>().collapsePlayer();
             },
             icon: const Icon(
               Icons.arrow_back,

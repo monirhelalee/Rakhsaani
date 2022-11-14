@@ -22,15 +22,13 @@ class SurahTileExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var player = context.read<PlayerViewModel>();
+    var player = context.watch<PlayerViewModel>();
     return GestureDetector(
       onTap: () {
-        player.isPlaying
-            ? player.pauseAudio()
-            : player.playAudio(
-                Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
-                surah.surahNumber,
-              );
+        player.playAudio(
+          Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
+          surah.surahNumber,
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),

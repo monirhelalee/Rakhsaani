@@ -22,12 +22,12 @@ class _SurahListScreenState extends State<SurahListScreen> {
     super.initState();
     context.read<SurahListViewModel>().fetchSurahList();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<PlayerViewModel>();
     return Scaffold(
-      backgroundColor: vm.isPlaying ? Colors.white : kScaffoldBgColor,
+      backgroundColor: vm.isExpnaded ? Colors.white : kScaffoldBgColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -40,7 +40,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
           Menu(),
         ],
       ),
-      body: vm.isPlaying
+      body: vm.isExpnaded
           ? Column(
               children: const [
                 Expanded(

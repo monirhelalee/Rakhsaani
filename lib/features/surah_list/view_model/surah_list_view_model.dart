@@ -17,6 +17,7 @@ class SurahListViewModel with ChangeNotifier {
       (l) {
         _fetchSurahError = l;
         BotToast.closeAllLoading();
+        notifyListeners();
       },
       (r) {
         _surahList = r;
