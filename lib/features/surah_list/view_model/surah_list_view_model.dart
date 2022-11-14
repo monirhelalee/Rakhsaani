@@ -6,20 +6,9 @@ import '../model/surah.dart';
 import '../repository/surah_repository.dart';
 
 class SurahListViewModel with ChangeNotifier {
-  bool isPlayerExpanded = false;
   List<Surah> _surahList = [];
   AppError? _fetchSurahError;
-
-  void playSurah() {
-    isPlayerExpanded = true;
-    notifyListeners();
-  }
-
-  void stopPlaying() {
-    log('message');
-    isPlayerExpanded = false;
-    notifyListeners();
-  }
+  Surah? selectedSurah;
 
   Future<void> fetchSurahList() async {
     BotToast.showLoading();

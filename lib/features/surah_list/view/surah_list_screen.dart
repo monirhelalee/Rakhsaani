@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 import 'package:rakhsaani/features/surah_list/view/widgets/surah_list_view_expanded.dart';
 import '../../../core/utils/utils_exports.dart';
 import '../view_model/surah_list_view_model.dart';
@@ -24,9 +25,9 @@ class _SurahListScreenState extends State<SurahListScreen> {
   
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<SurahListViewModel>();
+    final vm = context.watch<PlayerViewModel>();
     return Scaffold(
-      backgroundColor: vm.isPlayerExpanded ? Colors.white : kScaffoldBgColor,
+      backgroundColor: vm.isPlaying ? Colors.white : kScaffoldBgColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -39,7 +40,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
           Menu(),
         ],
       ),
-      body: vm.isPlayerExpanded
+      body: vm.isPlaying
           ? Column(
               children: const [
                 Expanded(

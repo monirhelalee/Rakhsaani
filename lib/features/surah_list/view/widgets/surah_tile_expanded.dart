@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
+import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/urls.dart';
@@ -20,9 +21,15 @@ class SurahTileExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var player = context.read<PlayerViewModel>();
     return GestureDetector(
       onTap: () {
-        context.read<SurahListViewModel>().playSurah();
+        player.isPlaying
+            ? player.pauseAudio()
+            : player.playAudio(
+                Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
+                surah.surahNumber,
+              );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),

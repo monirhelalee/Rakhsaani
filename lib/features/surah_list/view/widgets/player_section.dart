@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
+import 'package:rakhsaani/features/surah_list/model/surah.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
@@ -15,6 +17,7 @@ class PlayerSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var player = context.read<PlayerViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
@@ -118,10 +121,21 @@ class PlayerSection extends StatelessWidget {
                     width: 15,
                     color: onPrimayColor,
                   ),
-                  Image.asset(
-                    '${iconUrl}ic_play_circle.png',
-                    width: 50,
-                    color: onPrimayColor,
+                  InkWell(
+                    onTap: () {
+                      player.isPlaying
+                          ? player.pauseAudio()
+                          : player.playAudio(
+                              Urls.baseUrl +
+                                  surah.audio.replaceAll("/media/", ""),
+                              surah.surahNumber,
+                            );
+                    },
+                    child: Image.asset(
+                      '${iconUrl}ic_play_circle.png',
+                      width: 50,
+                      color: onPrimayColor,
+                    ),
                   ),
                   Image.asset(
                     '${iconUrl}ic_navigate_next.png',
@@ -146,7 +160,7 @@ class PlayerSection extends StatelessWidget {
           Positioned(
               child: IconButton(
             onPressed: () {
-              context.read<SurahListViewModel>().stopPlaying();
+              context.read<PlayerViewModel>().pauseAudio();
             },
             icon: const Icon(
               Icons.arrow_back,

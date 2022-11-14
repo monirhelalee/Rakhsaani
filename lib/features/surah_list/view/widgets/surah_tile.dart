@@ -23,7 +23,11 @@ class SurahTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<SurahListViewModel>().playSurah();
+        
+        context.read<PlayerViewModel>().playAudio(
+              Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
+              surah.surahNumber,
+            );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
