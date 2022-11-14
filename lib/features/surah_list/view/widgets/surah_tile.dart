@@ -25,8 +25,8 @@ class SurahTile extends StatelessWidget {
       onTap: () {
         context.read<SurahListViewModel>().selectedSurah = surah;
         context.read<PlayerViewModel>().playAudio(
-              Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
-              surah.surahNumber,
+              Urls.baseUrl + surah.surah.audio.replaceAll("/media/", ""),
+              surah.surah.surahNumber,
             );
       },
       child: Container(
@@ -34,18 +34,17 @@ class SurahTile extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              surah.surahNumber.toString(),
+              surah.surah.surahNumber.toString(),
               style: AppTextStyles.kTileTitle,
             ),
             const SizedBox(width: 25),
             Text(
-              surah.name,
+              surah.surah.name,
               style: AppTextStyles.kTileTitle,
             ),
             const Spacer(),
-            // TODO: implement time
-            const Text(
-              '0:01:31',
+            Text(
+              surah.duration,
               style: AppTextStyles.kTileTitle,
             ),
             const SizedBox(width: 40),
@@ -54,11 +53,12 @@ class SurahTile extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     player.playAudio(
-                      Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
-                      surah.surahNumber,
+                      Urls.baseUrl +
+                          surah.surah.audio.replaceAll("/media/", ""),
+                      surah.surah.surahNumber,
                     );
                   },
-                  child: surah.surahNumber == player.playingSurahNumber
+                  child: surah.surah.surahNumber == player.playingSurahNumber
                       ? player.isPlaying
                           ? Lottie.asset(
                               '${imageUrl}eq.json',

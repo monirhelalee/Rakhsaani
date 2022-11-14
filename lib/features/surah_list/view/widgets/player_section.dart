@@ -134,11 +134,13 @@ class PlayerSection extends StatelessWidget {
                                   context
                                       .read<SurahListViewModel>()
                                       .selectedSurah!
+                                      .surah
                                       .audio
                                       .replaceAll("/media/", ""),
                               context
                                   .read<SurahListViewModel>()
                                   .selectedSurah!
+                                  .surah
                                   .surahNumber,
                             );
                     },

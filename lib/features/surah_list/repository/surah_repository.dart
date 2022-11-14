@@ -7,8 +7,10 @@ import '../model/surah.dart';
 
 class SurahRepository {
   Future<Either<AppError, List<Surah>>> fetchSurahList() async {
+    String selectedLanguage = 'English';
     try {
-      final response = await http.get(Uri.parse(Urls.baseUrl + Urls.surahList));
+      final response = await http
+          .get(Uri.parse(Urls.baseUrl + Urls.surahList + selectedLanguage));
 
       if (response.statusCode == 200) {
         List<Surah> data = surahFromJson(response.body);

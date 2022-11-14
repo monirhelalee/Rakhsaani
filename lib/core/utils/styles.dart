@@ -12,7 +12,7 @@ class AppTextStyles {
   static const TextStyle kTileTitle = TextStyle(
     fontWeight: FontWeight.w400,
     color: onPrimayColor,
-    fontSize: 18,
+    fontSize: 17,
   );
   static const TextStyle kArabicTitle = TextStyle(
     fontFamily: 'Resagnicto',

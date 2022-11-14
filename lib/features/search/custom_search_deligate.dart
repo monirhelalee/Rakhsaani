@@ -40,10 +40,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.separated(
       itemCount: s.length,
       itemBuilder: (context, index) {
-        return SurahTileExpanded(
-          index: index,
-          surah: Surah(surahNumber: 2, name: '', audio: ''),
-        );
+        return ListTile();
       },
       separatorBuilder: (context, index) {
         return const Padding(
@@ -66,10 +63,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.separated(
       itemCount: s.length,
       itemBuilder: (context, index) {
-        return SurahTileExpanded(
-          index: index,
-          surah: Surah(surahNumber: 2, name: '', audio: ''),
-        );
+        return ListTile();
       },
       separatorBuilder: (context, index) {
         return const Padding(

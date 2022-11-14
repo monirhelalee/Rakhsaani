@@ -26,8 +26,8 @@ class SurahTileExpanded extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         player.playAudio(
-          Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
-          surah.surahNumber,
+          Urls.baseUrl + surah.surah.audio.replaceAll("/media/", ""),
+          surah.surah.surahNumber,
         );
       },
       child: Container(
@@ -35,12 +35,12 @@ class SurahTileExpanded extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              surah.surahNumber.toString(),
+              surah.surah.surahNumber.toString(),
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 25),
             Text(
-              surah.name,
+              surah.surah.name,
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
@@ -54,11 +54,12 @@ class SurahTileExpanded extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     player.playAudio(
-                      Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
-                      surah.surahNumber,
+                      Urls.baseUrl +
+                          surah.surah.audio.replaceAll("/media/", ""),
+                      surah.surah.surahNumber,
                     );
                   },
-                  child: surah.surahNumber == player.playingSurahNumber
+                  child: surah.surah.surahNumber == player.playingSurahNumber
                       ? player.isPlaying
                           ? Lottie.asset(
                               '${imageUrl}eq.json',
