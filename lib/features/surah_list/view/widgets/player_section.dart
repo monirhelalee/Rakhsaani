@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
@@ -113,17 +114,17 @@ class PlayerSection extends StatelessWidget {
                     ),
                   ),
                   Image.asset(
-                    '${Urls.iconUrl}ic_navigate_before.png',
+                    '${iconUrl}ic_navigate_before.png',
                     width: 15,
                     color: onPrimayColor,
                   ),
                   Image.asset(
-                    '${Urls.iconUrl}ic_play_circle.png',
+                    '${iconUrl}ic_play_circle.png',
                     width: 50,
                     color: onPrimayColor,
                   ),
                   Image.asset(
-                    '${Urls.iconUrl}ic_navigate_next.png',
+                    '${iconUrl}ic_navigate_next.png',
                     width: 15,
                     color: onPrimayColor,
                   ),

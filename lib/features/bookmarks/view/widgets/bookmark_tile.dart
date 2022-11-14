@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
 
-import '../../../../core/utils/urls.dart';
+import '../../../../core/utils/asset_path.dart';
 
 class BookmarkTile extends StatelessWidget {
   const BookmarkTile({
@@ -35,7 +35,7 @@ class BookmarkTile extends StatelessWidget {
             ),
             const SizedBox(width: 40),
             Image.asset(
-              '${Urls.iconUrl}ic_bookmarks.png',
+              '${iconUrl}ic_bookmarks.png',
               width: 20,
               color: onWhiteColor,
             ),

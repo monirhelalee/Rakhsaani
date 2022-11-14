@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/urls.dart';
 import 'package:rakhsaani/features/error_screen/error_screen.dart';
+import '../../../core/utils/asset_path.dart';
 import '../view_model/language_view_model.dart';
 import 'widgets/radio_button_section.dart';
 
@@ -34,7 +35,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Image.asset(
-                      '${Urls.imageUrl}ic_bismillah_vector.png',
+                      '${imageUrl}ic_bismillah_vector.png',
                       width: 200,
                     ),
                   ),

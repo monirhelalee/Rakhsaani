@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/helpers/storage_manager.dart';
+import '../../../core/utils/asset_path.dart';
 import '../../../core/utils/colors.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/utils/urls.dart';
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('${Urls.imageUrl}ic_launcher_foreground.png'),
+              Image.asset('${imageUrl}ic_launcher_foreground.png'),
             ],
           ),
           const Positioned(

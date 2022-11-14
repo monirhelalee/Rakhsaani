@@ -4,6 +4,7 @@ import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
 import 'package:rakhsaani/features/surah_list/model/surah.dart';
 
+import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/urls.dart';
 import '../../view_model/surah_list_view_model.dart';
 
@@ -44,7 +45,7 @@ class SurahTile extends StatelessWidget {
             ),
             const SizedBox(width: 40),
             Image.asset(
-              '${Urls.iconUrl}ic_play_circle.png',
+              '${iconUrl}ic_play_circle.png',
               width: 30,
               color: onPrimayColor,
             ),
