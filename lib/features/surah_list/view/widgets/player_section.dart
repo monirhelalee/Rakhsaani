@@ -127,8 +127,15 @@ class PlayerSection extends StatelessWidget {
                           ? player.pauseAudio()
                           : player.playAudio(
                               Urls.baseUrl +
-                                  surah.audio.replaceAll("/media/", ""),
-                              surah.surahNumber,
+                                  context
+                                      .read<SurahListViewModel>()
+                                      .selectedSurah!
+                                      .audio
+                                      .replaceAll("/media/", ""),
+                              context
+                                  .read<SurahListViewModel>()
+                                  .selectedSurah!
+                                  .surahNumber,
                             );
                     },
                     child: Image.asset(

@@ -23,7 +23,7 @@ class SurahTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        
+        context.read<SurahListViewModel>().selectedSurah = surah;
         context.read<PlayerViewModel>().playAudio(
               Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
               surah.surahNumber,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
@@ -45,15 +46,38 @@ class SurahTileExpanded extends StatelessWidget {
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
-            Text(
+            const Text(
               '0:01:31',
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 40),
-            Image.asset(
-              '${iconUrl}ic_play_circle.png',
-              width: 30,
-              color: onWhiteColor,
+            Consumer<PlayerViewModel>(
+              builder: (context, player, _) {
+                return InkWell(
+                  onTap: () {
+                    player.playAudio(
+                      Urls.baseUrl + surah.audio.replaceAll("/media/", ""),
+                      surah.surahNumber,
+                    );
+                  },
+                  child: surah.surahNumber == player.playingSurahNumber
+                      ? player.isPlaying
+                          ? Lottie.asset(
+                              '${imageUrl}eq.json',
+                              width: 30,
+                            )
+                          : Image.asset(
+                              '${iconUrl}ic_play_circle.png',
+                              width: 30,
+                              color: onWhiteColor,
+                            )
+                      : Image.asset(
+                          '${iconUrl}ic_play_circle.png',
+                          width: 30,
+                          color: onWhiteColor,
+                        ),
+                );
+              },
             ),
           ],
         ),
