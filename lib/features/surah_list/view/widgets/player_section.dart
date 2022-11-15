@@ -97,7 +97,7 @@ class PlayerSection extends StatelessWidget {
                       style: AppTextStyles.kPlayerTimerTextStyle,
                     ),
                     Text(
-                      svm.selectedSurah!.duration,
+                      svm.selectedSurah?.duration ?? "",
                       style: AppTextStyles.kPlayerTimerTextStyle,
                     ),
                   ],
@@ -135,8 +135,8 @@ class PlayerSection extends StatelessWidget {
                         player.isPlaying
                             ? player.pauseAudio()
                             : player.playAudio(
-                                Urls.baseUrl + _vm.selectedSurah!.surah.audio,
-                                _vm.selectedSurah!.surah.surahNumber,
+                                "${Urls.baseUrl}${_vm.selectedSurah?.surah.audio}",
+                                _vm.selectedSurah?.surah.surahNumber ?? 0,
                               );
                       },
                       child: player.isPlaying
