@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart';
+import '../../surah_list/view/widgets/seekbar.dart';
 
 class PlayerViewModel with ChangeNotifier {
   final player = AudioPlayer();
@@ -15,6 +17,15 @@ class PlayerViewModel with ChangeNotifier {
     await player.setUrl(url);
     await player.play();
   }
+
+  Stream<PositionData> get positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+        player.positionStream,
+        player.bufferedPositionStream,
+        player.durationStream,
+        (position, bufferedPosition, duration) =>
+            PositionData(position, bufferedPosition, duration ?? Duration.zero),
+      );
 
   void collapsePlayer() {
     isExpnaded = false;
@@ -34,5 +45,9 @@ class PlayerViewModel with ChangeNotifier {
 
   void playPrev() async {
     //TODO: play prev surah
+  }
+
+  void seek() async {
+    await player.seek(Duration.zero);
   }
 }

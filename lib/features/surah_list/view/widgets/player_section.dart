@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
+import 'package:rakhsaani/features/surah_list/view/widgets/seekbar.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
@@ -74,38 +75,51 @@ class PlayerSection extends StatelessWidget {
                   ),
                 ],
               ),
-              SliderTheme(
-                data: SliderThemeData(
-                    trackHeight: .5,
-                    overlayShape: SliderComponentShape.noOverlay),
-                child: Slider(
-                  activeColor: Colors.white,
-                  inactiveColor: Colors.white,
-                  min: 0,
-                  max: 100,
-                  onChanged: (double value) {},
-                  value: 25,
-                ),
+               StreamBuilder<PositionData>(
+                stream: player.positionDataStream,
+                builder: (context, snapshot) {
+                  final positionData = snapshot.data;
+                  return SeekBar(
+                    duration: positionData?.duration ?? Duration.zero,
+                    position: positionData?.position ?? Duration.zero,
+                    bufferedPosition:
+                        positionData?.bufferedPosition ?? Duration.zero,
+                    // onChangeEnd: player.seek,
+                  );
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '0:00.41',
-                      style: AppTextStyles.kPlayerTimerTextStyle,
-                    ),
-                    Text(
-                      svm.selectedSurah?.duration ?? "",
-                      style: AppTextStyles.kPlayerTimerTextStyle,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
+              // SliderTheme(
+              //   data: SliderThemeData(
+              //       trackHeight: .5,
+              //       overlayShape: SliderComponentShape.noOverlay),
+              //   child: Slider(
+              //     activeColor: Colors.white,
+              //     inactiveColor: Colors.white,
+              //     min: 0,
+              //     max: 100,
+              //     onChanged: (double value) {},
+              //     value: 25,
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       const Text(
+              //         '0:00.41',
+              //         style: AppTextStyles.kPlayerTimerTextStyle,
+              //       ),
+              //       Text(
+              //         svm.selectedSurah?.duration ?? "",
+              //         style: AppTextStyles.kPlayerTimerTextStyle,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 25,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
