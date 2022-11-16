@@ -25,7 +25,7 @@ class SurahTileExpanded extends StatelessWidget {
     var player = context.watch<PlayerViewModel>();
     return GestureDetector(
       onTap: () {
-        context.read<SurahListViewModel>().selectedSurah = surah;
+        context.read<SurahListViewModel>().selectedSurahNumber = surah.surah.surahNumber;
         player.playAudio(
           Urls.baseUrl + surah.surah.audio,
           surah.surah.surahNumber,

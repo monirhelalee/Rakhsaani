@@ -75,7 +75,7 @@ class PlayerSection extends StatelessWidget {
                   ),
                 ],
               ),
-               StreamBuilder<PositionData>(
+              StreamBuilder<PositionData>(
                 stream: player.positionDataStream,
                 builder: (context, snapshot) {
                   final positionData = snapshot.data;
@@ -132,25 +132,32 @@ class PlayerSection extends StatelessWidget {
                       size: 18,
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      player.playPrev();
-                      log('message');
-                    },
-                    child: Image.asset(
-                      '${iconUrl}ic_navigate_before.png',
-                      width: 15,
-                      color: onPrimayColor,
-                    ),
-                  ),
                   Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                     return InkWell(
                       onTap: () {
+                        _vm.prev();
+                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
+                        player.playAudio(
+                          "${Urls.baseUrl}${s.surah.audio}",
+                          s.surah.surahNumber,
+                        );
+                      },
+                      child: Image.asset(
+                        '${iconUrl}ic_navigate_before.png',
+                        width: 15,
+                        color: onPrimayColor,
+                      ),
+                    );
+                  }),
+                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                    return InkWell(
+                      onTap: () {
+                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
                         player.isPlaying
                             ? player.pauseAudio()
                             : player.playAudio(
-                                "${Urls.baseUrl}${_vm.selectedSurah?.surah.audio}",
-                                _vm.selectedSurah?.surah.surahNumber ?? 0,
+                                "${Urls.baseUrl}${s.surah.audio}",
+                                s.surah.surahNumber,
                               );
                       },
                       child: player.isPlaying
@@ -167,14 +174,23 @@ class PlayerSection extends StatelessWidget {
                             ),
                     );
                   }),
-                  InkWell(
-                    onTap: () => player.playNext(),
-                    child: Image.asset(
-                      '${iconUrl}ic_navigate_next.png',
-                      width: 15,
-                      color: onPrimayColor,
-                    ),
-                  ),
+                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                    return InkWell(
+                      onTap: () {
+                        _vm.next();
+                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
+                        player.playAudio(
+                          "${Urls.baseUrl}${s.surah.audio}",
+                          s.surah.surahNumber,
+                        );
+                      },
+                      child: Image.asset(
+                        '${iconUrl}ic_navigate_next.png',
+                        width: 15,
+                        color: onPrimayColor,
+                      ),
+                    );
+                  }),
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(
