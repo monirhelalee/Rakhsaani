@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/detail/view_model/surah_detail_view_model.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 import 'package:rakhsaani/features/surah_list/view/widgets/seekbar.dart';
 import '../../../../core/utils/asset_path.dart';
@@ -21,6 +22,7 @@ class PlayerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
     var svm = context.read<SurahListViewModel>();
+    var detail = context.read<SurahDetailViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
@@ -32,27 +34,18 @@ class PlayerSection extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ ٢',
+                  detail.surahDetailModel != null
+                      ? detail.surahDetailModel!.verseAndTime![3].text
+                      : '...',
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.kArabicTitle,
+                  style: AppTextStyles.kPlayerText,
                 ),
               ),
               const SizedBox(
-                height: 25,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  '1. All the praises and thanks be to Allah, the Lord of the \'Alamin.',
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.kTranslatedTitle,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,38 +81,6 @@ class PlayerSection extends StatelessWidget {
                   );
                 },
               ),
-              // SliderTheme(
-              //   data: SliderThemeData(
-              //       trackHeight: .5,
-              //       overlayShape: SliderComponentShape.noOverlay),
-              //   child: Slider(
-              //     activeColor: Colors.white,
-              //     inactiveColor: Colors.white,
-              //     min: 0,
-              //     max: 100,
-              //     onChanged: (double value) {},
-              //     value: 25,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       const Text(
-              //         '0:00.41',
-              //         style: AppTextStyles.kPlayerTimerTextStyle,
-              //       ),
-              //       Text(
-              //         svm.selectedSurah?.duration ?? "",
-              //         style: AppTextStyles.kPlayerTimerTextStyle,
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 25,
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -162,15 +123,14 @@ class PlayerSection extends StatelessWidget {
                         //   );
                       },
                       child: player.isPlaying
-                          // TODO: change pause icon to thinner version
-                          ? const Icon(
-                              Icons.pause_circle_outline,
+                          ? Image.asset(
+                              '${iconUrl}pause.png',
+                              height: 43,
                               color: onPrimayColor,
-                              size: 50,
                             )
                           : Image.asset(
                               '${iconUrl}ic_play_circle.png',
-                              width: 50,
+                              height: 50,
                               color: onPrimayColor,
                             ),
                     );

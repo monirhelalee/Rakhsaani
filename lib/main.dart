@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'core/utils/colors.dart';
+import 'features/detail/view_model/surah_detail_view_model.dart';
 import 'features/language/view_model/language_view_model.dart';
 import 'features/player/view_model/player_view_model.dart';
 import 'features/splash/view/splash_screen.dart';
@@ -29,11 +30,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LanguageViewModel>(
           create: (context) => LanguageViewModel(),
         ),
-         ChangeNotifierProvider<SurahListViewModel>(
+        ChangeNotifierProvider<SurahListViewModel>(
           create: (context) => SurahListViewModel(),
         ),
-         ChangeNotifierProvider<PlayerViewModel>(
+        ChangeNotifierProvider<PlayerViewModel>(
           create: (context) => PlayerViewModel(),
+        ),
+        ChangeNotifierProvider<SurahDetailViewModel>(
+          create: (context) => SurahDetailViewModel(),
         ),
       ],
       child: MaterialApp(

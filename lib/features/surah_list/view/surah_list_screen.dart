@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/detail/view_model/surah_detail_view_model.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 import 'package:rakhsaani/features/surah_list/view/widgets/surah_list_view_expanded.dart';
 import '../../../core/utils/utils_exports.dart';
@@ -21,6 +22,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
   void initState() {
     super.initState();
     context.read<SurahListViewModel>().fetchSurahList();
+    context.read<SurahDetailViewModel>().fetchSurahDetail();
   }
 
   @override
