@@ -84,7 +84,7 @@ class PlayerSection extends StatelessWidget {
                     position: positionData?.position ?? Duration.zero,
                     bufferedPosition:
                         positionData?.bufferedPosition ?? Duration.zero,
-                    // onChangeEnd: player.seek,
+                    onChangeEnd: player.player.seek,
                   );
                 },
               ),
@@ -156,10 +156,10 @@ class PlayerSection extends StatelessWidget {
                         player.isPlaying
                             ? player.pauseAudio()
                             : player.reumeAudio();
-                            // player.playAudio(
-                            //     "${Urls.baseUrl}${s.surah.audio}",
-                            //     s.surah.surahNumber,
-                            //   );
+                        // player.playAudio(
+                        //     "${Urls.baseUrl}${s.surah.audio}",
+                        //     s.surah.surahNumber,
+                        //   );
                       },
                       child: player.isPlaying
                           // TODO: change pause icon to thinner version

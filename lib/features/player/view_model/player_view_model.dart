@@ -24,6 +24,11 @@ class PlayerViewModel with ChangeNotifier {
     player.play();
   }
 
+  void seekToPosition(dynamic position)async{
+    await player.seek(position);
+    
+  }
+
   Stream<PositionData> get positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         player.positionStream,
@@ -43,17 +48,5 @@ class PlayerViewModel with ChangeNotifier {
     // playingSurahNumber = null;
     notifyListeners();
     await player.pause();
-  }
-
-  void playNext() async {
-    //TODO: play next surah
-  }
-
-  void playPrev() async {
-    //TODO: play prev surah
-  }
-
-  void seek() async {
-    await player.seek(Duration.zero);
   }
 }
