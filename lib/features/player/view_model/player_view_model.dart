@@ -18,6 +18,12 @@ class PlayerViewModel with ChangeNotifier {
     await player.play();
   }
 
+  void reumeAudio() {
+    isPlaying = true;
+    notifyListeners();
+    player.play();
+  }
+
   Stream<PositionData> get positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         player.positionStream,

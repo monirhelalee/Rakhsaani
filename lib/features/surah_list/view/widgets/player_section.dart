@@ -155,10 +155,11 @@ class PlayerSection extends StatelessWidget {
                         var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
                         player.isPlaying
                             ? player.pauseAudio()
-                            : player.playAudio(
-                                "${Urls.baseUrl}${s.surah.audio}",
-                                s.surah.surahNumber,
-                              );
+                            : player.reumeAudio();
+                            // player.playAudio(
+                            //     "${Urls.baseUrl}${s.surah.audio}",
+                            //     s.surah.surahNumber,
+                            //   );
                       },
                       child: player.isPlaying
                           // TODO: change pause icon to thinner version
