@@ -38,7 +38,7 @@ class PlayerSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   detail.surahDetailModel != null
-                      ? detail.surahDetailModel!.verseAndTime![3].text
+                      ? detail.syncTextWithTime('0:00:08.56')
                       : '...',
                   textAlign: TextAlign.center,
                   style: AppTextStyles.kPlayerText,

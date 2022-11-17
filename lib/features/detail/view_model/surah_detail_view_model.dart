@@ -28,6 +28,14 @@ class SurahDetailViewModel with ChangeNotifier {
 
   //  get verseAndTime => _surahDetailModel!.verseAndTime;
 
+  String syncTextWithTime(time) {
+    String? text = _surahDetailModel!.verseAndTime!
+        .firstWhere((element) => element.timeIn == time)
+        .text;
+
+    return text;
+  }
+
   SurahDetail? get surahDetailModel => _surahDetailModel;
   AppError? get surahDetailError => _surahDetailError;
 }
