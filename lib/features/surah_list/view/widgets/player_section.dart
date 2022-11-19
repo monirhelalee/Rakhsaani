@@ -37,9 +37,10 @@ class PlayerSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  detail.surahDetailModel != null
-                      ? detail.syncTextWithTime('0:00:08.56')
-                      : '...',
+                  "",
+                  // detail.surahDetailModel != null
+                  //     ? detail.syncTextWithTime('0:00:08.56')
+                  //     : '...',
                   textAlign: TextAlign.center,
                   style: AppTextStyles.kPlayerText,
                 ),
@@ -59,9 +60,13 @@ class PlayerSection extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.speaker_2,
+                    onPressed: () {
+                      player.muteAudio();
+                    },
+                    icon: Icon(
+                      player.isMute
+                          ? CupertinoIcons.speaker_slash
+                          : CupertinoIcons.speaker_2,
                       color: onPrimayColor,
                       size: kDefaultIconSize,
                     ),
@@ -113,7 +118,7 @@ class PlayerSection extends StatelessWidget {
                   Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                     return InkWell(
                       onTap: () {
-                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
+                        //var s = _vm.getSurahByNumber(_vm.selectedSurahNumber);
                         player.isPlaying
                             ? player.pauseAudio()
                             : player.reumeAudio();

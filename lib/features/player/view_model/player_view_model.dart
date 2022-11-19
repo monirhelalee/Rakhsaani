@@ -7,6 +7,7 @@ class PlayerViewModel with ChangeNotifier {
   final player = AudioPlayer();
   bool isPlaying = false;
   bool isExpnaded = false;
+  bool isMute = false;
   int? playingSurahNumber;
 
   void playAudio(String url, int surahNo) async {
@@ -24,9 +25,14 @@ class PlayerViewModel with ChangeNotifier {
     player.play();
   }
 
-  void seekToPosition(dynamic position)async{
+  void muteAudio() {
+    isMute = !isMute;
+    isMute ? player.setVolume(0) : player.setVolume(1);
+    notifyListeners();
+  }
+
+  void seekToPosition(dynamic position) async {
     await player.seek(position);
-    
   }
 
   Stream<PositionData> get positionDataStream =>
