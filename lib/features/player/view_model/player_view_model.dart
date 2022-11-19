@@ -9,6 +9,7 @@ class PlayerViewModel with ChangeNotifier {
   bool isExpnaded = false;
   bool isMute = false;
   int? playingSurahNumber;
+  int? position;
 
   void playAudio(String url, int surahNo) async {
     isPlaying = true;
@@ -29,6 +30,12 @@ class PlayerViewModel with ChangeNotifier {
     isMute = !isMute;
     isMute ? player.setVolume(0) : player.setVolume(1);
     notifyListeners();
+  }
+
+  int positionAudio() {
+    int _p = player.position.inSeconds;
+    notifyListeners();
+    return _p;
   }
 
   void seekToPosition(dynamic position) async {

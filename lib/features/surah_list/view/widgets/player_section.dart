@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:developer';
 
+import 'package:duration/duration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +15,33 @@ import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
 import '../../view_model/surah_list_view_model.dart';
 
-class PlayerSection extends StatelessWidget {
+class PlayerSection extends StatefulWidget {
   const PlayerSection({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<PlayerSection> createState() => _PlayerSectionState();
+}
+
+class _PlayerSectionState extends State<PlayerSection> {
+  Duration? _position;
+  // @override
+  // void initState() {
+  //   Timer.run(() {
+  //     _position = context.read<PlayerViewModel>().player.position;
+  //     setState(() {});
+  //   });
+  //
+  //   super.initState();
+  // }
+
+  @override
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
     var svm = context.read<SurahListViewModel>();
-    var detail = context.read<SurahDetailViewModel>();
+    var detailVm = context.read<SurahDetailViewModel>();
+    int _versePosition = 0;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
@@ -34,16 +53,26 @@ class PlayerSection extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  "",
-                  // detail.surahDetailModel != null
-                  //     ? detail.syncTextWithTime('0:00:08.56')
-                  //     : '...',
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.kPlayerText,
-                ),
+              StreamBuilder<PositionData>(
+                stream: player.positionDataStream,
+                builder: (context, snapshot) {
+                  final positionData = snapshot.data;
+                  Duration dur = parseTime(detailVm.surahDetailModel
+                          ?.verseAndTime?[_versePosition].timeOut ??
+                      "0:00:00.000");
+                  if (dur < positionData!.position) {
+                    _versePosition++;
+                    debugPrint("versePosition ${_versePosition}");
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      "$dur ${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text} \n\n${positionData?.position}",
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.kPlayerText,
+                    ),
+                  );
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -77,6 +106,7 @@ class PlayerSection extends StatelessWidget {
                 stream: player.positionDataStream,
                 builder: (context, snapshot) {
                   final positionData = snapshot.data;
+                  _position = snapshot.data?.position;
                   return SeekBar(
                     duration: positionData?.duration ?? Duration.zero,
                     position: positionData?.position ?? Duration.zero,
