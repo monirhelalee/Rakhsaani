@@ -64,10 +64,11 @@ class _PlayerSectionState extends State<PlayerSection> {
                     _versePosition++;
                     debugPrint("versePosition ${_versePosition}");
                   }
+                  log("${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text}");
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      "$dur ${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text} \n\n${positionData?.position}",
+                      "$dur ${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text}",
                       textAlign: TextAlign.center,
                       style: AppTextStyles.kPlayerText,
                     ),

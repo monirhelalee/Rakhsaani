@@ -66,6 +66,9 @@ flutter:
       fonts:
         - asset: assets/fonts/resagnicto.ttf
           weight: 700
+    - family: Noor
+      fonts:
+        - asset: assets/fonts/noor-regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

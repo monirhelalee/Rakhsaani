@@ -17,6 +17,7 @@ class AppTextStyles {
     static const TextStyle kPlayerText = TextStyle(
     fontWeight: FontWeight.w400,
     color: onPrimayColor,
+    // fontFamily: 'Noor',
     fontSize: 10,
   );
   static const TextStyle kArabicTitle = TextStyle(
