@@ -56,6 +56,9 @@ class _PlayerSectionState extends State<PlayerSection> {
               StreamBuilder<PositionData>(
                 stream: player.positionDataStream,
                 builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
                   final positionData = snapshot.data;
                   Duration dur = parseTime(detailVm.surahDetailModel
                           ?.verseAndTime?[_versePosition].timeOut ??
