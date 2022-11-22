@@ -37,6 +37,14 @@ class _PlayerSectionState extends State<PlayerSection> {
   // }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SurahDetailViewModel>().fetchSurahDetail();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
     var svm = context.read<SurahListViewModel>();
@@ -61,17 +69,17 @@ class _PlayerSectionState extends State<PlayerSection> {
                   }
                   final positionData = snapshot.data;
                   Duration dur = parseTime(detailVm.surahDetailModel
-                          ?.verseAndTime?[_versePosition].timeOut ??
+                          ?.verseAndTime[_versePosition].timeOut ??
                       "0:00:00.000");
                   if (dur < positionData!.position) {
                     _versePosition++;
                     debugPrint("versePosition ${_versePosition}");
                   }
-                  log("${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text}");
+                  log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      "$dur ${detailVm.surahDetailModel?.verseAndTime?[_versePosition].text}",
+                      "$dur ${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}",
                       textAlign: TextAlign.center,
                       style: AppTextStyles.kPlayerText,
                     ),
@@ -141,6 +149,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                           "${Urls.baseUrl}${s.surah.audio}",
                           s.surah.surahNumber,
                         );
+                        context.read<SurahDetailViewModel>().fetchSurahDetail();
                       },
                       child: Image.asset(
                         '${iconUrl}ic_navigate_before.png',
@@ -183,6 +192,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                           "${Urls.baseUrl}${s.surah.audio}",
                           s.surah.surahNumber,
                         );
+                        context.read<SurahDetailViewModel>().fetchSurahDetail();
                       },
                       child: Image.asset(
                         '${iconUrl}ic_navigate_next.png',

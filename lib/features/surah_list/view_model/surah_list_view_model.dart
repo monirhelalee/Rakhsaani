@@ -29,6 +29,11 @@ class SurahListViewModel with ChangeNotifier {
     );
   }
 
+  void tapSurah(int surahNumber){
+    selectedSurahNumber = surahNumber;
+    notifyListeners();
+  }
+
   prev() {
     // Check if it is the first surah
     if (selectedSurahNumber != 1) {

@@ -7,6 +7,7 @@ import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../detail/view_model/surah_detail_view_model.dart';
 import '../../model/surah.dart';
 import '../../view_model/surah_list_view_model.dart';
 
@@ -23,9 +24,10 @@ class SurahTileExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
-    return GestureDetector(
+    return InkWell(
       onTap: () {
-        context.read<SurahListViewModel>().selectedSurahNumber = surah.surah.surahNumber;
+        context.read<SurahListViewModel>().tapSurah(surah.surah.surahNumber);
+        context.read<SurahDetailViewModel>().fetchSurahDetail();
         player.playAudio(
           Urls.baseUrl + surah.surah.audio,
           surah.surah.surahNumber,

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
 import '../../../core/utils/app_error.dart';
 import '../model/surah_detail.dart';
 import '../repository/surah_detail_repository.dart';
@@ -8,9 +11,17 @@ class SurahDetailViewModel with ChangeNotifier {
   SurahDetail? _surahDetailModel;
   AppError? _surahDetailError;
 
+  late SurahListViewModel _surahListViewModel;
+
+  void update(SurahListViewModel surahListViewModel) {
+    _surahListViewModel = surahListViewModel;
+    log(_surahListViewModel.selectedSurahNumber.toString());
+    // notifyListeners();
+  }
+
   Future<void> fetchSurahDetail() async {
     BotToast.showLoading();
-    var res = await SurahDetailRepository().fetchSurahDetail(2);
+    var res = await SurahDetailRepository().fetchSurahDetail(_surahListViewModel.selectedSurahNumber);
     res.fold(
       (l) {
         _surahDetailError = l;
@@ -29,7 +40,7 @@ class SurahDetailViewModel with ChangeNotifier {
   //  get verseAndTime => _surahDetailModel!.verseAndTime;
 
   String syncTextWithTime(time) {
-    String? text = _surahDetailModel!.verseAndTime!
+    String? text = _surahDetailModel!.verseAndTime
         .firstWhere((element) => element.timeIn == time)
         .text;
 

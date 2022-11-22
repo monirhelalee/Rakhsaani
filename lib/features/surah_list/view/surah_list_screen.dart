@@ -22,7 +22,6 @@ class _SurahListScreenState extends State<SurahListScreen> {
   void initState() {
     super.initState();
     context.read<SurahListViewModel>().fetchSurahList();
-    context.read<SurahDetailViewModel>().fetchSurahDetail();
   }
 
   @override
