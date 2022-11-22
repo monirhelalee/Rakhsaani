@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import '../../../core/utils/app_error.dart';
@@ -10,6 +9,13 @@ class SurahListViewModel with ChangeNotifier {
   AppError? _fetchSurahError;
   Surah? selectedSurah;
   int? selectedSurahNumber;
+
+  // late PlayerViewModel _playerViewModel;
+
+  // void update(PlayerViewModel playerViewModel) {
+  //   _playerViewModel = playerViewModel;
+  //   // notifyListeners();
+  // }
 
   Future<void> fetchSurahList() async {
     BotToast.showLoading();
@@ -29,7 +35,7 @@ class SurahListViewModel with ChangeNotifier {
     );
   }
 
-  void tapSurah(int surahNumber){
+  void tapSurah(int surahNumber) {
     selectedSurahNumber = surahNumber;
     notifyListeners();
   }

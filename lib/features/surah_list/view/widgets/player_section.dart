@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:duration/duration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/detail/view_model/surah_detail_view_model.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
@@ -76,6 +77,19 @@ class _PlayerSectionState extends State<PlayerSection> {
                     debugPrint("versePosition ${_versePosition}");
                   }
                   log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
+                  player.player.playerStateStream.listen((playerState) {
+                    if (playerState.processingState ==
+                        ProcessingState.completed) {
+                          log('message');
+                      context.read<SurahListViewModel>().next();
+                      var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
+                      player.playAudio(
+                        "${Urls.baseUrl}${s.surah.audio}",
+                        s.surah.surahNumber,
+                      );
+                      context.read<SurahDetailViewModel>().fetchSurahDetail();
+                    }
+                  });
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(

@@ -33,6 +33,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SurahListViewModel>(
           create: (context) => SurahListViewModel(),
         ),
+        // ChangeNotifierProxyProvider<PlayerViewModel, SurahListViewModel>(
+        //   create: (context) => SurahListViewModel(),
+        //   update: (_, playerViewModel, data) => data!..update(playerViewModel),
+        // ),
         ChangeNotifierProvider<PlayerViewModel>(
           create: (context) => PlayerViewModel(),
         ),
