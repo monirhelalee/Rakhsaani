@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rakhsaani/features/surah_list/model/surah.dart';
 import '../../core/utils/colors.dart';
 import '../surah_list/view/widgets/surah_tile_expanded.dart';
+import '../surah_list/view_model/surah_list_view_model.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  CustomSearchDelegate();
-
-  final surah = List.generate(10, (index) => 'Surah + ${index + 1}');
+  final SurahListViewModel surahListViewModel;
+  CustomSearchDelegate(this.surahListViewModel);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -32,15 +31,15 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    final s = surah.where(
+    final s = surahListViewModel.surahList.where(
       (e) {
-        return e.toLowerCase().contains(query.toLowerCase());
+        return e.surah.name.toLowerCase().contains(query.toLowerCase());
       },
     );
     return ListView.separated(
       itemCount: s.length,
       itemBuilder: (context, index) {
-        return ListTile();
+        return SurahTileExpanded(index: index, surah: s.elementAt(index));
       },
       separatorBuilder: (context, index) {
         return const Padding(
@@ -55,15 +54,16 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final s = surah.where(
+    final surahList = surahListViewModel.surahList.where(
       (e) {
-        return e.toLowerCase().contains(query.toLowerCase());
+        return e.surah.name.toLowerCase().contains(query.toLowerCase());
       },
     );
     return ListView.separated(
-      itemCount: s.length,
+      itemCount: surahList.length,
       itemBuilder: (context, index) {
-        return ListTile();
+        return SurahTileExpanded(
+            index: index, surah: surahList.elementAt(index));
       },
       separatorBuilder: (context, index) {
         return const Padding(
