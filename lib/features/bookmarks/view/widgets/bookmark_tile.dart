@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
 import 'package:rakhsaani/features/surah_list/model/surah.dart';
-import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
 import '../../../../core/utils/asset_path.dart';
 
@@ -20,7 +19,7 @@ class BookmarkTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Dismissible(
-        key: Key(index.toString()),
+        key: UniqueKey(),
         onDismissed: (s) {
           context.read<SurahListViewModel>().deleteBookmark(surah.id);
         },
