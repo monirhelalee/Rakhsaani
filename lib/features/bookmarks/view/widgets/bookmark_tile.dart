@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
+import 'package:rakhsaani/features/surah_list/model/surah.dart';
 
 import '../../../../core/utils/asset_path.dart';
 
@@ -9,8 +10,10 @@ class BookmarkTile extends StatelessWidget {
   const BookmarkTile({
     Key? key,
     required this.index,
+    required this.surah,
   }) : super(key: key);
   final int index;
+  final Surah surah;
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +23,17 @@ class BookmarkTile extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              '${index + 1}',
+              surah.id.toString(),
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 25),
             Text(
-              'Surah ${index + 1}',
+              surah.surah.name,
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
-            const Text(
-              '0:01:31',
+            Text(
+              surah.duration.toString(),
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 40),

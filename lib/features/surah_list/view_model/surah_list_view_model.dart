@@ -1,10 +1,14 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:rakhsaani/core/helpers/database_helper.dart';
+import 'package:rakhsaani/features/bookmarks/model/bookmark_model.dart';
 import '../../../core/utils/app_error.dart';
 import '../model/surah.dart';
 import '../repository/surah_repository.dart';
 
 class SurahListViewModel with ChangeNotifier {
+  DatabaseHelper databaseHelper = DatabaseHelper.instance;
+  List<Bookmark> _bookmarks = [];
   List<Surah> _surahList = [];
   AppError? _fetchSurahError;
   Surah? selectedSurah;
@@ -64,6 +68,39 @@ class SurahListViewModel with ChangeNotifier {
     return s;
   }
 
+  // Local DB
+  fetchBookmarks() async {
+    BotToast.showLoading();
+    var data = await databaseHelper.getBookmarks();
+    _bookmarks = data;
+    BotToast.closeAllLoading();
+    notifyListeners();
+  }
+
+  addBookmarks(int id, int surahNumber) {
+    final bookmark = Bookmark(
+      id: id,
+      surahNumber: surahNumber,
+    );
+    databaseHelper.addBookmark(bookmark);
+    fetchBookmarks();
+  }
+
+  void deleteBookmark(int? id) {
+    databaseHelper.deleteBookmark(id!);
+    fetchBookmarks();
+  }
+
+  List<Surah> getBookmarkedSurah() {
+    List<int?> bookMarkSurahNumber = _bookmarks.map((e) => e.id).toList();
+    List<Surah> bookmarkedSurah = _surahList
+        .where((element) => bookMarkSurahNumber.contains(element.id))
+        .toList();
+    return bookmarkedSurah;
+  }
+
+  // Getters
   List<Surah> get surahList => _surahList;
   AppError? get fetchSurahError => _fetchSurahError;
+  List<Bookmark> get bookmarks => [..._bookmarks];
 }

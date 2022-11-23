@@ -80,7 +80,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                   player.player.playerStateStream.listen((playerState) {
                     if (playerState.processingState ==
                         ProcessingState.completed) {
-                          log('message');
+                      log('message');
                       context.read<SurahListViewModel>().next();
                       var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
                       player.playAudio(
@@ -107,7 +107,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      svm.addBookmarks(
+                          svm.selectedSurahNumber!, svm.selectedSurahNumber!);
+                    },
                     icon: const Icon(
                       CupertinoIcons.heart,
                       color: onPrimayColor,
