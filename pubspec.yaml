@@ -30,6 +30,7 @@ dependencies:
   duration: ^3.0.12
   sqflite: ^2.2.0+3
   path_provider: ^2.0.11
+  fluttertoast: ^8.1.1
 
 
 dev_dependencies:

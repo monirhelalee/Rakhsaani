@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:duration/duration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/features/detail/view_model/surah_detail_view_model.dart';
@@ -110,6 +111,13 @@ class _PlayerSectionState extends State<PlayerSection> {
                     onPressed: () {
                       svm.addBookmarks(
                           svm.selectedSurahNumber!, svm.selectedSurahNumber!);
+                      Fluttertoast.showToast(
+                          msg: "Bookmark Added",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     },
                     icon: const Icon(
                       CupertinoIcons.heart,

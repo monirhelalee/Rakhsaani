@@ -23,7 +23,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.read<SurahListViewModel>();
+    final vm = context.watch<SurahListViewModel>();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
