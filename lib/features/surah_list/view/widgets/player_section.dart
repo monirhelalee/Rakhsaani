@@ -68,37 +68,56 @@ class _PlayerSectionState extends State<PlayerSection> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
-                  }
-                  final positionData = snapshot.data;
-                  Duration dur = parseTime(detailVm.surahDetailModel
-                          ?.verseAndTime[_versePosition].timeOut ??
-                      "0:00:00.000");
-                  if (dur < positionData!.position) {
-                    _versePosition++;
-                    debugPrint("versePosition ${_versePosition}");
-                  }
-                  log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
-                  player.player.playerStateStream.listen((playerState) {
-                    if (playerState.processingState ==
-                        ProcessingState.completed) {
-                      log('message');
-                      context.read<SurahListViewModel>().next();
-                      var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
-                      player.playAudio(
-                        "${Urls.baseUrl}${s.surah.audio}",
-                        s.surah.surahNumber,
+                  } else {
+                    if (detailVm.surahDetailModel == null) {
+                      return Text('............');
+                    } else {
+                      final positionData = snapshot.data;
+                      Duration dur = _versePosition >=
+                              detailVm.surahDetailModel!.verseAndTime.length
+                          ? parseTime(detailVm
+                              .surahDetailModel!.verseAndTime.last.timeOut)
+                          : parseTime(detailVm.surahDetailModel
+                                  ?.verseAndTime[_versePosition].timeOut ??
+                              "0:00:00.000");
+                      if (dur < positionData!.position) {
+                        if (_versePosition <
+                            detailVm.surahDetailModel!.verseAndTime.length) {
+                          _versePosition++;
+                          debugPrint("versePosition ${_versePosition}");
+                        }
+                      }
+                      // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
+                      player.player.playerStateStream.listen((playerState) {
+                        if (playerState.processingState ==
+                            ProcessingState.completed) {
+                          log('message');
+                          context.read<SurahListViewModel>().next();
+                          var s =
+                              svm.getSurahByNumber(svm.selectedSurahNumber!);
+                          player.playAudio(
+                            "${Urls.baseUrl}${s.surah.audio}",
+                            s.surah.surahNumber,
+                          );
+                          context
+                              .read<SurahDetailViewModel>()
+                              .fetchSurahDetail();
+                        }
+                      });
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Text(
+                          (_versePosition >=
+                                  detailVm
+                                      .surahDetailModel!.verseAndTime.length)
+                              ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
+                              : "$dur ${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}",
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.kPlayerText,
+                        ),
                       );
-                      context.read<SurahDetailViewModel>().fetchSurahDetail();
                     }
-                  });
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(
-                      "$dur ${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}",
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.kPlayerText,
-                    ),
-                  );
+                  }
                 },
               ),
               const SizedBox(
