@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
 import 'package:rakhsaani/core/utils/styles.dart';
@@ -22,6 +23,13 @@ class BookmarkTile extends StatelessWidget {
         key: UniqueKey(),
         onDismissed: (s) {
           context.read<SurahListViewModel>().deleteBookmark(surah.id);
+          Fluttertoast.showToast(
+              msg: "${surah.surah.name} removed from bookmark",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
