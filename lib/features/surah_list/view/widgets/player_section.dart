@@ -84,7 +84,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                         if (_versePosition <
                             detailVm.surahDetailModel!.verseAndTime.length) {
                           _versePosition++;
-                          debugPrint("versePosition ${_versePosition}");
+                          debugPrint("versePosition $_versePosition");
                         }
                       }
                       // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");

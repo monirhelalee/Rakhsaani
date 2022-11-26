@@ -1,5 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/helpers/database_helper.dart';
 import 'package:rakhsaani/features/bookmarks/model/bookmark_model.dart';
 import '../../../core/utils/app_error.dart';
@@ -7,12 +9,19 @@ import '../model/surah.dart';
 import '../repository/surah_repository.dart';
 
 class SurahListViewModel with ChangeNotifier {
+
+  static SurahListViewModel read(BuildContext context) =>
+      context.read<SurahListViewModel>();
+
+  static SurahListViewModel watch(BuildContext context) =>
+      context.watch<SurahListViewModel>();
+
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   List<Bookmark> _bookmarks = [];
   List<Surah> _surahList = [];
   AppError? _fetchSurahError;
   Surah? selectedSurah;
-  int? selectedSurahNumber;
+  int? _selectedSurahNumber;
 
   // late PlayerViewModel _playerViewModel;
 
@@ -20,6 +29,11 @@ class SurahListViewModel with ChangeNotifier {
   //   _playerViewModel = playerViewModel;
   //   // notifyListeners();
   // }
+
+  set selectedSurahNumber(int? i) {
+    _selectedSurahNumber = i;
+    notifyListeners();
+  }
 
   Future<void> fetchSurahList() async {
     BotToast.showLoading();
@@ -40,14 +54,14 @@ class SurahListViewModel with ChangeNotifier {
   }
 
   void tapSurah(int surahNumber) {
-    selectedSurahNumber = surahNumber;
+    _selectedSurahNumber = surahNumber;
     notifyListeners();
   }
 
   prev() {
     // Check if it is the first surah
     if (selectedSurahNumber != 1) {
-      selectedSurahNumber = selectedSurahNumber! - 1;
+      _selectedSurahNumber = _selectedSurahNumber ?? 0 - 1;
       notifyListeners();
     }
   }
@@ -55,7 +69,7 @@ class SurahListViewModel with ChangeNotifier {
   next() {
     // Check if it is the last surah
     if (selectedSurahNumber != 2) {
-      selectedSurahNumber = selectedSurahNumber! + 1;
+      _selectedSurahNumber = _selectedSurahNumber ?? 0 + 1;
       notifyListeners();
     }
   }
@@ -101,6 +115,7 @@ class SurahListViewModel with ChangeNotifier {
 
   // Getters
   List<Surah> get surahList => _surahList;
+  int? get selectedSurahNumber => _selectedSurahNumber;
   AppError? get fetchSurahError => _fetchSurahError;
   List<Bookmark> get bookmarks => [..._bookmarks];
 }
