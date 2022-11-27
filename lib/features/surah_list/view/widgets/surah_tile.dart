@@ -24,29 +24,29 @@ class SurahTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         SurahListViewModel.read(context).selectedSurahNumber =
-            surah.surah.surahNumber;
-        debugPrint("surah.surah.surahNumber${surah.surah.surahNumber}");
-        context.read<PlayerViewModel>().playAudio(
-              Urls.baseUrl + surah.surah.audio,
-              surah.surah.surahNumber,
-            );
+            surah.surah?.surahNumber;
+        debugPrint("surah.surah.surahNumber${surah.surah?.surahNumber}");
+        // context.read<PlayerViewModel>().playAudio(
+        //       Urls.baseUrl + surah.surah?.audio,
+        //       surah.surah.surahNumber,
+        //     );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
         child: Row(
           children: [
             Text(
-              surah.surah.surahNumber.toString(),
+              "${surah.surah?.surahNumber ?? 0}",
               style: AppTextStyles.kTileTitle,
             ),
             const SizedBox(width: 25),
             Text(
-              surah.surah.name,
+              surah.surah?.name ?? "",
               style: AppTextStyles.kTileTitle,
             ),
             const Spacer(),
             Text(
-              surah.duration,
+              surah.duration ?? "",
               style: AppTextStyles.kTileTitle,
             ),
             const SizedBox(width: 40),
@@ -59,7 +59,7 @@ class SurahTile extends StatelessWidget {
                   //     surah.surah.surahNumber,
                   //   );
                   // },
-                  child: surah.surah.surahNumber == player.playingSurahNumber
+                  child: surah.surah?.surahNumber == player.playingSurahNumber
                       ? player.isPlaying
                           ? Lottie.asset(
                               '${imageUrl}eq.json',

@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
+import '../../../core/utils/api_client.dart';
 import '../../../core/utils/app_error.dart';
 import '../../../core/utils/urls.dart';
 import '../model/surah.dart';
@@ -9,9 +11,11 @@ class SurahRepository {
   Future<Either<AppError, List<Surah>>> fetchSurahList() async {
     String selectedLanguage = 'Bangla';
     try {
-      final response = await http
-          .get(Uri.parse("${Urls.baseUrl}${Urls.surahList}$selectedLanguage"));
-
+      // final response = await http
+      //     .get(Uri.parse("${Urls.baseUrl}${Urls.surahList}$selectedLanguage"));
+      var response =
+          await ApiClient().getRequest("${Urls.surahList}$selectedLanguage");
+      log("surah details ${response.body}");
       if (response.statusCode == 200) {
         List<Surah> data = surahFromJson(response.body);
         return Right(data);

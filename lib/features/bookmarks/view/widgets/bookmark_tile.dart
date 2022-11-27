@@ -24,7 +24,7 @@ class BookmarkTile extends StatelessWidget {
         onDismissed: (s) {
           context.read<SurahListViewModel>().deleteBookmark(surah.id);
           Fluttertoast.showToast(
-              msg: "${surah.surah.name} removed from bookmark",
+              msg: "${surah.surah?.name} removed from bookmark",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               backgroundColor: Colors.red,
@@ -41,7 +41,7 @@ class BookmarkTile extends StatelessWidget {
               ),
               const SizedBox(width: 25),
               Text(
-                surah.surah.name,
+                surah.surah?.name ?? "",
                 style: AppTextStyles.kTileTitleBlack,
               ),
               const Spacer(),

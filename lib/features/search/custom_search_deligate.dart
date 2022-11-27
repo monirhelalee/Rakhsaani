@@ -33,7 +33,7 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     final s = surahListViewModel.surahList.where(
       (e) {
-        return e.surah.name.toLowerCase().contains(query.toLowerCase());
+        return e.surah!.name!.toLowerCase().contains(query.toLowerCase());
       },
     );
     return ListView.separated(
@@ -56,7 +56,7 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     final surahList = surahListViewModel.surahList.where(
       (e) {
-        return e.surah.name.toLowerCase().contains(query.toLowerCase());
+        return e.surah!.name!.toLowerCase().contains(query.toLowerCase());
       },
     );
     return ListView.separated(

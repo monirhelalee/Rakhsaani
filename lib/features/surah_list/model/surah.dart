@@ -12,72 +12,71 @@ String surahToJson(List<Surah> data) =>
 
 class Surah {
   Surah({
-    required this.id,
-    required this.duration,
-    required this.surah,
-    required this.language,
+    this.id,
+    this.duration,
+    this.surah,
+    this.language,
   });
 
-  int id;
-  String duration;
-  SurahClass surah;
-  Language language;
+  int? id;
+  String? duration;
+  SurahClass? surah;
+  Language? language;
 
   factory Surah.fromJson(Map<String, dynamic> json) => Surah(
-        id: json["id"],
-        duration: json["duration"],
-        surah: SurahClass.fromJson(json["surah"]),
-        language: Language.fromJson(json["language"]),
+        id: json["id"] == null ? null : json["id"],
+        duration: json["duration"] == null ? null : json["duration"],
+        surah:
+            json["surah"] == null ? null : SurahClass.fromJson(json["surah"]),
+        language: json["language"] == null
+            ? null
+            : Language.fromJson(json["language"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "duration": duration,
-        "surah": surah.toJson(),
-        "language": language.toJson(),
+        "id": id == null ? null : id,
+        "duration": duration == null ? null : duration,
+        "surah": surah == null ? null : surah?.toJson(),
+        "language": language == null ? null : language?.toJson(),
       };
 }
 
 class Language {
   Language({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
   });
 
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   factory Language.fromJson(Map<String, dynamic> json) => Language(
-        id: json["id"],
-        name: json["name"],
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
       };
 }
 
 class SurahClass {
   SurahClass({
-    required this.surahNumber,
-    required this.name,
-    required this.audio,
+    this.surahNumber,
+    this.name,
   });
 
-  int surahNumber;
-  String name;
-  String audio;
+  int? surahNumber;
+  String? name;
 
   factory SurahClass.fromJson(Map<String, dynamic> json) => SurahClass(
-        surahNumber: json["surah_number"],
-        name: json["name"],
-        audio: json["audio"],
+        surahNumber: json["surah_number"] == null ? null : json["surah_number"],
+        name: json["name"] == null ? null : json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "surah_number": surahNumber,
-        "name": name,
-        "audio": audio,
+        "surah_number": surahNumber == null ? null : surahNumber,
+        "name": name == null ? null : name,
       };
 }

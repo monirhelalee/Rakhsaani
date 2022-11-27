@@ -9,7 +9,6 @@ import '../model/surah.dart';
 import '../repository/surah_repository.dart';
 
 class SurahListViewModel with ChangeNotifier {
-
   static SurahListViewModel read(BuildContext context) =>
       context.read<SurahListViewModel>();
 
@@ -76,7 +75,7 @@ class SurahListViewModel with ChangeNotifier {
 
   Surah getSurahByNumber(int num) {
     Surah s =
-        _surahList.firstWhere((element) => element.surah.surahNumber == num);
+        _surahList.firstWhere((element) => element.surah?.surahNumber == num);
     selectedSurah = s;
     notifyListeners();
     return s;

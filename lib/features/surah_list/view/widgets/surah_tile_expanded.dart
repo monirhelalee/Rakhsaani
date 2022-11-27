@@ -26,29 +26,31 @@ class SurahTileExpanded extends StatelessWidget {
     var player = context.watch<PlayerViewModel>();
     return InkWell(
       onTap: () {
-        context.read<SurahListViewModel>().tapSurah(surah.surah.surahNumber);
+        context
+            .read<SurahListViewModel>()
+            .tapSurah(surah.surah?.surahNumber ?? 0);
         context.read<SurahDetailViewModel>().fetchSurahDetail();
-        player.playAudio(
-          Urls.baseUrl + surah.surah.audio,
-          surah.surah.surahNumber,
-        );
+        // player.playAudio(
+        //   Urls.baseUrl + surah.surah.audio,
+        //   surah.surah.surahNumber,
+        // );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
         child: Row(
           children: [
             Text(
-              surah.surah.surahNumber.toString(),
+              "${surah.surah?.surahNumber ?? 0}",
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 25),
             Text(
-              surah.surah.name,
+              "${surah.surah?.name ?? ""}",
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
             Text(
-              surah.duration,
+              "${surah.duration ?? "0"}",
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 40),
@@ -56,12 +58,12 @@ class SurahTileExpanded extends StatelessWidget {
               builder: (context, player, _) {
                 return InkWell(
                   onTap: () {
-                    player.playAudio(
-                      Urls.baseUrl + surah.surah.audio,
-                      surah.surah.surahNumber,
-                    );
+                    // player.playAudio(
+                    //   Urls.baseUrl + surah.surah.audio,
+                    //   surah.surah.surahNumber,
+                    // );
                   },
-                  child: surah.surah.surahNumber == player.playingSurahNumber
+                  child: surah.surah?.surahNumber == player.playingSurahNumber
                       ? player.isPlaying
                           ? Lottie.asset(
                               '${imageUrl}eq.json',

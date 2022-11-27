@@ -95,10 +95,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                           context.read<SurahListViewModel>().next();
                           var s =
                               svm.getSurahByNumber(svm.selectedSurahNumber!);
-                          player.playAudio(
-                            "${Urls.baseUrl}${s.surah.audio}",
-                            s.surah.surahNumber,
-                          );
+                          // player.playAudio(
+                          //   "${Urls.baseUrl}${s.surah?.audio}",
+                          //   s.surah?.surahNumber??0,
+                          // );
                           context
                               .read<SurahDetailViewModel>()
                               .fetchSurahDetail();
@@ -189,10 +189,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                       onTap: () {
                         _vm.prev();
                         var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                        player.playAudio(
-                          "${Urls.baseUrl}${s.surah.audio}",
-                          s.surah.surahNumber,
-                        );
+                        // player.playAudio(
+                        //   "${Urls.baseUrl}${s.surah.audio}",
+                        //   s.surah.surahNumber,
+                        // );
                         context.read<SurahDetailViewModel>().fetchSurahDetail();
                       },
                       child: Image.asset(
@@ -232,10 +232,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                       onTap: () {
                         _vm.next();
                         var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                        player.playAudio(
-                          "${Urls.baseUrl}${s.surah.audio}",
-                          s.surah.surahNumber,
-                        );
+                        // player.playAudio(
+                        //   "${Urls.baseUrl}${s.surah.audio}",
+                        //   s.surah.surahNumber,
+                        // );
                         context.read<SurahDetailViewModel>().fetchSurahDetail();
                       },
                       child: Image.asset(
