@@ -6,6 +6,7 @@ import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../detail/view_model/surah_detail_view_model.dart';
 import '../../../player/view_model/player_view_model.dart';
 import '../../model/surah.dart';
 import '../../view_model/surah_list_view_model.dart';
@@ -22,29 +23,33 @@ class SurahTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var playerVm = context.watch<PlayerViewModel>();
+    var detailsVm = context.watch<SurahDetailViewModel>();
     return InkWell(
-      onTap: () {
-        // SurahListViewModel.read(context).selectedSurahNumber =
-        //     surah.surah?.surahNumber;
-        // debugPrint("surah.surah.surahNumber${surah.surah?.surahNumber}");
-        // context.read<PlayerViewModel>().playAudio(
-        //       Urls.baseUrl + surah.surah?.audio,
-        //       surah.surah.surahNumber,
-        //     );
-        context
-            .read<SurahListViewModel>()
-            .getSurahByNumber(surah.surah?.surahNumber ?? 0);
-        context
-            .read<SurahListViewModel>()
-            .tapSurah(surah.surah?.surahNumber ?? 1);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => DetailScreen(
-              index: index,
-              name: surah.surah?.name ?? '',
-              surahNumber: surah.surah?.surahNumber ?? 0,
-            ),
-          ),
+      onTap: () async {
+        // context
+        //     .read<SurahListViewModel>()
+        //     .getSurahByNumber(surah.surah?.surahNumber ?? 0);
+        // context
+        //     .read<SurahListViewModel>()
+        //     .tapSurah(surah.surah?.surahNumber ?? 1);
+        playerVm.versePosition = 0;
+        await detailsVm
+            .fetchSurahDetail(surahNumber: surah.surah?.surahNumber ?? 0)
+            .then(
+          (value) {
+            playerVm.playAudio(
+                url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => DetailScreen(
+                  index: index,
+                  name: surah.surah?.name ?? '',
+                  surahNumber: surah.surah?.surahNumber ?? 0,
+                ),
+              ),
+            );
+          },
         );
       },
       child: Container(
@@ -66,34 +71,22 @@ class SurahTile extends StatelessWidget {
               style: AppTextStyles.kTileTitle,
             ),
             const SizedBox(width: 40),
-            Consumer<PlayerViewModel>(
-              builder: (context, player, _) {
-                return InkWell(
-                  onTap: () {
-                    // player.playAudio(
-                    //   Urls.baseUrl + surah.surah.audio,
-                    //   surah.surah.surahNumber,
-                    // );
-                  },
-                  child: surah.surah?.surahNumber == player.playingSurahNumber
-                      ? player.isPlaying
-                          ? Lottie.asset(
-                              '${imageUrl}eq.json',
-                              width: 30,
-                            )
-                          : Image.asset(
-                              '${iconUrl}ic_play_circle.png',
-                              width: 30,
-                              color: onPrimayColor,
-                            )
-                      : Image.asset(
-                          '${iconUrl}ic_play_circle.png',
-                          width: 30,
-                          color: onPrimayColor,
-                        ),
-                );
-              },
-            ),
+            surah.surah?.surahNumber == playerVm.playingSurahNumber
+                ? playerVm.isPlaying
+                    ? Lottie.asset(
+                        '${imageUrl}eq.json',
+                        width: 30,
+                      )
+                    : Image.asset(
+                        '${iconUrl}ic_play_circle.png',
+                        width: 30,
+                        color: onPrimayColor,
+                      )
+                : Image.asset(
+                    '${iconUrl}ic_play_circle.png',
+                    width: 30,
+                    color: onPrimayColor,
+                  ),
           ],
         ),
       ),

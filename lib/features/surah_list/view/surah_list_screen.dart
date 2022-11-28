@@ -28,7 +28,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
   Widget build(BuildContext context) {
     final vm = context.watch<PlayerViewModel>();
     return Scaffold(
-      backgroundColor: vm.isExpnaded ? Colors.white : kScaffoldBgColor,
+      backgroundColor: kScaffoldBgColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -41,16 +41,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
           Menu(),
         ],
       ),
-      body: vm.isExpnaded
-          ? Column(
-              children: const [
-                Expanded(
-                  child: PlayerSection(surahNumber: 0,),
-                ),
-                Expanded(child: SurahListViewExpanded()),
-              ],
-            )
-          : const SurahListView(),
+      body: const SurahListView(),
     );
   }
 }

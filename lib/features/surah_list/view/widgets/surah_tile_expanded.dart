@@ -26,10 +26,10 @@ class SurahTileExpanded extends StatelessWidget {
     var player = context.watch<PlayerViewModel>();
     return InkWell(
       onTap: () {
-        context
-            .read<SurahListViewModel>()
-            .tapSurah(surah.surah?.surahNumber ?? 0);
-        context.read<SurahDetailViewModel>().fetchSurahDetail();
+        // context
+        //     .read<SurahListViewModel>()
+        //     .tapSurah(surah.surah?.surahNumber ?? 0);
+        // context.read<SurahDetailViewModel>().fetchSurahDetail();
         // player.playAudio(
         //   Urls.baseUrl + surah.surah.audio,
         //   surah.surah.surahNumber,

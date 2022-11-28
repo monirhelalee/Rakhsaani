@@ -19,9 +19,9 @@ class SurahDetailViewModel with ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> fetchSurahDetail() async {
+  Future<void> fetchSurahDetail({required int surahNumber}) async {
     BotToast.showLoading();
-    var res = await SurahDetailRepository().fetchSurahDetail(_surahListViewModel.selectedSurahNumber);
+    var res = await SurahDetailRepository().fetchSurahDetail(surahNumber);
     res.fold(
       (l) {
         _surahDetailError = l;

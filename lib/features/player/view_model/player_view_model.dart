@@ -6,14 +6,15 @@ import '../../surah_list/view/widgets/seekbar.dart';
 class PlayerViewModel with ChangeNotifier {
   final player = AudioPlayer();
   bool isPlaying = false;
-  bool isExpnaded = false;
+  // bool isExpnaded = false;
   bool isMute = false;
   int? playingSurahNumber;
   int? position;
+  int versePosition = 0;
 
-  void playAudio(String url, int surahNo) async {
+  void playAudio({required String url, int? surahNo}) async {
     isPlaying = true;
-    isExpnaded = true;
+    //isExpnaded = true;
     playingSurahNumber = surahNo;
     notifyListeners();
     await player.setUrl(url);
@@ -52,7 +53,7 @@ class PlayerViewModel with ChangeNotifier {
       );
 
   void collapsePlayer() {
-    isExpnaded = false;
+    //isExpnaded = false;
     notifyListeners();
   }
 
