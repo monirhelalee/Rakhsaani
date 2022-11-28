@@ -24,16 +24,23 @@ class SurahTileExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var player = context.watch<PlayerViewModel>();
+    var listVm = context.read<SurahListViewModel>();
+    var detailVm = context.read<SurahDetailViewModel>();
     return InkWell(
-      onTap: () {
-        // context
-        //     .read<SurahListViewModel>()
-        //     .tapSurah(surah.surah?.surahNumber ?? 0);
+      onTap: () async {
+        listVm.tapSurah(surah.surah?.surahNumber ?? 0);
         // context.read<SurahDetailViewModel>().fetchSurahDetail();
         // player.playAudio(
         //   Urls.baseUrl + surah.surah.audio,
         //   surah.surah.surahNumber,
         // );
+        await detailVm
+            .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
+            .then((value) {
+          player.playAudio(
+            url: "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+          );
+        });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
@@ -63,8 +70,8 @@ class SurahTileExpanded extends StatelessWidget {
                     //   surah.surah.surahNumber,
                     // );
                   },
-                  child: surah.surah?.surahNumber == player.playingSurahNumber
-                      ? player.isPlaying
+                  child: surah.surah?.surahNumber == listVm.selectedSurahNumber
+                      ? player.player.playing
                           ? Lottie.asset(
                               '${imageUrl}eq.json',
                               width: 30,
