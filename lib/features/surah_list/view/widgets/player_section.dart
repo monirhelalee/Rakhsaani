@@ -67,7 +67,7 @@ class _PlayerSectionState extends State<PlayerSection> {
   @override
   Widget build(BuildContext context) {
     var playerVm = context.watch<PlayerViewModel>();
-    var svm = context.read<SurahListViewModel>();
+    var surahListVm = context.read<SurahListViewModel>();
     var detailVm = context.read<SurahDetailViewModel>();
     return Builder(builder: (context) {
       return Container(
@@ -82,6 +82,33 @@ class _PlayerSectionState extends State<PlayerSection> {
             StreamBuilder<PositionData>(
               stream: playerVm.positionDataStream,
               builder: (context, snapshot) {
+                // debugPrint("versePosition ${playerVm.versePosition}");
+                // debugPrint("player.position ${playerVm.player.position}");
+                // debugPrint("player.playing ${playerVm.player.playing}");
+                // debugPrint("player.hasNext ${playerVm.player.hasNext}");
+                debugPrint(
+                    "playerVm.player.playerState ${playerVm.player.playerState.processingState}");
+                if (playerVm.player.playerState.processingState ==
+                    ProcessingState.completed) {
+                  playerVm.player.stop();
+                  Future.delayed(Duration.zero, () async {
+                    surahListVm.next();
+                    log(surahListVm.selectedSurahNumber.toString());
+                    // var s = _vm.getSurahByNumber( detailVm.surahDetailModel!.surahNumber);
+                    await detailVm
+                        .fetchSurahDetail(
+                            surahNumber: surahListVm.selectedSurahNumber!)
+                        .then((value) {
+                      playerVm.versePosition = 0;
+                      playerVm.playAudio(
+                        url:
+                            "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                      );
+                    });
+                  });
+
+                  debugPrint("Stop Playing");
+                }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
                 } else {
@@ -105,22 +132,23 @@ class _PlayerSectionState extends State<PlayerSection> {
                         debugPrint("versePosition ${playerVm.versePosition}");
                       }
                     }
+
                     // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
-                    playerVm.player.playerStateStream.listen((playerState) {
-                      if (playerState.processingState ==
-                          ProcessingState.completed) {
-                        log('message');
-                        // context.read<SurahListViewModel>().next();
-                        var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
-                        // player.playAudio(
-                        //   "${Urls.baseUrl}${s.surah?.audio}",
-                        //   s.surah?.surahNumber??0,
-                        // );
-                        // context
-                        //     .read<SurahDetailViewModel>()
-                        //     .fetchSurahDetail();
-                      }
-                    });
+                    // playerVm.player.playerStateStream.listen((playerState) {
+                    //   if (playerState.processingState ==
+                    //       ProcessingState.completed) {
+                    //     log('message');
+                    //     // context.read<SurahListViewModel>().next();
+                    //     var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
+                    //     // player.playAudio(
+                    //     //   "${Urls.baseUrl}${s.surah?.audio}",
+                    //     //   s.surah?.surahNumber??0,
+                    //     // );
+                    //     // context
+                    //     //     .read<SurahDetailViewModel>()
+                    //     //     .fetchSurahDetail();
+                    //   }
+                    // });
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Text(
@@ -129,8 +157,8 @@ class _PlayerSectionState extends State<PlayerSection> {
                             ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
                             : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
                         textAlign: TextAlign.center,
-                        style: AppTextStyles.kPlayerText
-                          ..copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: AppTextStyles.kPlayerText.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     );
                   }
@@ -145,8 +173,8 @@ class _PlayerSectionState extends State<PlayerSection> {
               children: [
                 IconButton(
                   onPressed: () {
-                    svm.addBookmarks(
-                        svm.selectedSurahNumber!, svm.selectedSurahNumber!);
+                    surahListVm.addBookmarks(surahListVm.selectedSurahNumber!,
+                        surahListVm.selectedSurahNumber!);
                     Fluttertoast.showToast(
                         msg: "Bookmark Added",
                         toastLength: Toast.LENGTH_SHORT,
@@ -252,7 +280,6 @@ class _PlayerSectionState extends State<PlayerSection> {
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
                     onTap: () async {
-                      playerVm.versePosition = 0;
                       _vm.next();
                       log(_vm.selectedSurahNumber.toString());
                       // var s = _vm.getSurahByNumber( detailVm.surahDetailModel!.surahNumber);
@@ -261,6 +288,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                           .fetchSurahDetail(
                               surahNumber: _vm.selectedSurahNumber!)
                           .then((value) {
+                        playerVm.versePosition = 0;
                         playerVm.playAudio(
                           url:
                               "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",

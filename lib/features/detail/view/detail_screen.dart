@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 
 import '../../surah_list/view/widgets/player_section.dart';
 import '../../surah_list/view/widgets/surah_list_view_expanded.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen({
     super.key,
     required this.index,
@@ -18,17 +20,29 @@ class DetailScreen extends StatelessWidget {
   final int surahNumber;
 
   @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void dispose() {
+    context.read<PlayerViewModel>().player.stop();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(name)),
+      appBar: AppBar(title: Text(widget.name)),
       body: Column(
         children: [
           Expanded(
+            flex: 2,
             child: PlayerSection(
-              surahNumber: surahNumber,
+              surahNumber: widget.surahNumber,
             ),
           ),
-          const Expanded(child: SurahListViewExpanded()),
+          const Expanded(flex: 1, child: SurahListViewExpanded()),
         ],
       ),
     );
