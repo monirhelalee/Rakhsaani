@@ -204,6 +204,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
                     onTap: () async {
+                      playerVm.versePosition = 0;
                       _vm.prev();
                       await context
                           .read<SurahDetailViewModel>()
@@ -251,6 +252,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
                     onTap: () async {
+                      playerVm.versePosition = 0;
                       _vm.next();
                       log(_vm.selectedSurahNumber.toString());
                       // var s = _vm.getSurahByNumber( detailVm.surahDetailModel!.surahNumber);

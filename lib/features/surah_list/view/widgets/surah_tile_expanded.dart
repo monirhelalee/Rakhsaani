@@ -29,6 +29,7 @@ class SurahTileExpanded extends StatelessWidget {
     return InkWell(
       onTap: () async {
         listVm.tapSurah(surah.surah?.surahNumber ?? 0);
+        player.versePosition = 0;
         // context.read<SurahDetailViewModel>().fetchSurahDetail();
         // player.playAudio(
         //   Urls.baseUrl + surah.surah.audio,

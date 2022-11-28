@@ -36,13 +36,13 @@ class SurahTile extends StatelessWidget {
         //     .read<SurahListViewModel>()
         //     .tapSurah(surah.surah?.surahNumber ?? 1);
         playerVm.versePosition = 0;
+        context
+            .read<SurahListViewModel>()
+            .tapSurah(surah.surah?.surahNumber ?? 0);
         await detailsVm
             .fetchSurahDetail(surahNumber: surah.surah?.surahNumber ?? 0)
             .then(
           (value) {
-            context
-                .read<SurahListViewModel>()
-                .tapSurah(surah.surah?.surahNumber ?? 0);
             playerVm.playAudio(
                 url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
             log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
