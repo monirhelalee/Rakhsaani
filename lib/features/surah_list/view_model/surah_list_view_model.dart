@@ -18,9 +18,12 @@ class SurahListViewModel with ChangeNotifier {
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   List<Bookmark> _bookmarks = [];
   List<Surah> _surahList = [];
+  List<Surah> _surahSearchList = [];
   AppError? _fetchSurahError;
   Surah? selectedSurah;
   int? _selectedSurahNumber;
+  bool isSearchOpen = false;
+  TextEditingController searchController = TextEditingController();
 
   // late PlayerViewModel _playerViewModel;
 
@@ -28,6 +31,20 @@ class SurahListViewModel with ChangeNotifier {
   //   _playerViewModel = playerViewModel;
   //   // notifyListeners();
   // }
+  toggleSearchIcon() {
+    isSearchOpen = !isSearchOpen;
+    notifyListeners();
+  }
+
+  search({required String value}) {
+    _surahSearchList = _surahList;
+    if (value.isNotEmpty) {
+      _surahSearchList = _surahSearchList.where((element) {
+        return element.surah!.name!.toLowerCase().contains(value.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
+  }
 
   set selectedSurahNumber(int? i) {
     _selectedSurahNumber = i;
@@ -45,6 +62,7 @@ class SurahListViewModel with ChangeNotifier {
       },
       (r) {
         _surahList = r;
+        _surahSearchList = r;
         _fetchSurahError = null;
         BotToast.closeAllLoading();
         notifyListeners();
@@ -114,6 +132,7 @@ class SurahListViewModel with ChangeNotifier {
 
   // Getters
   List<Surah> get surahList => _surahList;
+  List<Surah> get surahSearchList => _surahSearchList;
   int? get selectedSurahNumber => _selectedSurahNumber;
   AppError? get fetchSurahError => _fetchSurahError;
   List<Bookmark> get bookmarks => [..._bookmarks];

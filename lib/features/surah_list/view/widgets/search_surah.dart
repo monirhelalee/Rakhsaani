@@ -6,11 +6,16 @@ import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../search/custom_search_deligate.dart';
 
-class SearchSurah extends StatelessWidget {
+class SearchSurah extends StatefulWidget {
   const SearchSurah({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<SearchSurah> createState() => _SearchSurahState();
+}
+
+class _SearchSurahState extends State<SearchSurah> {
   @override
   Widget build(BuildContext context) {
     var vm = context.watch<SurahListViewModel>();
@@ -18,13 +23,12 @@ class SearchSurah extends StatelessWidget {
       padding: const EdgeInsets.only(left: kDefaultPadding),
       child: IconButton(
         onPressed: () {
-          showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(vm),
-          );
+          vm.search(value: "");
+          vm.searchController.clear();
+          vm.toggleSearchIcon();
         },
-        icon: const Icon(
-          CupertinoIcons.search,
+        icon: Icon(
+          vm.isSearchOpen ? CupertinoIcons.clear : CupertinoIcons.search,
           color: onPrimayColor,
         ),
       ),
