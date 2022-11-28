@@ -110,7 +110,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                       if (playerState.processingState ==
                           ProcessingState.completed) {
                         log('message');
-                        context.read<SurahListViewModel>().next();
+                        // context.read<SurahListViewModel>().next();
                         var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
                         // player.playAudio(
                         //   "${Urls.baseUrl}${s.surah?.audio}",
@@ -203,17 +203,18 @@ class _PlayerSectionState extends State<PlayerSection> {
                 ),
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
                       _vm.prev();
-                      var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                      playerVm.playAudio(
-                        url:
-                            "${Urls.baseUrl}${detailVm.surahDetailModel!.audio}",
-                        surahNo: detailVm.surahDetailModel!.surahNumber,
-                      );
-                      // context
-                      //     .read<SurahDetailViewModel>()
-                      //     .fetchSurahDetail();
+                      await context
+                          .read<SurahDetailViewModel>()
+                          .fetchSurahDetail(
+                              surahNumber: _vm.selectedSurahNumber!)
+                          .then((value) {
+                        playerVm.playAudio(
+                          url:
+                              "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                        );
+                      });
                     },
                     child: Image.asset(
                       '${iconUrl}ic_navigate_before.png',
@@ -249,16 +250,20 @@ class _PlayerSectionState extends State<PlayerSection> {
                 }),
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
                       _vm.next();
-                      var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                      // player.playAudio(
-                      //   "${Urls.baseUrl}${s.surah.audio}",
-                      //   s.surah.surahNumber,
-                      // );
-                      // context
-                      //     .read<SurahDetailViewModel>()
-                      //     .fetchSurahDetail();
+                      log(_vm.selectedSurahNumber.toString());
+                      // var s = _vm.getSurahByNumber( detailVm.surahDetailModel!.surahNumber);
+                      await context
+                          .read<SurahDetailViewModel>()
+                          .fetchSurahDetail(
+                              surahNumber: _vm.selectedSurahNumber!)
+                          .then((value) {
+                        playerVm.playAudio(
+                          url:
+                              "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                        );
+                      });
                     },
                     child: Image.asset(
                       '${iconUrl}ic_navigate_next.png',

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -38,8 +40,12 @@ class SurahTile extends StatelessWidget {
             .fetchSurahDetail(surahNumber: surah.surah?.surahNumber ?? 0)
             .then(
           (value) {
+            context
+                .read<SurahListViewModel>()
+                .tapSurah(surah.surah?.surahNumber ?? 0);
             playerVm.playAudio(
                 url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
+            log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => DetailScreen(

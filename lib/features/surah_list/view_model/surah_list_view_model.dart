@@ -59,16 +59,16 @@ class SurahListViewModel with ChangeNotifier {
 
   prev() {
     // Check if it is the first surah
-    if (selectedSurahNumber != 1) {
-      _selectedSurahNumber = _selectedSurahNumber ?? 0 - 1;
+    if (_selectedSurahNumber != 1) {
+      _selectedSurahNumber = _selectedSurahNumber! - 1;
       notifyListeners();
     }
   }
 
   next() {
     // Check if it is the last surah
-    if (selectedSurahNumber != 2) {
-      _selectedSurahNumber = _selectedSurahNumber ?? 0 + 1;
+    if (_selectedSurahNumber != 2) {
+      _selectedSurahNumber = _selectedSurahNumber! + 1;
       notifyListeners();
     }
   }
