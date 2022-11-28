@@ -20,7 +20,10 @@ import '../../view_model/surah_list_view_model.dart';
 class PlayerSection extends StatefulWidget {
   const PlayerSection({
     Key? key,
+    required this.surahNumber,
   }) : super(key: key);
+
+  final int surahNumber;
 
   @override
   State<PlayerSection> createState() => _PlayerSectionState();
@@ -41,9 +44,24 @@ class _PlayerSectionState extends State<PlayerSection> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SurahDetailViewModel>().fetchSurahDetail();
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<SurahDetailViewModel>().fetchSurahDetail();
+        Future.delayed(const Duration(seconds: 1), () {
+          fetchAndPlay();
+        });
+      },
+    );
+  }
+
+  void fetchAndPlay() {
+    context.watch<PlayerViewModel>().player.setUrl(Urls.baseUrl +
+        context.read<SurahDetailViewModel>().surahDetailModel!.audio);
+    // context.read<PlayerViewModel>().playAudio(
+    //       Urls.baseUrl +
+    //           context.read<SurahDetailViewModel>().surahDetailModel!.audio,
+    //       context.read<SurahDetailViewModel>().surahDetailModel!.surahNumber,
+    //     );
   }
 
   @override
@@ -52,227 +70,231 @@ class _PlayerSectionState extends State<PlayerSection> {
     var svm = context.read<SurahListViewModel>();
     var detailVm = context.read<SurahDetailViewModel>();
     int _versePosition = 0;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: kScaffoldBgColor,
-      ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+    return Builder(
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: kScaffoldBgColor,
+          ),
+          child: Stack(
             children: [
-              StreamBuilder<PositionData>(
-                stream: player.positionDataStream,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    if (detailVm.surahDetailModel == null) {
-                      return Text('............');
-                    } else {
-                      final positionData = snapshot.data;
-                      Duration dur = _versePosition >=
-                              detailVm.surahDetailModel!.verseAndTime.length
-                          ? parseTime(detailVm
-                              .surahDetailModel!.verseAndTime.last.timeOut)
-                          : parseTime(detailVm.surahDetailModel
-                                  ?.verseAndTime[_versePosition].timeOut ??
-                              "0:00:00.000");
-                      if (dur < positionData!.position) {
-                        if (_versePosition <
-                            detailVm.surahDetailModel!.verseAndTime.length) {
-                          _versePosition++;
-                          debugPrint("versePosition $_versePosition");
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  StreamBuilder<PositionData>(
+                    stream: player.positionDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        if (detailVm.surahDetailModel == null) {
+                          return Text('............');
+                        } else {
+                          final positionData = snapshot.data;
+                          Duration dur = _versePosition >=
+                                  detailVm.surahDetailModel!.verseAndTime.length
+                              ? parseTime(detailVm
+                                  .surahDetailModel!.verseAndTime.last.timeOut)
+                              : parseTime(detailVm.surahDetailModel
+                                      ?.verseAndTime[_versePosition].timeOut ??
+                                  "0:00:00.000");
+                          if (dur < positionData!.position) {
+                            if (_versePosition <
+                                detailVm.surahDetailModel!.verseAndTime.length) {
+                              _versePosition++;
+                              debugPrint("versePosition $_versePosition");
+                            }
+                          }
+                          // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
+                          player.player.playerStateStream.listen((playerState) {
+                            if (playerState.processingState ==
+                                ProcessingState.completed) {
+                              log('message');
+                              context.read<SurahListViewModel>().next();
+                              var s =
+                                  svm.getSurahByNumber(svm.selectedSurahNumber!);
+                              // player.playAudio(
+                              //   "${Urls.baseUrl}${s.surah?.audio}",
+                              //   s.surah?.surahNumber??0,
+                              // );
+                              context
+                                  .read<SurahDetailViewModel>()
+                                  .fetchSurahDetail();
+                            }
+                          });
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Text(
+                              (_versePosition >=
+                                      detailVm
+                                          .surahDetailModel!.verseAndTime.length)
+                                  ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
+                                  : "$dur ${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.kPlayerText,
+                            ),
+                          );
                         }
                       }
-                      // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
-                      player.player.playerStateStream.listen((playerState) {
-                        if (playerState.processingState ==
-                            ProcessingState.completed) {
-                          log('message');
-                          context.read<SurahListViewModel>().next();
-                          var s =
-                              svm.getSurahByNumber(svm.selectedSurahNumber!);
-                          // player.playAudio(
-                          //   "${Urls.baseUrl}${s.surah?.audio}",
-                          //   s.surah?.surahNumber??0,
-                          // );
-                          context
-                              .read<SurahDetailViewModel>()
-                              .fetchSurahDetail();
-                        }
-                      });
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text(
-                          (_versePosition >=
-                                  detailVm
-                                      .surahDetailModel!.verseAndTime.length)
-                              ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
-                              : "$dur ${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}",
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.kPlayerText,
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          svm.addBookmarks(
+                              svm.selectedSurahNumber!, svm.selectedSurahNumber!);
+                          Fluttertoast.showToast(
+                              msg: "Bookmark Added",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.heart,
+                          color: onPrimayColor,
+                          size: kDefaultIconSize,
                         ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          player.muteAudio();
+                        },
+                        icon: Icon(
+                          player.isMute
+                              ? CupertinoIcons.speaker_slash
+                              : CupertinoIcons.speaker_2,
+                          color: onPrimayColor,
+                          size: kDefaultIconSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                  StreamBuilder<PositionData>(
+                    stream: player.positionDataStream,
+                    builder: (context, snapshot) {
+                      final positionData = snapshot.data;
+                      _position = snapshot.data?.position;
+                      return SeekBar(
+                        duration: positionData?.duration ?? Duration.zero,
+                        position: positionData?.position ?? Duration.zero,
+                        bufferedPosition:
+                            positionData?.bufferedPosition ?? Duration.zero,
+                        onChangeEnd: player.player.seek,
                       );
-                    }
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      svm.addBookmarks(
-                          svm.selectedSurahNumber!, svm.selectedSurahNumber!);
-                      Fluttertoast.showToast(
-                          msg: "Bookmark Added",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
                     },
-                    icon: const Icon(
-                      CupertinoIcons.heart,
-                      color: onPrimayColor,
-                      size: kDefaultIconSize,
-                    ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      player.muteAudio();
-                    },
-                    icon: Icon(
-                      player.isMute
-                          ? CupertinoIcons.speaker_slash
-                          : CupertinoIcons.speaker_2,
-                      color: onPrimayColor,
-                      size: kDefaultIconSize,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          CupertinoIcons.repeat,
+                          color: onPrimayColor,
+                          size: 18,
+                        ),
+                      ),
+                      Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                        return InkWell(
+                          onTap: () {
+                            _vm.prev();
+                            var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
+                            player.playAudio(
+                              "${Urls.baseUrl}${detailVm.surahDetailModel!.audio}",
+                              detailVm.surahDetailModel!.surahNumber,
+                            );
+                            context.read<SurahDetailViewModel>().fetchSurahDetail();
+                          },
+                          child: Image.asset(
+                            '${iconUrl}ic_navigate_before.png',
+                            width: 15,
+                            color: onPrimayColor,
+                          ),
+                        );
+                      }),
+                      Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                        return InkWell(
+                          onTap: () {
+                            //var s = _vm.getSurahByNumber(_vm.selectedSurahNumber);
+                            player.isPlaying
+                                ? player.pauseAudio()
+                                : player.reumeAudio();
+                            // player.playAudio(
+                            //     "${Urls.baseUrl}${s.surah.audio}",
+                            //     s.surah.surahNumber,
+                            //   );
+                          },
+                          child: player.isPlaying
+                              ? Image.asset(
+                                  '${iconUrl}pause.png',
+                                  height: 43,
+                                  color: onPrimayColor,
+                                )
+                              : Image.asset(
+                                  '${iconUrl}ic_play_circle.png',
+                                  height: 50,
+                                  color: onPrimayColor,
+                                ),
+                        );
+                      }),
+                      Consumer<SurahListViewModel>(builder: (context, _vm, _) {
+                        return InkWell(
+                          onTap: () {
+                            _vm.next();
+                            var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
+                            // player.playAudio(
+                            //   "${Urls.baseUrl}${s.surah.audio}",
+                            //   s.surah.surahNumber,
+                            // );
+                            context.read<SurahDetailViewModel>().fetchSurahDetail();
+                          },
+                          child: Image.asset(
+                            '${iconUrl}ic_navigate_next.png',
+                            width: 15,
+                            color: onPrimayColor,
+                          ),
+                        );
+                      }),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          CupertinoIcons.shuffle,
+                          color: onPrimayColor,
+                          size: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 25,
                   ),
                 ],
               ),
-              StreamBuilder<PositionData>(
-                stream: player.positionDataStream,
-                builder: (context, snapshot) {
-                  final positionData = snapshot.data;
-                  _position = snapshot.data?.position;
-                  return SeekBar(
-                    duration: positionData?.duration ?? Duration.zero,
-                    position: positionData?.position ?? Duration.zero,
-                    bufferedPosition:
-                        positionData?.bufferedPosition ?? Duration.zero,
-                    onChangeEnd: player.player.seek,
-                  );
+              Positioned(
+                  child: IconButton(
+                onPressed: () {
+                  context.read<PlayerViewModel>().collapsePlayer();
                 },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.repeat,
-                      color: onPrimayColor,
-                      size: 18,
-                    ),
-                  ),
-                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
-                    return InkWell(
-                      onTap: () {
-                        _vm.prev();
-                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                        // player.playAudio(
-                        //   "${Urls.baseUrl}${s.surah.audio}",
-                        //   s.surah.surahNumber,
-                        // );
-                        context.read<SurahDetailViewModel>().fetchSurahDetail();
-                      },
-                      child: Image.asset(
-                        '${iconUrl}ic_navigate_before.png',
-                        width: 15,
-                        color: onPrimayColor,
-                      ),
-                    );
-                  }),
-                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
-                    return InkWell(
-                      onTap: () {
-                        //var s = _vm.getSurahByNumber(_vm.selectedSurahNumber);
-                        player.isPlaying
-                            ? player.pauseAudio()
-                            : player.reumeAudio();
-                        // player.playAudio(
-                        //     "${Urls.baseUrl}${s.surah.audio}",
-                        //     s.surah.surahNumber,
-                        //   );
-                      },
-                      child: player.isPlaying
-                          ? Image.asset(
-                              '${iconUrl}pause.png',
-                              height: 43,
-                              color: onPrimayColor,
-                            )
-                          : Image.asset(
-                              '${iconUrl}ic_play_circle.png',
-                              height: 50,
-                              color: onPrimayColor,
-                            ),
-                    );
-                  }),
-                  Consumer<SurahListViewModel>(builder: (context, _vm, _) {
-                    return InkWell(
-                      onTap: () {
-                        _vm.next();
-                        var s = _vm.getSurahByNumber(_vm.selectedSurahNumber!);
-                        // player.playAudio(
-                        //   "${Urls.baseUrl}${s.surah.audio}",
-                        //   s.surah.surahNumber,
-                        // );
-                        context.read<SurahDetailViewModel>().fetchSurahDetail();
-                      },
-                      child: Image.asset(
-                        '${iconUrl}ic_navigate_next.png',
-                        width: 15,
-                        color: onPrimayColor,
-                      ),
-                    );
-                  }),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.shuffle,
-                      color: onPrimayColor,
-                      size: 18,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              )),
             ],
           ),
-          Positioned(
-              child: IconButton(
-            onPressed: () {
-              context.read<PlayerViewModel>().collapsePlayer();
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: 20,
-            ),
-          )),
-        ],
-      ),
+        );
+      }
     );
   }
 }

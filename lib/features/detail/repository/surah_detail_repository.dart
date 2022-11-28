@@ -15,6 +15,7 @@ class SurahDetailRepository {
     try {
       var response = await ApiClient()
           .getRequest("${Urls.surahList}$surahNumber/$selectedLanguage");
+      log("${Urls.surahList}$surahNumber/$selectedLanguage");
       log("surah details ${response.body}");
       if (response.statusCode == 200) {
         Map<String, dynamic> _map = jsonDecode(utf8.decode(response.bodyBytes));

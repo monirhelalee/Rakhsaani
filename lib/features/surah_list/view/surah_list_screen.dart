@@ -45,7 +45,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
           ? Column(
               children: const [
                 Expanded(
-                  child: PlayerSection(),
+                  child: PlayerSection(surahNumber: 0,),
                 ),
                 Expanded(child: SurahListViewExpanded()),
               ],

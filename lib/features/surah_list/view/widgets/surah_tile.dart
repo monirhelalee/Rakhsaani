@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/features/detail/view/detail_screen.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
@@ -23,13 +24,28 @@ class SurahTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        SurahListViewModel.read(context).selectedSurahNumber =
-            surah.surah?.surahNumber;
-        debugPrint("surah.surah.surahNumber${surah.surah?.surahNumber}");
+        // SurahListViewModel.read(context).selectedSurahNumber =
+        //     surah.surah?.surahNumber;
+        // debugPrint("surah.surah.surahNumber${surah.surah?.surahNumber}");
         // context.read<PlayerViewModel>().playAudio(
         //       Urls.baseUrl + surah.surah?.audio,
         //       surah.surah.surahNumber,
         //     );
+        context
+            .read<SurahListViewModel>()
+            .getSurahByNumber(surah.surah?.surahNumber ?? 0);
+        context
+            .read<SurahListViewModel>()
+            .tapSurah(surah.surah?.surahNumber ?? 1);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => DetailScreen(
+              index: index,
+              name: surah.surah?.name ?? '',
+              surahNumber: surah.surah?.surahNumber ?? 0,
+            ),
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
@@ -53,12 +69,12 @@ class SurahTile extends StatelessWidget {
             Consumer<PlayerViewModel>(
               builder: (context, player, _) {
                 return InkWell(
-                  // onTap: () {
-                  //   player.playAudio(
-                  //     Urls.baseUrl + surah.surah.audio,
-                  //     surah.surah.surahNumber,
-                  //   );
-                  // },
+                  onTap: () {
+                    // player.playAudio(
+                    //   Urls.baseUrl + surah.surah.audio,
+                    //   surah.surah.surahNumber,
+                    // );
+                  },
                   child: surah.surah?.surahNumber == player.playingSurahNumber
                       ? player.isPlaying
                           ? Lottie.asset(
