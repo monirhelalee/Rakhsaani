@@ -49,4 +49,5 @@ class SurahDetailViewModel with ChangeNotifier {
 
   SurahDetail? get surahDetailModel => _surahDetailModel;
   AppError? get surahDetailError => _surahDetailError;
+  String get appBarTitle => _surahDetailModel!.name;
 }

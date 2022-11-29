@@ -27,21 +27,24 @@ class _SurahListScreenState extends State<SurahListScreen> {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<PlayerViewModel>();
-    return Scaffold(
-      backgroundColor: kScaffoldBgColor,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Surah List',
-          style: TextStyle(color: onPrimayColor),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: kScaffoldBgColor,
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Surah List',
+            style: TextStyle(color: onPrimayColor),
+          ),
+          automaticallyImplyLeading: false,
+          leading: const SearchSurah(),
+          actions: const [
+            Menu(),
+          ],
         ),
-        automaticallyImplyLeading: false,
-        leading: const SearchSurah(),
-        actions: const [
-          Menu(),
-        ],
+        body: const SurahListView(),
       ),
-      body: const SurahListView(),
     );
   }
 }
