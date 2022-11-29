@@ -1,16 +1,20 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
+  static late final SharedPreferences instance;
+
+  /// init sp
+  static Future<SharedPreferences> init() async =>
+      instance = await SharedPreferences.getInstance();
+
   /// set data into shared preferences
-  Future<void> setKey(String key, value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, value);
+  static Future<void> setKey(String key, value) async {
+    instance.setString(key, value);
   }
 
   /// get value from shared preferences
-  Future<String?> getKey(String key) async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    String? value = pref.getString(key);
+  static Future<String?> getKey(String key) async {
+    String? value = instance.getString(key);
     return value;
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/error_screen/error_screen.dart';
 import '../../../../core/helpers/storage_manager.dart';
 import '../../view_model/language_view_model.dart';
 
@@ -14,6 +13,14 @@ class MenuRadioButtonSection extends StatefulWidget {
 }
 
 class _MenuRadioButtonSectionState extends State<MenuRadioButtonSection> {
+  @override
+  void initState() {
+    StorageManager.getKey('lang').then((value) {
+      context.read<LanguageViewModel>().onLanguageSelect(value!);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,8 +38,8 @@ class _MenuRadioButtonSectionState extends State<MenuRadioButtonSection> {
                     value: vm.languageModel[index].name,
                     groupValue: vm.selectedLanguage,
                     onChanged: (s) async {
+                      await StorageManager.setKey('lang', s);
                       vm.onLanguageSelect(s!);
-                      StorageManager().setKey('isFirstTime', 'no');
                     },
                   ),
                   Text(vm.languageModel[index].name),

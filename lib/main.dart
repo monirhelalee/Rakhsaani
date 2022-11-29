@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:rakhsaani/core/helpers/storage_manager.dart';
 import 'core/utils/colors.dart';
 import 'features/detail/view_model/surah_detail_view_model.dart';
 import 'features/language/view_model/language_view_model.dart';
@@ -9,8 +10,9 @@ import 'features/player/view_model/player_view_model.dart';
 import 'features/splash/view/splash_screen.dart';
 import 'features/surah_list/view_model/surah_list_view_model.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
   // Orientation
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Transparent Status Bar

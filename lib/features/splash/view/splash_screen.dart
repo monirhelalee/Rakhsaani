@@ -3,7 +3,6 @@ import '../../../core/helpers/storage_manager.dart';
 import '../../../core/utils/asset_path.dart';
 import '../../../core/utils/colors.dart';
 import '../../../core/utils/styles.dart';
-import '../../../core/utils/urls.dart';
 import '../../language/view/language_select_screen.dart';
 import '../../surah_list/view/surah_list_screen.dart';
 
@@ -37,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _setVal() async {
-    isFirstTime = await StorageManager().getKey('isFirstTime');
+    isFirstTime = await StorageManager.getKey('isFirstTime');
   }
 
   @override

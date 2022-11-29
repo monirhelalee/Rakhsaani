@@ -26,8 +26,9 @@ class RadioButtonSection extends StatelessWidget {
                     value: vm.languageModel[index].name,
                     groupValue: vm.selectedLanguage,
                     onChanged: (s) async {
+                      await StorageManager.setKey('lang', s);
+                      await StorageManager.setKey('isFirstTime', 'no');
                       vm.onLanguageSelect(s!);
-                      StorageManager().setKey('isFirstTime', 'no');
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (c) {

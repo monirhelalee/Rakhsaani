@@ -26,12 +26,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     final vm = context.watch<SurahListViewModel>();
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('Bookmarks'),
-        leading: const SearchSurah(),
-        actions: const [
-          Menu(),
-        ],
       ),
       body: vm.bookmarks.isEmpty
           ? const Center(

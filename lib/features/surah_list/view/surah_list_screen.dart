@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/detail/view_model/surah_detail_view_model.dart';
-import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
-import 'package:rakhsaani/features/surah_list/view/widgets/surah_list_view_expanded.dart';
 import '../../../core/utils/utils_exports.dart';
 import '../view_model/surah_list_view_model.dart';
 import 'widgets/menu.dart';
-import 'widgets/player_section.dart';
 import 'widgets/search_surah.dart';
 import 'widgets/surah_list_view.dart';
 
@@ -26,7 +22,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<PlayerViewModel>();
+    // final vm = context.watch<PlayerViewModel>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
