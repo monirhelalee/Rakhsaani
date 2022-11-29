@@ -1,10 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/core/helpers/database_helper.dart';
-import 'package:rakhsaani/features/bookmarks/model/bookmark_model.dart';
+import '../../../core/helpers/database_helper.dart';
 import '../../../core/utils/app_error.dart';
+import '../../bookmarks/model/bookmark_model.dart';
 import '../model/surah.dart';
 import '../repository/surah_repository.dart';
 
@@ -85,7 +84,7 @@ class SurahListViewModel with ChangeNotifier {
 
   next() {
     // Check if it is the last surah
-    if (_selectedSurahNumber != 2) {
+    if (_selectedSurahNumber != surahList.length) {
       _selectedSurahNumber = _selectedSurahNumber! + 1;
       notifyListeners();
     }
@@ -123,9 +122,11 @@ class SurahListViewModel with ChangeNotifier {
   }
 
   List<Surah> getBookmarkedSurah() {
-    List<int?> bookMarkSurahNumber = _bookmarks.map((e) => e.surahNumber).toList();
+    List<int?> bookMarkSurahNumber =
+        _bookmarks.map((e) => e.surahNumber).toList();
     List<Surah> bookmarkedSurah = _surahList
-        .where((element) => bookMarkSurahNumber.contains(element.surah?.surahNumber))
+        .where((element) =>
+            bookMarkSurahNumber.contains(element.surah?.surahNumber))
         .toList();
     return bookmarkedSurah;
   }

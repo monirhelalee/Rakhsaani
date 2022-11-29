@@ -233,13 +233,13 @@ class _PlayerSectionState extends State<PlayerSection> {
                 Consumer<SurahListViewModel>(builder: (context, _vm, _) {
                   return InkWell(
                     onTap: () async {
-                      playerVm.versePosition = 0;
                       _vm.prev();
                       await context
                           .read<SurahDetailViewModel>()
                           .fetchSurahDetail(
                               surahNumber: _vm.selectedSurahNumber!)
                           .then((value) {
+                        playerVm.versePosition = 0;
                         playerVm.playAudio(
                           url:
                               "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/colors.dart';
+import 'package:rakhsaani/features/surah_list/view/surah_list_screen.dart';
 import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
 import '../../../../core/helpers/storage_manager.dart';
 import '../../view_model/language_view_model.dart';
@@ -52,6 +53,10 @@ class _MenuRadioButtonSectionState extends State<MenuRadioButtonSection> {
                           backgroundColor: toastBGColor,
                           textColor: toastTextColor,
                           fontSize: 16.0);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (_) => const SurahListScreen()),
+                          (route) => false);
                     },
                   ),
                   Text(vm.languageModel[index].name),

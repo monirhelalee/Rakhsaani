@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
-import '../../../../core/utils/urls.dart';
 import '../../../about/view/about_rakhsaani.dart';
 import '../../../bookmarks/view/bookmarks_screen.dart';
 import '../../../language/view/menu_select_language_screen.dart';
-import '../surah_list_screen.dart';
+import '../../../surah_list/view/surah_list_screen.dart';
+import 'package:provider/provider.dart';
 
-class Menu extends StatelessWidget {
-  const Menu({
+class DetailMenu extends StatelessWidget {
+  const DetailMenu({
     Key? key,
   }) : super(key: key);
 
@@ -92,10 +93,12 @@ class Menu extends StatelessWidget {
         ),
       ],
       onSelected: (value) {
+        context.read<PlayerViewModel>().pauseAudio();
         switch (value) {
           case 'language':
-             Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const MenuSelectLanguageScreen()),
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_) => const MenuSelectLanguageScreen()),
             );
             break;
           case 'about_rakhsaani':
@@ -104,8 +107,9 @@ class Menu extends StatelessWidget {
             );
             break;
           case 'surah_list':
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (_) => const SurahListScreen()),
+              (route) => false,
             );
             break;
           case 'bookmarks':
