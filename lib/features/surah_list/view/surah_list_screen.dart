@@ -43,4 +43,10 @@ class _SurahListScreenState extends State<SurahListScreen> {
       ),
     );
   }
+
+  // @override
+  // void dispose() {
+  //   context.read<PlayerViewModel>().player.dispose();
+  //   super.dispose();
+  // }
 }
