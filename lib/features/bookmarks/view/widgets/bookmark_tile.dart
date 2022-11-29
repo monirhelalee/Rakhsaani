@@ -6,6 +6,10 @@ import 'package:rakhsaani/core/utils/styles.dart';
 import 'package:rakhsaani/features/surah_list/model/surah.dart';
 import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
 import '../../../../core/utils/asset_path.dart';
+import '../../../../core/utils/urls.dart';
+import '../../../detail/view/detail_screen.dart';
+import '../../../detail/view_model/surah_detail_view_model.dart';
+import '../../../player/view_model/player_view_model.dart';
 
 class BookmarkTile extends StatelessWidget {
   const BookmarkTile({
@@ -18,11 +22,39 @@ class BookmarkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    var playerVm = context.watch<PlayerViewModel>();
+    var detailsVm = context.watch<SurahDetailViewModel>();
+    return InkWell(
+      onTap: () async {
+        playerVm.versePosition = 0;
+        context
+            .read<SurahListViewModel>()
+            .tapSurah(surah.surah?.surahNumber ?? 0);
+        await detailsVm
+            .fetchSurahDetail(surahNumber: surah.surah?.surahNumber ?? 0)
+            .then(
+          (value) {
+            playerVm.playAudio(
+                url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
+            // log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => DetailScreen(
+                  index: index,
+                  name: surah.surah?.name ?? '',
+                  surahNumber: surah.surah?.surahNumber ?? 0,
+                ),
+              ),
+            );
+          },
+        );
+      },
       child: Dismissible(
         key: UniqueKey(),
         onDismissed: (s) {
-          context.read<SurahListViewModel>().deleteBookmark(surah.id);
+          context
+              .read<SurahListViewModel>()
+              .deleteBookmark(surah.surah!.surahNumber);
           Fluttertoast.showToast(
               msg: "${surah.surah?.name} removed from bookmark",
               toastLength: Toast.LENGTH_SHORT,
@@ -36,7 +68,7 @@ class BookmarkTile extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                surah.id.toString(),
+                surah.surah!.surahNumber.toString(),
                 style: AppTextStyles.kTileTitleBlack,
               ),
               const SizedBox(width: 25),

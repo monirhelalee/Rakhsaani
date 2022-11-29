@@ -173,8 +173,9 @@ class _PlayerSectionState extends State<PlayerSection> {
               children: [
                 IconButton(
                   onPressed: () {
-                    surahListVm.addBookmarks(surahListVm.selectedSurahNumber!,
-                        surahListVm.selectedSurahNumber!);
+                    surahListVm.addBookmarks(
+                      detailVm.surahDetailModel!.surahNumber,
+                    );
                     Fluttertoast.showToast(
                         msg: "Bookmark Added",
                         toastLength: Toast.LENGTH_SHORT,

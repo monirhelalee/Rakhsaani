@@ -55,12 +55,12 @@ class DatabaseHelper {
     return bookmarkList;
   }
 
-  Future<void> deleteBookmark(int id) async {
+  Future<void> deleteBookmark(int surahNumber) async {
     Database db = await instance.database;
     await db.delete(
       "bookmarks",
-      where: 'id = ?',
-      whereArgs: [id],
+      where: 'surahNumber = ?',
+      whereArgs: [surahNumber],
     );
   }
 }

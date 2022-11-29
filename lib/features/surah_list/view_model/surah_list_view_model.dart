@@ -108,24 +108,24 @@ class SurahListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  addBookmarks(int id, int surahNumber) {
+  addBookmarks(int surahNumber) {
     final bookmark = Bookmark(
-      id: id,
+      id: surahNumber,
       surahNumber: surahNumber,
     );
     databaseHelper.addBookmark(bookmark);
     fetchBookmarks();
   }
 
-  void deleteBookmark(int? id) {
-    databaseHelper.deleteBookmark(id!);
+  void deleteBookmark(int? surahNumber) {
+    databaseHelper.deleteBookmark(surahNumber!);
     fetchBookmarks();
   }
 
   List<Surah> getBookmarkedSurah() {
-    List<int?> bookMarkSurahNumber = _bookmarks.map((e) => e.id).toList();
+    List<int?> bookMarkSurahNumber = _bookmarks.map((e) => e.surahNumber).toList();
     List<Surah> bookmarkedSurah = _surahList
-        .where((element) => bookMarkSurahNumber.contains(element.id))
+        .where((element) => bookMarkSurahNumber.contains(element.surah?.surahNumber))
         .toList();
     return bookmarkedSurah;
   }
