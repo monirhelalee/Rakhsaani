@@ -180,8 +180,8 @@ class _PlayerSectionState extends State<PlayerSection> {
                         msg: "Bookmark Added",
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
+                        backgroundColor: toastBGColor,
+                        textColor: toastTextColor,
                         fontSize: 16.0);
                   },
                   icon: const Icon(

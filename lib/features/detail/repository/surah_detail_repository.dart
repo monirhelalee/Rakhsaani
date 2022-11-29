@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
 import 'package:rakhsaani/features/detail/model/surah_detail.dart';
+import '../../../core/helpers/storage_manager.dart';
 import '../../../core/utils/api_client.dart';
 import '../../../core/utils/app_error.dart';
 import '../../../core/utils/urls.dart';
@@ -11,7 +11,7 @@ import '../../../core/utils/urls.dart';
 class SurahDetailRepository {
   Future<Either<AppError, SurahDetail>> fetchSurahDetail(
       var surahNumber) async {
-    String selectedLanguage = 'Bangla';
+    String selectedLanguage = await StorageManager.getKey('lang') ?? '';
     try {
       var response = await ApiClient()
           .getRequest("${Urls.surahList}$surahNumber/$selectedLanguage");

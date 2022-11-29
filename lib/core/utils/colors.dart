@@ -12,6 +12,8 @@ const redColor = Color(0xffFF636C);
 const yellowColor = Color(0xffFFF509);
 const whiteColor = Colors.white;
 const blackColor = Colors.black;
+const toastBGColor = onPrimayColor;
+const toastTextColor = onWhiteColor;
 const MaterialColor primarySwatchColor = MaterialColor(
   0xff00A8AE,
   <int, Color>{

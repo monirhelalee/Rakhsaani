@@ -59,8 +59,8 @@ class BookmarkTile extends StatelessWidget {
               msg: "${surah.surah?.name} removed from bookmark",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
+              backgroundColor: toastBGColor,
+              textColor: toastTextColor,
               fontSize: 16.0);
         },
         child: Container(
