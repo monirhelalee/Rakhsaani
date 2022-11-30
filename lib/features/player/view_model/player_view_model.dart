@@ -12,11 +12,27 @@ class PlayerViewModel with ChangeNotifier {
   int? position;
   int versePosition = 0;
 
+  bool _repeatNext = true;
+  bool _repeatOne = false;
+  bool _random = false;
+
+  toggleRepeatOption() {
+    _repeatNext = !_repeatNext;
+    _repeatOne = !_repeatOne;
+    notifyListeners();
+  }
+
+  toggleRandom() {
+    _random = !_random;
+    notifyListeners();
+  }
+
   void playAudio({required String url, int? surahNo}) async {
     isPlaying = true;
     //isExpnaded = true;
     playingSurahNumber = surahNo;
     notifyListeners();
+    // TODO : should we wrap seturl with try catch?
     await player.setUrl(url);
     await player.play();
   }
@@ -63,4 +79,8 @@ class PlayerViewModel with ChangeNotifier {
     notifyListeners();
     await player.pause();
   }
+
+  bool get repeatNext => _repeatNext;
+  bool get repeatOne => _repeatOne;
+  bool get random => _random;
 }

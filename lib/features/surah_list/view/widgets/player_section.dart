@@ -90,7 +90,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                     "playerVm.player.playerState ${playerVm.player.playerState.processingState}");
                 if (playerVm.player.playerState.processingState ==
                     ProcessingState.completed) {
-                  playerVm.player.stop();
+                  // playerVm.player.stop();
                   Future.delayed(Duration.zero, () async {
                     surahListVm.next();
                     log(surahListVm.selectedSurahNumber.toString());
@@ -223,9 +223,21 @@ class _PlayerSectionState extends State<PlayerSection> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    CupertinoIcons.repeat,
+                  onPressed: () {
+                    playerVm.toggleRepeatOption();
+                    Fluttertoast.showToast(
+                      msg: playerVm.repeatNext ? "Repeat next" : "Repeat One",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: toastBGColor,
+                      textColor: toastTextColor,
+                      fontSize: 16.0,
+                    );
+                  },
+                  icon: Icon(
+                    playerVm.repeatNext
+                        ? CupertinoIcons.repeat
+                        : CupertinoIcons.repeat_1,
                     color: onPrimayColor,
                     size: 18,
                   ),
@@ -304,10 +316,20 @@ class _PlayerSectionState extends State<PlayerSection> {
                   );
                 }),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+                  onPressed: () {
+                    playerVm.toggleRandom();
+                    Fluttertoast.showToast(
+                      msg: playerVm.random ? "Shuffle On" : "Shuffle Off",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: toastBGColor,
+                      textColor: toastTextColor,
+                      fontSize: 16.0,
+                    );
+                  },
+                  icon: Icon(
                     CupertinoIcons.shuffle,
-                    color: onPrimayColor,
+                    color: playerVm.random ? onPrimayColor : Colors.grey,
                     size: 18,
                   ),
                 ),
