@@ -252,22 +252,35 @@ class _PlayerSectionState extends State<PlayerSection> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {
-                    playerVm.toggleRepeatOption();
-                    Fluttertoast.showToast(
-                      msg: playerVm.repeatNext ? "Repeat Off" : "Repeat On",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: toastBGColor,
-                      textColor: toastTextColor,
-                      fontSize: 16.0,
-                    );
-                  },
+                  onPressed: playerVm.random
+                      ? () {
+                          Fluttertoast.showToast(
+                            msg: "Can not repeat while shuffle is on",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: toastBGColor,
+                            textColor: toastTextColor,
+                            fontSize: 16.0,
+                          );
+                        }
+                      : () {
+                          playerVm.toggleRepeatOption();
+                          Fluttertoast.showToast(
+                            msg: playerVm.repeatNext
+                                ? "Repeat Off"
+                                : "Repeat On",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: toastBGColor,
+                            textColor: toastTextColor,
+                            fontSize: 16.0,
+                          );
+                        },
                   icon: Icon(
                     playerVm.repeatNext
                         ? CupertinoIcons.repeat
                         : CupertinoIcons.repeat_1,
-                    color: onPrimayColor,
+                    color: playerVm.random ? Colors.grey : onPrimayColor,
                     size: 18,
                   ),
                 ),
