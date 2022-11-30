@@ -92,22 +92,51 @@ class _PlayerSectionState extends State<PlayerSection> {
                     ProcessingState.completed) {
                   // playerVm.player.stop();
                   Future.delayed(Duration.zero, () async {
-                    surahListVm.next();
-                    log(surahListVm.selectedSurahNumber.toString());
-                    // var s = _vm.getSurahByNumber( detailVm.surahDetailModel!.surahNumber);
-                    await detailVm
-                        .fetchSurahDetail(
-                            surahNumber: surahListVm.selectedSurahNumber!)
-                        .then((value) {
-                      playerVm.versePosition = 0;
-                      playerVm.playAudio(
-                        url:
-                            "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
-                      );
-                    });
+                    if (!playerVm.random) {
+                      if (playerVm.repeatNext) {
+                        surahListVm.next();
+                        log('Playing next surah');
+                        await detailVm
+                            .fetchSurahDetail(
+                                surahNumber: surahListVm.selectedSurahNumber!)
+                            .then((value) {
+                          playerVm.versePosition = 0;
+                          playerVm.playAudio(
+                            url:
+                                "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                          );
+                        });
+                      } else {
+                        // Play the same surah
+                        log('Playing same surah');
+                        await detailVm
+                            .fetchSurahDetail(
+                                surahNumber: surahListVm.selectedSurahNumber!)
+                            .then((value) {
+                          playerVm.versePosition = 0;
+                          playerVm.playAudio(
+                            url:
+                                "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                          );
+                        });
+                      }
+                    } else {
+                      surahListVm.getRandomSurahNumber();
+                      log('Playing random surah');
+                      await detailVm
+                          .fetchSurahDetail(
+                              surahNumber: surahListVm.selectedSurahNumber!)
+                          .then((value) {
+                        playerVm.versePosition = 0;
+                        playerVm.playAudio(
+                          url:
+                              "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+                        );
+                      });
+                    }
                   });
 
-                  debugPrint("Stop Playing");
+                  // debugPrint("Stop Playing");
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
@@ -226,7 +255,7 @@ class _PlayerSectionState extends State<PlayerSection> {
                   onPressed: () {
                     playerVm.toggleRepeatOption();
                     Fluttertoast.showToast(
-                      msg: playerVm.repeatNext ? "Repeat next" : "Repeat One",
+                      msg: playerVm.repeatNext ? "Repeat Off" : "Repeat On",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: toastBGColor,

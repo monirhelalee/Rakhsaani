@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,6 +91,12 @@ class SurahListViewModel with ChangeNotifier {
       _selectedSurahNumber = _selectedSurahNumber! + 1;
       notifyListeners();
     }
+  }
+
+  getRandomSurahNumber() {
+    int rndNum = Random().nextInt(_surahList.length) + 1;
+    _selectedSurahNumber = rndNum;
+    notifyListeners();
   }
 
   Surah getSurahByNumber(int num) {
