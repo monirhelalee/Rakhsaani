@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
+import '../../../player/view_model/player_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';

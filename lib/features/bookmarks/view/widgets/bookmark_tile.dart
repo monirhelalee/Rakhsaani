@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/core/utils/colors.dart';
-import 'package:rakhsaani/core/utils/styles.dart';
-import 'package:rakhsaani/features/surah_list/model/surah.dart';
-import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/styles.dart';
+import '../../../surah_list/model/surah.dart';
+import '../../../surah_list/view_model/surah_list_view_model.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/urls.dart';
 import '../../../detail/view/detail_screen.dart';

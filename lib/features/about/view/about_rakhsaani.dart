@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rakhsaani/core/utils/colors.dart';
-import 'package:rakhsaani/core/utils/constant.dart';
-import 'package:rakhsaani/core/utils/styles.dart';
-import 'package:rakhsaani/core/widgets/common_text_widget.dart';
+
+import '../../../core/utils/colors.dart';
+import '../../../core/utils/constant.dart';
+import '../../../core/utils/styles.dart';
+import '../../../core/widgets/common_text_widget.dart';
 
 class AboutRakhsaani extends StatelessWidget {
   const AboutRakhsaani({Key? key}) : super(key: key);

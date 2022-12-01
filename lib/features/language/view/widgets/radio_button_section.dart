@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../core/helpers/storage_manager.dart';
 import '../../../surah_list/view/surah_list_screen.dart';
 import '../../view_model/language_view_model.dart';

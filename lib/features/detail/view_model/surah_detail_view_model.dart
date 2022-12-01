@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
+import '../../surah_list/view_model/surah_list_view_model.dart';
 import '../../../core/utils/app_error.dart';
 import '../model/surah_detail.dart';
 import '../repository/surah_detail_repository.dart';

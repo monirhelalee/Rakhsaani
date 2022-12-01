@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/utils/utils_exports.dart';
 import '../view_model/surah_list_view_model.dart';
 import 'widgets/menu.dart';

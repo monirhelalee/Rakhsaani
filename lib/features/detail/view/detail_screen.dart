@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
+import '../../player/view_model/player_view_model.dart';
 import '../../surah_list/view/widgets/player_section.dart';
 import '../../surah_list/view/widgets/surah_list_view_expanded.dart';
 import '../view_model/surah_detail_view_model.dart';

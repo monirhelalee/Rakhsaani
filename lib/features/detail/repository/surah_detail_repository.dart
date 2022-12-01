@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:rakhsaani/features/detail/model/surah_detail.dart';
+import '../model/surah_detail.dart';
 import '../../../core/helpers/storage_manager.dart';
 import '../../../core/utils/api_client.dart';
 import '../../../core/utils/app_error.dart';
