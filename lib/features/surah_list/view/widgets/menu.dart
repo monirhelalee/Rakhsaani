@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
@@ -94,8 +95,9 @@ class Menu extends StatelessWidget {
       onSelected: (value) {
         switch (value) {
           case 'language':
-             Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const MenuSelectLanguageScreen()),
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_) => const MenuSelectLanguageScreen()),
             );
             break;
           case 'about_rakhsaani':
@@ -111,6 +113,19 @@ class Menu extends StatelessWidget {
           case 'bookmarks':
             Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const BookmarksScreen()),
+            );
+            break;
+          case 'privacy_policy':
+            launchUrl(
+              Uri.parse(Urls.privacyPolicy),
+            );
+            break;
+          case 'help':
+            launchUrl(
+              Uri(
+                scheme: 'mailto',
+                path: Urls.helpEmail,
+              ),
             );
             break;
           default:
