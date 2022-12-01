@@ -46,18 +46,20 @@ class SurahListView extends StatelessWidget {
           builder: (context, vm, _) {
             return vm.fetchSurahError != null
                 ? const ErrorScreen()
-                : ListView.separated(
-                    itemCount: vm.surahSearchList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return SurahTile(
-                        index: index,
-                        surah: vm.surahSearchList[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Separator();
-                    },
+                : Expanded(
+                    child: ListView.separated(
+                      itemCount: vm.surahSearchList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return SurahTile(
+                          index: index,
+                          surah: vm.surahSearchList[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Separator();
+                      },
+                    ),
                   );
           },
         ),
