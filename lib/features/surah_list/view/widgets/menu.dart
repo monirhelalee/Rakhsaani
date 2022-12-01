@@ -56,27 +56,27 @@ class Menu extends StatelessWidget {
             icon: 'ic_privacy.png',
           ),
         ),
-        const PopupMenuItem<String>(
-          value: 'rating',
-          child: PopupMenuRow(
-            text: 'Rating',
-            icon: 'ic_rating.png',
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'feedback',
-          child: PopupMenuRow(
-            text: 'Feedback',
-            icon: 'ic_feedback.png',
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'share',
-          child: PopupMenuRow(
-            text: 'Share',
-            icon: 'ic_share.png',
-          ),
-        ),
+        // const PopupMenuItem<String>(
+        //   value: 'rating',
+        //   child: PopupMenuRow(
+        //     text: 'Rating',
+        //     icon: 'ic_rating.png',
+        //   ),
+        // ),
+        // const PopupMenuItem<String>(
+        //   value: 'feedback',
+        //   child: PopupMenuRow(
+        //     text: 'Feedback',
+        //     icon: 'ic_feedback.png',
+        //   ),
+        // ),
+        // const PopupMenuItem<String>(
+        //   value: 'share',
+        //   child: PopupMenuRow(
+        //     text: 'Share',
+        //     icon: 'ic_share.png',
+        //   ),
+        // ),
         // const PopupMenuItem<String>(
         //   value: 'settings',
         //   child: PopupMenuRow(
@@ -84,13 +84,13 @@ class Menu extends StatelessWidget {
         //     icon: 'ic_setting.png',
         //   ),
         // ),
-        const PopupMenuItem<String>(
-          value: 'help',
-          child: PopupMenuRow(
-            text: 'Help',
-            icon: 'ic_help.png',
-          ),
-        ),
+        // const PopupMenuItem<String>(
+        //   value: 'help',
+        //   child: PopupMenuRow(
+        //     text: 'Help',
+        //     icon: 'ic_help.png',
+        //   ),
+        // ),
       ],
       onSelected: (value) {
         switch (value) {
