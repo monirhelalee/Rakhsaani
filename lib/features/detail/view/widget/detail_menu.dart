@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rakhsaani/features/player/view_model/player_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../../core/utils/urls.dart';
 import '../../../about/view/about_rakhsaani.dart';
 import '../../../bookmarks/view/bookmarks_screen.dart';
 import '../../../language/view/menu_select_language_screen.dart';
@@ -117,6 +119,20 @@ class DetailMenu extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const BookmarksScreen()),
             );
             break;
+          case 'privacy_policy':
+            launchUrl(
+              Uri.parse(Urls.privacyPolicy),
+            );
+            break;
+          case 'help':
+            launchUrl(
+              Uri(
+                scheme: 'mailto',
+                path: 'info.rakhsaanitrust@gmail.com',
+              ),
+            );
+            break;
+
           default:
         }
       },
