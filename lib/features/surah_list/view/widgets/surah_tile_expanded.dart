@@ -64,30 +64,22 @@ class SurahTileExpanded extends StatelessWidget {
             const SizedBox(width: 40),
             Consumer<PlayerViewModel>(
               builder: (context, player, _) {
-                return InkWell(
-                  onTap: () {
-                    // player.playAudio(
-                    //   Urls.baseUrl + surah.surah.audio,
-                    //   surah.surah.surahNumber,
-                    // );
-                  },
-                  child: surah.surah?.surahNumber == listVm.selectedSurahNumber
-                      ? player.player.playing
-                          ? Lottie.asset(
-                              '${imageUrl}eq.json',
-                              width: 30,
-                            )
-                          : Image.asset(
-                              '${iconUrl}ic_play_circle.png',
-                              width: 30,
-                              color: onWhiteColor,
-                            )
-                      : Image.asset(
-                          '${iconUrl}ic_play_circle.png',
-                          width: 30,
-                          color: onWhiteColor,
-                        ),
-                );
+                return surah.surah?.surahNumber == listVm.selectedSurahNumber
+                    ? player.player.playing || player.isPlaying
+                        ? Lottie.asset(
+                            '${imageUrl}eq.json',
+                            width: 30,
+                          )
+                        : Image.asset(
+                            '${iconUrl}ic_play_circle.png',
+                            width: 30,
+                            color: onWhiteColor,
+                          )
+                    : Image.asset(
+                        '${iconUrl}ic_play_circle.png',
+                        width: 30,
+                        color: onWhiteColor,
+                      );
               },
             ),
           ],

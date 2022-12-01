@@ -180,14 +180,22 @@ class _PlayerSectionState extends State<PlayerSection> {
                     // });
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Text(
-                        (playerVm.versePosition >=
-                                detailVm.surahDetailModel!.verseAndTime.length)
-                            ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
-                            : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.kPlayerText.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 3,
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: Text(
+                              (playerVm.versePosition >=
+                                      detailVm.surahDetailModel!.verseAndTime
+                                          .length)
+                                  ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
+                                  : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.kPlayerText.copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ),
                     );
                   }
