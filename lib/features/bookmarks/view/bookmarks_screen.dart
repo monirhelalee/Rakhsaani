@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/bookmarks/view/widgets/bookmark_tile.dart';
-import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
+import 'widgets/bookmark_tile.dart';
+import '../../surah_list/view_model/surah_list_view_model.dart';
 
 import '../../../core/utils/colors.dart';
-import '../../surah_list/view/widgets/menu.dart';
-import '../../surah_list/view/widgets/search_surah.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({super.key});

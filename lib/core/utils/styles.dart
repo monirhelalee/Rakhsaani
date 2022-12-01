@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rakhsaani/core/utils/utils_exports.dart';
+import 'utils_exports.dart';
 
 class AppTextStyles {
   static const TextStyle kWebsiteText = TextStyle(

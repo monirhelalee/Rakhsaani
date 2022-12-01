@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rakhsaani/core/utils/utils_exports.dart';
+import '../utils/utils_exports.dart';
 
 class CommonTextWidget extends Text {
   CommonTextWidget(

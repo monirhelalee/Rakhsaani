@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
+import '../../view_model/surah_list_view_model.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
-import '../../../search/custom_search_deligate.dart';
 
 class SearchSurah extends StatefulWidget {
   const SearchSurah({

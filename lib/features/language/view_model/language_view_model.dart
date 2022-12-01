@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rakhsaani/core/utils/app_error.dart';
+import '../../../core/utils/app_error.dart';
 import '../model/language_model.dart';
 import '../repository/language_repositroy.dart';
 

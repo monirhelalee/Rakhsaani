@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:rakhsaani/core/utils/urls.dart';
+import 'urls.dart';
 
 import 'logger_helper.dart';
 

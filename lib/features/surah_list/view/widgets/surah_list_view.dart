@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakhsaani/core/utils/colors.dart';
+import '../../../../core/utils/colors.dart';
 import '../../../error_screen/error_screen.dart';
 import '../../view_model/surah_list_view_model.dart';
 import 'separator.dart';
