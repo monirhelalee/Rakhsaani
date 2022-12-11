@@ -29,6 +29,7 @@ class _SurahListScreenState extends State<SurahListScreen> {
       child: Scaffold(
         backgroundColor: kScaffoldBgColor,
         appBar: AppBar(
+          elevation: 1,
           centerTitle: true,
           title: const Text(
             'Surah List',

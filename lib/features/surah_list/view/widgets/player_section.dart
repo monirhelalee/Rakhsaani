@@ -75,7 +75,7 @@ class _PlayerSectionState extends State<PlayerSection> {
     log('build');
     return Builder(builder: (context) {
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         width: double.infinity,
         decoration: const BoxDecoration(
           color: kScaffoldBgColor,

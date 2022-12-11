@@ -18,7 +18,9 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      position: PopupMenuPosition.under,
+      // position: PopupMenuPosition.under,
+      padding: EdgeInsets.zero,
+      offset: const Offset(0, 57),
       color: primaryColor,
       itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
         const PopupMenuItem<String>(

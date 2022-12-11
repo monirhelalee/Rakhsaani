@@ -44,7 +44,7 @@ class SurahTileExpanded extends StatelessWidget {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         child: Row(
           children: [
             Text(
