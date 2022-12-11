@@ -64,7 +64,7 @@ class BookmarkTile extends StatelessWidget {
               fontSize: 16.0);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
           child: Row(
             children: [
               Text(

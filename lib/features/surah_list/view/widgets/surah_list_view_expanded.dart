@@ -26,7 +26,7 @@ class SurahListViewExpanded extends StatelessWidget {
                 },
                 separatorBuilder: (context, index) {
                   return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
                     child: Divider(
                       color: onWhiteColor,
                     ),

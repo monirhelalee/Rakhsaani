@@ -19,7 +19,7 @@ class SurahListView extends StatelessWidget {
         surahListVm.isSearchOpen
             ? Container(
                 margin: const EdgeInsets.only(top: 8),
-                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                padding: const EdgeInsets.only(left: 15.0, right: 15),
                 child: TextField(
                   autofocus: true,
                   controller: surahListVm.searchController,

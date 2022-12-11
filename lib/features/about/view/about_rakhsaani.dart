@@ -15,6 +15,7 @@ class AboutRakhsaani extends StatelessWidget {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        elevation: 1,
         title: CommonTextWidget("About", style: AppTextStyles.title20),
         centerTitle: true,
       ),

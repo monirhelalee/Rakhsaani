@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/utils/asset_path.dart';
 import '../../error_screen/error_screen.dart';
 import '../view_model/language_view_model.dart';
 import 'widgets/menu_radio_button_section.dart';
@@ -23,6 +24,7 @@ class _MenuSelectLanguageScreenState extends State<MenuSelectLanguageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text('Language'),
         centerTitle: true,
       ),
@@ -34,18 +36,28 @@ class _MenuSelectLanguageScreenState extends State<MenuSelectLanguageScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Image.asset(
+                      '${imageUrl}ic_bismillah_vector.png',
+                      width: 200,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Text(
                     'Select Language',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  MenuRadioButtonSection(),
+                  const MenuRadioButtonSection(),
                 ],
               ),
             ),

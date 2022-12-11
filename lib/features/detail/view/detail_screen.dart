@@ -22,11 +22,32 @@ class DetailScreen extends StatefulWidget {
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailScreenState extends State<DetailScreen>
+    with WidgetsBindingObserver {
   // @override
   // void dispose() {
   //   context.read<PlayerViewModel>().player.stop();
   //   super.dispose();
+  // }
+
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // TODO: implement didChangeAppLifecycleState
+  //   super.didChangeAppLifecycleState(state);
+  //   switch (state) {
+  //     case AppLifecycleState.resumed:
+  //       // widget is resumed
+  //       break;
+  //     case AppLifecycleState.inactive:
+  //       context.read<PlayerViewModel>().player.stop();
+  //       break;
+  //     case AppLifecycleState.paused:
+  //       context.read<PlayerViewModel>().player.stop();
+  //       break;
+  //     case AppLifecycleState.detached:
+  //       context.read<PlayerViewModel>().player.stop();
+  //       break;
+  //   }
   // }
 
   @override
@@ -38,6 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          elevation: 1,
           title: Text(context.watch<SurahDetailViewModel>().appBarTitle),
           actions: const [
             DetailMenu(),

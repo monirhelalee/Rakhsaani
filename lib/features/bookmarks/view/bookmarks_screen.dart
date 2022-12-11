@@ -24,6 +24,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     final vm = context.watch<SurahListViewModel>();
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text('Bookmarks'),
       ),
       body: vm.bookmarks.isEmpty
@@ -38,7 +39,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
               ),
               separatorBuilder: (context, index) {
                 return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Divider(
                     color: onWhiteColor,
                   ),
