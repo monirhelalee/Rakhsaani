@@ -5,6 +5,7 @@ import 'package:duration/duration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import '../../../detail/view_model/surah_detail_view_model.dart';
@@ -31,6 +32,7 @@ class PlayerSection extends StatefulWidget {
 
 class _PlayerSectionState extends State<PlayerSection> {
   Duration? _position;
+  var x = 0;
   // @override
   // void initState() {
   //   Timer.run(() {
@@ -69,6 +71,8 @@ class _PlayerSectionState extends State<PlayerSection> {
     var playerVm = context.watch<PlayerViewModel>();
     var surahListVm = context.read<SurahListViewModel>();
     var detailVm = context.read<SurahDetailViewModel>();
+
+    log('build');
     return Builder(builder: (context) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -162,6 +166,25 @@ class _PlayerSectionState extends State<PlayerSection> {
                       }
                     }
 
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      x = detailVm.surahDetailModel!.verseAndTime.indexWhere(
+                          (e) =>
+                              DateFormat('HH:mm:ss.S')
+                                      .parse(e.timeIn, true)
+                                      .millisecondsSinceEpoch <=
+                                  positionData.position.inMilliseconds &&
+                              DateFormat('HH:mm:ss.S')
+                                      .parse(e.timeOut, true)
+                                      .millisecondsSinceEpoch >=
+                                  positionData.position.inMilliseconds);
+                    });
+
+                    log(x.toString());
+                    // log('---------  ${positionData.position.inMilliseconds.toString()}  -----------');
+                    // log('---------  ${DateFormat('HH:mm:ss.S').parse(detailVm.surahDetailModel!.verseAndTime[1].timeIn, true).microsecondsSinceEpoch}  -----------');
+                    // log('${DateFormat('HH:mm:ss.S').parse(detailVm.surahDetailModel!.verseAndTime.last.timeIn, true).microsecondsSinceEpoch}');
+                    // // log('${Date(detailVm.surahDetailModel!.verseAndTime.first.timeIn.substring(0, 7))}');
+
                     // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
                     // playerVm.player.playerStateStream.listen((playerState) {
                     //   if (playerState.processingState ==
@@ -185,11 +208,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                         child: Center(
                           child: SingleChildScrollView(
                             child: Text(
-                              (playerVm.versePosition >=
-                                      detailVm.surahDetailModel!.verseAndTime
-                                          .length)
-                                  ? "${detailVm.surahDetailModel?.verseAndTime.last.text}"
-                                  : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
+                              x.isNegative
+                                  ? '...'
+                                  : "${detailVm.surahDetailModel?.verseAndTime[x].text}",
+                              // : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
                               textAlign: TextAlign.center,
                               style: AppTextStyles.kPlayerText.copyWith(
                                   fontSize: 14, fontWeight: FontWeight.bold),
