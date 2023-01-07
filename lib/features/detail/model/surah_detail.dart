@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 SurahDetail surahDetailFromJson(String str) =>
     SurahDetail.fromJson(json.decode(str));
 
