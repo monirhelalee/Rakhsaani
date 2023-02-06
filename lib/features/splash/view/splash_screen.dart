@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       _setVal();
     });
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -47,9 +47,12 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset('${imageUrl}ic_launcher_foreground.png'),
+              Image.asset(
+                '${iconUrl}logo_croped.png',
+                height: 130,
+              ),
             ],
           ),
           const Positioned(
@@ -58,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
             right: 0,
             child: Center(
               child: Text(
-                'www.rakhsaanitrust.org',
+                'www.rakhsaani.org',
                 style: AppTextStyles.kWebsiteText,
                 textAlign: TextAlign.center,
               ),

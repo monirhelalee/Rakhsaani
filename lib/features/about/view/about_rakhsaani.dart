@@ -39,8 +39,8 @@ class AboutRakhsaani extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Image.asset(
-                      "assets/icons/logo.png",
-                      height: 80,
+                      "assets/icons/logo_croped.png",
+                      height: 70,
                     ),
                   ],
                 ),
@@ -78,7 +78,7 @@ class AboutRakhsaani extends StatelessWidget {
           Column(
             children: [
               CommonTextWidget(
-                "About Rakhasaani Trust",
+                "About Rakhasaani",
                 style: AppTextStyles.regular18.copyWith(fontSize: 24),
               ),
               spaceBetween,
@@ -94,7 +94,7 @@ class AboutRakhsaani extends StatelessWidget {
               spaceBetween,
               spaceBetween,
               CommonTextWidget(
-                "www.rakhsaanitrust.org",
+                "www.rakhsaani.org",
                 style: AppTextStyles.regular14,
               ),
             ],
