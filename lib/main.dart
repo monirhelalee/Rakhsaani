@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 import 'core/helpers/storage_manager.dart';
 import 'core/utils/colors.dart';
 import 'features/detail/view_model/surah_detail_view_model.dart';
@@ -10,7 +11,7 @@ import 'features/player/view_model/player_view_model.dart';
 import 'features/splash/view/splash_screen.dart';
 import 'features/surah_list/view_model/surah_list_view_model.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
   // Orientation
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         builder: BotToastInit(),
         theme: ThemeData(
+          useMaterial3: false,
           primarySwatch: primarySwatchColor,
           primaryColor: const Color(0xff121314),
           brightness: Brightness.light,

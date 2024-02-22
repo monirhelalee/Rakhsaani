@@ -8,15 +8,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import '../../../detail/view_model/surah_detail_view_model.dart';
-import '../../../player/view_model/player_view_model.dart';
-import 'seekbar.dart';
+
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../detail/view_model/surah_detail_view_model.dart';
+import '../../../player/view_model/player_view_model.dart';
 import '../../view_model/surah_list_view_model.dart';
+import 'seekbar.dart';
 
 class PlayerSection extends StatefulWidget {
   const PlayerSection({
@@ -214,7 +215,10 @@ class _PlayerSectionState extends State<PlayerSection> {
                               // : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
                               textAlign: TextAlign.center,
                               style: AppTextStyles.kPlayerText.copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

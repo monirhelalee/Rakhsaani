@@ -5,7 +5,7 @@ description: A new Flutter project.
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.3+4
+version: 1.0.5+6
 
 environment:
   sdk: '>=2.18.2 <3.0.0'
@@ -14,24 +14,25 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.5
-  provider: ^6.0.5
-  intl: ^0.18.0
-  google_fonts: ^3.0.1
-  path: ^1.8.2
-  bot_toast: ^4.0.3
-  http: ^0.13.5
+  cupertino_icons: ^1.0.6
+  provider: ^6.1.1
+  intl: ^0.19.0
+  google_fonts: ^6.1.0
+  path: ^1.8.3
+  bot_toast: ^4.1.3
+  http: ^1.2.0
   dartz: ^0.10.1
-  logger: ^1.1.0
-  font_awesome_flutter: ^10.3.0
-  shared_preferences: ^2.0.15
-  just_audio: ^0.9.31
-  lottie: ^2.1.0
-  duration: ^3.0.12
-  sqflite: ^2.2.2
-  path_provider: ^2.0.11
-  fluttertoast: ^8.1.2
-  url_launcher: ^6.1.7
+  logger: ^2.0.2+1
+  font_awesome_flutter: ^10.7.0
+  shared_preferences: ^2.2.2
+  just_audio: ^0.9.36
+  just_audio_background: ^0.0.1-beta.11
+  lottie: ^3.1.0
+  duration: ^3.0.13
+  sqflite: ^2.3.2
+  path_provider: ^2.1.2
+  fluttertoast: ^8.2.4
+  url_launcher: ^6.2.5
 
 
 
@@ -39,7 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 
 
