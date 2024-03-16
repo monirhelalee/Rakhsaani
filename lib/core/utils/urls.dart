@@ -1,7 +1,7 @@
 class Urls {
-  static String get baseUrl => "https://api.rakhsaani.org/";
-  static String surahList = 'surah/';
-  static String language = 'language/';
+  static String get baseUrl => "http://89.117.149.152";
+  static String surahList = '/surah/';
+  static String language = '/language/';
   static String surahDetail = '$baseUrl$surahList/';
 
   static String privacyPolicy = 'https://rakhsaani.org/privacy-policy.html';

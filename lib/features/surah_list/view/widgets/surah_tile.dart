@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import '../../../detail/view/detail_screen.dart';
+
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../detail/view/detail_screen.dart';
 import '../../../detail/view_model/surah_detail_view_model.dart';
 import '../../../player/view_model/player_view_model.dart';
 import '../../model/surah.dart';
@@ -45,7 +46,7 @@ class SurahTile extends StatelessWidget {
           (value) {
             playerVm.playAudio(
                 url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
-            log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
+            log('selected surah : ${Urls.baseUrl}${detailsVm.surahDetailModel?.audio} --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => DetailScreen(
