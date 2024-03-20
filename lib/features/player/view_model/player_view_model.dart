@@ -1,7 +1,9 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
-import '../../surah_list/view/widgets/seekbar.dart';
+import 'package:rakhsaani/features/surah_list/view_model/surah_list_view_model.dart';
 
 class PlayerViewModel with ChangeNotifier {
   final player = AudioPlayer();
@@ -11,6 +13,11 @@ class PlayerViewModel with ChangeNotifier {
   int? playingSurahNumber;
   int? position;
   int versePosition = 0;
+
+  ///
+  late StreamSubscription<Duration> stream;
+  Duration _currentTime = Duration.zero;
+  Duration _totalTime = const Duration(milliseconds: 1);
 
   bool _repeatNext = true;
   bool _repeatOne = false;
@@ -27,20 +34,49 @@ class PlayerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void playAudio({required String url, int? surahNo}) async {
+  void playAudio({
+    required String url,
+    required int surahNo,
+    required SurahListViewModel vm,
+  }) async {
     isPlaying = true;
-    //isExpnaded = true;
     playingSurahNumber = surahNo;
+    _totalTime = parseDuration(vm.surahList[surahNo - 1].duration ?? '0:0:0');
+    log('$_totalTime');
     notifyListeners();
     // TODO : should we wrap seturl with try catch?
-    await player.setUrl(url);
-    await player.play();
+    await player.setSourceUrl(url);
+    log(url);
+    await player.play(UrlSource(url));
+
+    player.onPositionChanged.listen((Duration position) {
+      _currentTime = position;
+      notifyListeners();
+    });
+
+    // player.onPlayerStateChanged.listen((PlayerState s) async {
+    //   if (s == PlayerState.completed) {
+    //     if (!_isCalled) {
+    //       _selectedIndex = _selectedIndex! + 1;
+    //       _isCalled = true;
+    //       if (selectedIndex == 114) {
+    //         _selectedIndex = 0;
+    //         await loadAudio();
+    //       } else {
+    //         await loadAudio();
+    //       }
+    //     }
+    //   }
+    //   if (s == PlayerState.playing) {
+    //     NotificationService.updateNotification(NotificationPlayState.playing);
+    //   }
+    // });
   }
 
   void reumeAudio() {
     isPlaying = true;
     notifyListeners();
-    player.play();
+    player.resume();
   }
 
   void muteAudio() {
@@ -49,24 +85,24 @@ class PlayerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int positionAudio() {
-    int _p = player.position.inSeconds;
-    notifyListeners();
-    return _p;
-  }
+  // int positionAudio() {
+  //   int _p = player.position.inSeconds;
+  //   notifyListeners();
+  //   return _p;
+  // }
 
   void seekToPosition(dynamic position) async {
     await player.seek(position);
   }
 
-  Stream<PositionData> get positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-        player.positionStream,
-        player.bufferedPositionStream,
-        player.durationStream,
-        (position, bufferedPosition, duration) =>
-            PositionData(position, bufferedPosition, duration ?? Duration.zero),
-      );
+  // Stream<PositionData> get positionDataStream =>
+  //     Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+  //       player.positionStream,
+  //       player.bufferedPositionStream,
+  //       player.durationStream,
+  //       (position, bufferedPosition, duration) =>
+  //           PositionData(position, bufferedPosition, duration ?? Duration.zero),
+  //     );
 
   void collapsePlayer() {
     //isExpnaded = false;
@@ -80,7 +116,29 @@ class PlayerViewModel with ChangeNotifier {
     await player.pause();
   }
 
+  ///
+  Duration parseDuration(String durationString) {
+    List<String> parts =
+        durationString.split(':'); // Splitting the string by colon
+
+    // Parsing hours, minutes, and seconds from the string parts
+    int hours = int.parse(parts[0]);
+    int minutes = int.parse(parts[1]);
+    int seconds = int.parse(parts[2]);
+
+    // Creating a Duration object
+    Duration duration = Duration(
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    );
+
+    return duration;
+  }
+
   bool get repeatNext => _repeatNext;
   bool get repeatOne => _repeatOne;
   bool get random => _random;
+  Duration get currentTime => _currentTime;
+  Duration get totalTime => _totalTime;
 }

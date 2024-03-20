@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/utils/colors.dart';
-import '../../../../core/utils/styles.dart';
-import '../../../player/view_model/player_view_model.dart';
 
 import '../../../../core/utils/asset_path.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
 import '../../../detail/view_model/surah_detail_view_model.dart';
+import '../../../player/view_model/player_view_model.dart';
 import '../../model/surah.dart';
 import '../../view_model/surah_list_view_model.dart';
 
 class SurahTileExpanded extends StatelessWidget {
   const SurahTileExpanded({
-    Key? key,
+    super.key,
     required this.index,
     required this.surah,
-  }) : super(key: key);
+  });
 
   final int index;
   final Surah surah;
@@ -28,18 +28,16 @@ class SurahTileExpanded extends StatelessWidget {
     var detailVm = context.read<SurahDetailViewModel>();
     return InkWell(
       onTap: () async {
+        player.pauseAudio();
         listVm.tapSurah(surah.surah?.surahNumber ?? 0);
-        // context.read<SurahDetailViewModel>().fetchSurahDetail();
-        // player.playAudio(
-        //   Urls.baseUrl + surah.surah.audio,
-        //   surah.surah.surahNumber,
-        // );
         await detailVm
             .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
             .then((value) {
           player.versePosition = 0;
           player.playAudio(
             url: "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
+            surahNo: listVm.selectedSurahNumber!,
+            vm: listVm,
           );
         });
       },
@@ -53,19 +51,19 @@ class SurahTileExpanded extends StatelessWidget {
             ),
             const SizedBox(width: 25),
             Text(
-              "${surah.surah?.name ?? ""}",
+              surah.surah?.name ?? "",
               style: AppTextStyles.kTileTitleBlack,
             ),
             const Spacer(),
             Text(
-              "${surah.duration ?? "0"}",
+              surah.duration ?? "0",
               style: AppTextStyles.kTileTitleBlack,
             ),
             const SizedBox(width: 40),
             Consumer<PlayerViewModel>(
               builder: (context, player, _) {
                 return surah.surah?.surahNumber == listVm.selectedSurahNumber
-                    ? player.player.playing || player.isPlaying
+                    ? player.isPlaying
                         ? Lottie.asset(
                             '${imageUrl}eq.json',
                             width: 30,

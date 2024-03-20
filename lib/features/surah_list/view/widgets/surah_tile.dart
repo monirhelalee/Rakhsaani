@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import '../../../detail/view/detail_screen.dart';
+
 import '../../../../core/utils/asset_path.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../../core/utils/urls.dart';
+import '../../../detail/view/detail_screen.dart';
 import '../../../detail/view_model/surah_detail_view_model.dart';
 import '../../../player/view_model/player_view_model.dart';
 import '../../model/surah.dart';
@@ -18,10 +19,12 @@ class SurahTile extends StatelessWidget {
     Key? key,
     required this.index,
     required this.surah,
+    required this.vm,
   }) : super(key: key);
 
   final int index;
   final Surah surah;
+  final SurahListViewModel vm;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +32,7 @@ class SurahTile extends StatelessWidget {
     var detailsVm = context.watch<SurahDetailViewModel>();
     return InkWell(
       onTap: () async {
-        // context
-        //     .read<SurahListViewModel>()
-        //     .getSurahByNumber(surah.surah?.surahNumber ?? 0);
-        // context
-        //     .read<SurahListViewModel>()
-        //     .tapSurah(surah.surah?.surahNumber ?? 1);
+        playerVm.pauseAudio();
         playerVm.versePosition = 0;
         context
             .read<SurahListViewModel>()
@@ -44,7 +42,10 @@ class SurahTile extends StatelessWidget {
             .then(
           (value) {
             playerVm.playAudio(
-                url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}");
+              url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
+              surahNo: surah.surah?.surahNumber ?? 0,
+              vm: vm,
+            );
             log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
             Navigator.of(context).push(
               MaterialPageRoute(

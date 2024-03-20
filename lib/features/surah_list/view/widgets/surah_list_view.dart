@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../core/utils/colors.dart';
 import '../../../error_screen/error_screen.dart';
 import '../../view_model/surah_list_view_model.dart';
@@ -54,6 +55,7 @@ class SurahListView extends StatelessWidget {
                         return SurahTile(
                           index: index,
                           surah: vm.surahSearchList[index],
+                          vm: vm,
                         );
                       },
                       separatorBuilder: (context, index) {
