@@ -44,7 +44,8 @@ class SurahTile extends StatelessWidget {
             playerVm.playAudio(
               url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
               surahNo: surah.surah?.surahNumber ?? 0,
-              vm: vm,
+              listVm: vm,
+              detailsVm: detailsVm,
             );
             log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
             Navigator.of(context).push(

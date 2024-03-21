@@ -37,7 +37,8 @@ class SurahTileExpanded extends StatelessWidget {
           player.playAudio(
             url: "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
             surahNo: listVm.selectedSurahNumber!,
-            vm: listVm,
+            listVm: listVm,
+            detailsVm: detailVm,
           );
         });
       },
@@ -49,7 +50,7 @@ class SurahTileExpanded extends StatelessWidget {
               "${surah.surah?.surahNumber ?? 0}",
               style: AppTextStyles.kTileTitleBlack,
             ),
-            const SizedBox(width: 25),
+            const SizedBox(width: 16),
             Text(
               surah.surah?.name ?? "",
               style: AppTextStyles.kTileTitleBlack,

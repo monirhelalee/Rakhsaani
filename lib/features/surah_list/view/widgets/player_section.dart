@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rakhsaani/core/utils/utils_exports.dart';
-import 'package:rakhsaani/features/surah_list/view/widgets/seekbar.dart';
 
 import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/urls.dart';
@@ -27,7 +26,6 @@ class PlayerSection extends StatefulWidget {
 }
 
 class _PlayerSectionState extends State<PlayerSection> {
-  Duration? _position;
   var x = 0;
 
   void fetchAndPlay() {
@@ -264,13 +262,41 @@ class _PlayerSectionState extends State<PlayerSection> {
                 ),
               ],
             ),
-
-            SeekBar(
-              duration: playerVm.totalTime,
-              position: playerVm.currentTime,
-              bufferedPosition: Duration.zero,
-              onChangeEnd: playerVm.player.seek,
-              //onChanged: playerVm.player.seek,
+            Slider(
+              onChangeEnd: (value) {
+                final duration = playerVm.totalTime;
+                final position = value * duration.inMilliseconds;
+                playerVm.player.seek(Duration(milliseconds: position.round()));
+              },
+              value: (playerVm.currentTime.inMilliseconds > 0 &&
+                      playerVm.currentTime.inMilliseconds <
+                          playerVm.totalTime.inMilliseconds)
+                  ? playerVm.currentTime.inMilliseconds /
+                      playerVm.totalTime.inMilliseconds
+                  : 0.0,
+              onChanged: (double value) {},
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0, right: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                            .firstMatch("${playerVm.currentTime}")
+                            ?.group(1) ??
+                        '${playerVm.currentTime}',
+                    style: AppTextStyles.kPlayerTimerTextStyle,
+                  ),
+                  Text(
+                    RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                            .firstMatch("${playerVm.totalTime}")
+                            ?.group(1) ??
+                        '${playerVm.totalTime}',
+                    style: AppTextStyles.kPlayerTimerTextStyle,
+                  )
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -325,7 +351,8 @@ class _PlayerSectionState extends State<PlayerSection> {
                           url:
                               "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
                           surahNo: _vm.selectedSurahNumber!,
-                          vm: _vm,
+                          listVm: _vm,
+                          detailsVm: detailVm,
                         );
                       });
                     },
@@ -378,7 +405,8 @@ class _PlayerSectionState extends State<PlayerSection> {
                           url:
                               "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
                           surahNo: _vm.selectedSurahNumber!,
-                          vm: _vm,
+                          listVm: _vm,
+                          detailsVm: detailVm,
                         );
                       });
                     },

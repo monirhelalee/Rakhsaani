@@ -14,10 +14,10 @@ import '../../../surah_list/view_model/surah_list_view_model.dart';
 
 class BookmarkTile extends StatelessWidget {
   const BookmarkTile({
-    Key? key,
+    super.key,
     required this.index,
     required this.surah,
-  }) : super(key: key);
+  });
   final int index;
   final Surah surah;
 
@@ -40,7 +40,8 @@ class BookmarkTile extends StatelessWidget {
             playerVm.playAudio(
               url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
               surahNo: surah.surah?.surahNumber ?? 0,
-              vm: listVm,
+              listVm: listVm,
+              detailsVm: detailsVm,
             );
             // log('selected surah : --------------- ${context.read<SurahListViewModel>().selectedSurahNumber}');
             Navigator.of(context).push(
