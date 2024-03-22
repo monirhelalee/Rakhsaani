@@ -64,8 +64,9 @@ class PlayerViewModel with ChangeNotifier {
     });
     player.onPlayerStateChanged.listen((event) {
       if (event == PlayerState.completed) {
-        player.stop();
+        // player.stop();
         if (random) {
+          player.stop();
           Future.delayed(Duration.zero, () async {
             listVm.getRandomSurahNumber();
             log('Playing random surah');
@@ -100,10 +101,20 @@ class PlayerViewModel with ChangeNotifier {
               });
             });
           } else {
+            log('repeat one');
             Future.delayed(Duration.zero, () async {
-              versePosition = 0;
-              player.seek(Duration.zero);
-              player.resume();
+              player.stop();
+              await detailsVm
+                  .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
+                  .then((value) {
+                versePosition = 0;
+                playAudio(
+                  url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
+                  listVm: listVm,
+                  surahNo: listVm.selectedSurahNumber!,
+                  detailsVm: detailsVm,
+                );
+              });
             });
           }
         }
@@ -179,7 +190,7 @@ class PlayerViewModel with ChangeNotifier {
     // Parsing hours, minutes, and seconds from the string parts
     int hours = int.parse(parts[0]);
     int minutes = int.parse(parts[1]);
-    int seconds = int.parse(parts[2]);
+    int seconds = int.parse(parts[2].split('.').first);
 
     // Creating a Duration object
     Duration duration = Duration(
