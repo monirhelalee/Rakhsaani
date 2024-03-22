@@ -101,19 +101,9 @@ class PlayerViewModel with ChangeNotifier {
             });
           } else {
             Future.delayed(Duration.zero, () async {
-              log('Playing same surah');
-              player.stop();
-              await detailsVm
-                  .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
-                  .then((value) {
-                versePosition = 0;
-                playAudio(
-                  url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
-                  surahNo: listVm.selectedSurahNumber!,
-                  listVm: listVm,
-                  detailsVm: detailsVm,
-                );
-              });
+              versePosition = 0;
+              player.seek(Duration.zero);
+              player.resume();
             });
           }
         }
