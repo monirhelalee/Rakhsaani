@@ -83,40 +83,41 @@ class PlayerViewModel with ChangeNotifier {
             });
           });
         } else {
-          if (repeatNext) {
-            log('Playing next surah');
-            Future.delayed(Duration.zero, () async {
-              player.stop();
-              listVm.next();
-              await detailsVm
-                  .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
-                  .then((value) {
-                versePosition = 0;
-                playAudio(
-                  url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
-                  listVm: listVm,
-                  surahNo: listVm.selectedSurahNumber!,
-                  detailsVm: detailsVm,
-                );
-              });
+          log('Playing next surah');
+          Future.delayed(Duration.zero, () async {
+            player.stop();
+            listVm.next();
+            await detailsVm
+                .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
+                .then((value) {
+              versePosition = 0;
+              playAudio(
+                url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
+                listVm: listVm,
+                surahNo: listVm.selectedSurahNumber!,
+                detailsVm: detailsVm,
+              );
             });
-          } else {
-            log('repeat one');
-            Future.delayed(Duration.zero, () async {
-              player.stop();
-              await detailsVm
-                  .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
-                  .then((value) {
-                versePosition = 0;
-                playAudio(
-                  url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
-                  listVm: listVm,
-                  surahNo: listVm.selectedSurahNumber!,
-                  detailsVm: detailsVm,
-                );
-              });
-            });
-          }
+          });
+
+          // else {
+          //   log('repeat one');
+          //   Future.delayed(Duration.zero, () async {
+          //     player.stop();
+          //     await detailsVm
+          //         .fetchSurahDetail(surahNumber: listVm.selectedSurahNumber!)
+          //         .then((value) {
+          //       versePosition = 0;
+          //       playAudio(
+          //         url: "${Urls.baseUrl}${detailsVm.surahDetailModel?.audio}",
+          //         listVm: listVm,
+          //         surahNo: listVm.selectedSurahNumber!,
+          //         detailsVm: detailsVm,
+          //       );
+          //     });
+          //   });
+          //   notifyListeners();
+          // }
         }
       }
     });

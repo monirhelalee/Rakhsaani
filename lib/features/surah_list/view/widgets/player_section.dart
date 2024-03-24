@@ -85,144 +85,6 @@ class _PlayerSectionState extends State<PlayerSection> {
                 ),
               );
             }),
-            // StreamBuilder<PositionData>(
-            //   stream: playerVm.positionDataStream,
-            //   builder: (context, snapshot) {
-            //     if (playerVm.player.playerState.processingState ==
-            //         ProcessingState.completed) {
-            //       // playerVm.player.stop();
-            //       Future.delayed(Duration.zero, () async {
-            //         if (!playerVm.random) {
-            //           if (playerVm.repeatNext) {
-            //             surahListVm.next();
-            //             log('Playing next surah');
-            //             await detailVm
-            //                 .fetchSurahDetail(
-            //                     surahNumber: surahListVm.selectedSurahNumber!)
-            //                 .then((value) {
-            //               playerVm.versePosition = 0;
-            //               playerVm.playAudio(
-            //                 url:
-            //                     "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
-            //               );
-            //             });
-            //           } else {
-            //             // Play the same surah
-            //             log('Playing same surah');
-            //             await detailVm
-            //                 .fetchSurahDetail(
-            //                     surahNumber: surahListVm.selectedSurahNumber!)
-            //                 .then((value) {
-            //               playerVm.versePosition = 0;
-            //               playerVm.playAudio(
-            //                 url:
-            //                     "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
-            //               );
-            //             });
-            //           }
-            //         } else {
-            //           surahListVm.getRandomSurahNumber();
-            //           log('Playing random surah');
-            //           await detailVm
-            //               .fetchSurahDetail(
-            //                   surahNumber: surahListVm.selectedSurahNumber!)
-            //               .then((value) {
-            //             playerVm.versePosition = 0;
-            //             playerVm.playAudio(
-            //               url:
-            //                   "${Urls.baseUrl}${detailVm.surahDetailModel?.audio}",
-            //             );
-            //           });
-            //         }
-            //       });
-            //
-            //       // debugPrint("Stop Playing");
-            //     }
-            //     if (snapshot.connectionState == ConnectionState.waiting) {
-            //       return const CircularProgressIndicator();
-            //     } else {
-            //       if (detailVm.surahDetailModel == null) {
-            //         return Text('............');
-            //       } else {
-            //         final positionData = snapshot.data;
-            //         Duration dur = playerVm.versePosition >=
-            //                 detailVm.surahDetailModel!.verseAndTime.length
-            //             ? parseTime(detailVm
-            //                 .surahDetailModel!.verseAndTime.last.timeOut)
-            //             : parseTime(detailVm
-            //                     .surahDetailModel
-            //                     ?.verseAndTime[playerVm.versePosition]
-            //                     .timeOut ??
-            //                 "0:00:00.000");
-            //         if (dur < positionData!.position) {
-            //           if (playerVm.versePosition <
-            //               detailVm.surahDetailModel!.verseAndTime.length) {
-            //             playerVm.versePosition++;
-            //             debugPrint("versePosition ${playerVm.versePosition}");
-            //           }
-            //         }
-            //
-            //         WidgetsBinding.instance.addPostFrameCallback((_) {
-            //           x = detailVm.surahDetailModel!.verseAndTime.indexWhere(
-            //               (e) =>
-            //                   DateFormat('HH:mm:ss.S')
-            //                           .parse(e.timeIn, true)
-            //                           .millisecondsSinceEpoch <=
-            //                       positionData.position.inMilliseconds &&
-            //                   DateFormat('HH:mm:ss.S')
-            //                           .parse(e.timeOut, true)
-            //                           .millisecondsSinceEpoch >=
-            //                       positionData.position.inMilliseconds);
-            //         });
-            //
-            //         log(x.toString());
-            //         // log('---------  ${positionData.position.inMilliseconds.toString()}  -----------');
-            //         // log('---------  ${DateFormat('HH:mm:ss.S').parse(detailVm.surahDetailModel!.verseAndTime[1].timeIn, true).microsecondsSinceEpoch}  -----------');
-            //         // log('${DateFormat('HH:mm:ss.S').parse(detailVm.surahDetailModel!.verseAndTime.last.timeIn, true).microsecondsSinceEpoch}');
-            //         // // log('${Date(detailVm.surahDetailModel!.verseAndTime.first.timeIn.substring(0, 7))}');
-            //
-            //         // log("${detailVm.surahDetailModel?.verseAndTime[_versePosition].text}");
-            //         // playerVm.player.playerStateStream.listen((playerState) {
-            //         //   if (playerState.processingState ==
-            //         //       ProcessingState.completed) {
-            //         //     log('message');
-            //         //     // context.read<SurahListViewModel>().next();
-            //         //     var s = svm.getSurahByNumber(svm.selectedSurahNumber!);
-            //         //     // player.playAudio(
-            //         //     //   "${Urls.baseUrl}${s.surah?.audio}",
-            //         //     //   s.surah?.surahNumber??0,
-            //         //     // );
-            //         //     // context
-            //         //     //     .read<SurahDetailViewModel>()
-            //         //     //     .fetchSurahDetail();
-            //         //   }
-            //         // });
-            //         return Padding(
-            //           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            //           child: SizedBox(
-            //             height: MediaQuery.of(context).size.height / 3,
-            //             child: Center(
-            //               child: SingleChildScrollView(
-            //                 child: Text(
-            //                   x.isNegative
-            //                       ? '...'
-            //                       : "${detailVm.surahDetailModel?.verseAndTime[x].text}",
-            //                   // : "${detailVm.surahDetailModel?.verseAndTime[playerVm.versePosition].text}",
-            //                   textAlign: TextAlign.center,
-            //                   style: AppTextStyles.kPlayerText.copyWith(
-            //                     fontSize: 14,
-            //                     fontWeight: FontWeight.bold,
-            //                     color: Colors.white,
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         );
-            //       }
-            //     }
-            //   },
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -303,30 +165,28 @@ class _PlayerSectionState extends State<PlayerSection> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: playerVm.random
-                      ? () {
-                          Fluttertoast.showToast(
-                            msg: "Can not repeat while shuffle is on",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: toastBGColor,
-                            textColor: toastTextColor,
-                            fontSize: 16.0,
-                          );
-                        }
-                      : () {
-                          playerVm.toggleRepeatOption();
-                          Fluttertoast.showToast(
-                            msg: playerVm.repeatNext
-                                ? "Repeat Off"
-                                : "Repeat On",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: toastBGColor,
-                            textColor: toastTextColor,
-                            fontSize: 16.0,
-                          );
-                        },
+                  onPressed: () {
+                    playerVm.toggleRandom();
+                    if (playerVm.random) {
+                      Fluttertoast.showToast(
+                        msg: "Shuffle On",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: toastBGColor,
+                        textColor: toastTextColor,
+                        fontSize: 16.0,
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Repeat On",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: toastBGColor,
+                        textColor: toastTextColor,
+                        fontSize: 16.0,
+                      );
+                    }
+                  },
                   icon: Icon(
                     playerVm.repeatNext
                         ? CupertinoIcons.repeat
@@ -420,14 +280,25 @@ class _PlayerSectionState extends State<PlayerSection> {
                 IconButton(
                   onPressed: () {
                     playerVm.toggleRandom();
-                    Fluttertoast.showToast(
-                      msg: playerVm.random ? "Shuffle On" : "Shuffle Off",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: toastBGColor,
-                      textColor: toastTextColor,
-                      fontSize: 16.0,
-                    );
+                    if (playerVm.random) {
+                      Fluttertoast.showToast(
+                        msg: "Shuffle On",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: toastBGColor,
+                        textColor: toastTextColor,
+                        fontSize: 16.0,
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Repeat On",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: toastBGColor,
+                        textColor: toastTextColor,
+                        fontSize: 16.0,
+                      );
+                    }
                   },
                   icon: Icon(
                     CupertinoIcons.shuffle,
